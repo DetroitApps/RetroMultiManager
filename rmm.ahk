@@ -1,6 +1,6 @@
 global username := []
 global password := []
-global nickname := []
+global classeType := []
 
 IniRead, DofusPath, config.ini, Script, DofusLocation
 IniRead, Delim, config.ini, Script, Delimiter
@@ -25,7 +25,7 @@ Loop, 8
         accountArray := StrSplit(Account, Delim)
         username[i] := accountArray[1]
         password[i] := accountArray[2]
-        nickname[i] := accountArray[3]
+        classeType[i] := accountArray[3]
         i++
     }
     else if (Account = "ERROR")
@@ -64,8 +64,8 @@ CycleWindow(currentWindowTitle, isForward) {
 
 GetTitle(id)
 {
-    if (nickname[id])
-        title := id . " " . nickname[id]
+    if (classeType[id])
+        title := id . " " . classeType[id]
     else
         title := id
     return title
