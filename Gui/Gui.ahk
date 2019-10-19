@@ -90,7 +90,7 @@ Gui, Add, Text,         ys+30 xs+10 h20 0x200, Active profile
 
 h := GetShortcutKey("OpenDofusInstances")
 Gui, Add, Button,       ys+50 xs+10 gGuiOpenDofus, [%h%] Start Dofus
-h := GetShortcutKey("LoginAcounts")
+h := GetShortcutKey("LoginAccounts")
 Gui, Add, Button,       x+10 gGuiLoginAccounts, [%h%] Login accounts
 h := GetShortcutKey("ConnectOnServer")
 Gui, Add, Button,       x+10 gGuiConnectServers, [%h%] Connect on servers

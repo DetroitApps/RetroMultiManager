@@ -19,6 +19,7 @@ LoadProfile:
         {
             GoSub, GuiClearAccountsData
             GuiControl,, CheckPasswordEncryption, %Encrypt%
+            GuiControl, Choose, ProfileSelection, %ProfileSelection%
             GuiControl,, CheckDefaultProfile, % oSettings.DefaultProfile = ProfileSelection ? 1 : 0
             SB_SetText("Active profile: " . ProfileSelection, 3)
         }

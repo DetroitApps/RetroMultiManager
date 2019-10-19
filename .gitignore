@@ -1,3 +1,4 @@
 *.exe
 Profiles/*
 settings.ini
+*.code-workspace

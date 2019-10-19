@@ -1,4 +1,14 @@
 LoginAccounts:
+    Loop, % API.GetTotalWindows() {
+        window := API.GetWindow(A_Index)
+        window.Activate()
+        MsgBox, % "Activating Window " . window.fullTitle
+        Sleep 3000
+    }
+return
+
+/*
+LoginAccounts:
     WinGet, windows, List, Dofus
     Loop, %windows% {
         window := windows%A_Index%
@@ -21,3 +31,4 @@ LoginAccounts:
         WinMaximize, ahk_id %window%
     }
 return
+*/

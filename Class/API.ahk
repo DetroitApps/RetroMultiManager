@@ -11,10 +11,29 @@ Class API {
         this.Debug := (mode = True) ? True : False
     }
 
+    ClearWindowList(){
+        this.WindowList := []
+    }
+
+    CloseWindow(id){
+        windowId := this.WindowList[id].pid
+        WinClose, ahk_pid %windowId%
+    }
+
     ;Simple getters
-    GetNbAccounts() {
+    GetTotalAccounts() {
         return ArrayAccounts.MaxIndex()
     }
+
+    GetWindow(id){
+        return this.WindowList[id]
+    }
+
+    GetTotalWindows() {
+        return this.WindowList.MaxIndex()
+    }
+
+
 
     Class Window {
         __New(_pid){
@@ -29,8 +48,13 @@ Class API {
             WinWait, ahk_pid %waitForId%
         }
 
+        Activate(){
+            windowId := this.pid
+            WinActivate, ahk_pid %windowId%
+            WinWaitActive, ahk_pid %windowId%
+        }
+
         SetTitle(Byref Account){
-            this.fullTitle := value
             title := "[" . this.id . "]"
             If (Account.CharacterClass && Account.CharacterClass != "")
                 title = % title . A_Space . Account.CharacterClass

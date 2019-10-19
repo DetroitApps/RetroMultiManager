@@ -31,6 +31,9 @@ Else
 oSettings := New Settings(IniPath)
 IniPath = settings.ini
 
+If (oSettings.CheckForUpdates = True)
+    CheckForUpdates()
+
 If (oSettings.FirstStart= True)
 {
     MsgBox, 65, First Start, %  "This is the first time you start RMM.`n" 
@@ -51,9 +54,6 @@ Else
     Else
         MasterPassword := "debug"
 }
-
-If (oSettings.CheckForUpdates = True)
-    CheckForUpdates()
 
 oSettings.InitShortcuts(IniPath)
 
@@ -78,20 +78,20 @@ If (!oSettings.FirstStart && oSettings.DefaultProfile)
 Global API := New API()
 Return ;End Main
 
-
 ;----------------------------------------
 ;Functions
 ;----------------------------------------
 
 GUI_UpdateBar(step, totalSteps := 0){
     global
+
     If (oSettings.GuiStatus = True) {
         If (totalSteps = 0)
             SB_UpdateBar(step)
         Else
-        {  
-            step := step * Round(100 / totalSteps)
-            SB_UpdateBar(step)
+        {
+            progress := (step = totalSteps) ? 100 : step * Round(100 / totalSteps)
+            SB_UpdateBar(progress)
         }
     }
 }
@@ -102,15 +102,6 @@ GUI_UpdateText(content){
         SB_UpdateText(content)
     }
 }
-
-/*ListFiles(Directory)
-{
-	files =
-	Loop %Directory%\*.*
-		files = % files . A_LoopFileName . ";"
-	return StrSplit(files, ";")
-}
-*/
 
 SetMasterPassword() {
     InputBox, password, Master Password,Type your master password:, hide,,130
@@ -147,13 +138,6 @@ CheckForUpdates(){
         MsgBox, % "Update exists " . githubVersion . "/" . localVersion ; To do
     FileDelete, githubVersion.txt
 }
-
-/*FillAccountsArray(){
-    arrayAccount := []
-    arrayAccount[1] := New Account("bla", "bli", "blop", "enutrof")
-    arrayAccount[2] := New Account("blu", "bly", "blnp", "sadida")
-}
-*/
 
 ;----------------------------------------
 ;Labels
