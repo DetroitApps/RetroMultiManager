@@ -46,6 +46,7 @@ LoadProfile:
     return
 
 SaveProfile:
+    FileCreateDir, Profiles
     profileIniPath := A_WorkingDir . "\Profiles\profile" . ProfileSelection . ".ini"
     File := FileOpen(profileIniPath, "w")
     If (File = 0)
