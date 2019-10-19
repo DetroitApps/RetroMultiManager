@@ -1,3 +1,8 @@
+/*
+    ProgressBar library
+    Author: DerRaphael
+*/
+
 ; SB_SetProgress
 ; (w) by DerRaphael / Released under the Terms of EUPL 1.0
 ; see http://ec.europa.eu/idabc/en/document/7330 for details
