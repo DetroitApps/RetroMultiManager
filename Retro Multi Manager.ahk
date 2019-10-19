@@ -20,14 +20,17 @@ SetWorkingDir %A_ScriptDir%
 ;Main
 ;----------------------------------------
 
-IniPath = settings.ini
 Global MasterPassword := ""
 Global ArrayAccounts := []
 
-;Global PasswordRevealToggler := []
-
 ;Settings
+If FileExist("settings.ini")
+    IniPath = settings.ini
+Else
+    IniPath = settings_default.ini
 oSettings := New Settings(IniPath)
+IniPath = settings.ini
+
 If (oSettings.FirstStart= True)
 {
     MsgBox, 65, First Start, %  "This is the first time you start RMM.`n" 
@@ -65,7 +68,7 @@ If (oSettings.GuiStatus = True) {
 }
 
 ;Load default profile if exist
-If (oSettings.DefaultProfile)
+If (!oSettings.FirstStart && oSettings.DefaultProfile)
 {
     ProfileSelection := oSettings.DefaultProfile
     Gosub, LoadProfile

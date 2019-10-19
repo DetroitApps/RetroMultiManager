@@ -4,6 +4,11 @@
 
 Class Settings {
     __New(IniPath){
+        If (IniPath = "settings_default.ini")
+        {
+            FileCopy, %IniPath%, settings.ini
+            IniPath = settings.ini
+        }
         IniRead, _DofusPath, %IniPath%, Settings, DofusPath
         IniRead, _Speed, %IniPath%, Settings, Speed
         IniRead, _GuiStatus, %IniPath%, Settings, GuiStatus
