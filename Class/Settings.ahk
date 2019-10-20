@@ -3,12 +3,22 @@
 */
 
 Class Settings {
+    DofusPath := ""
+    Speed := 0
+    GuiStatus := False
+    CheckForUpdates := False
+    FirstStart := False
+    Debug := False 
+    DefaultProfile := 1
+    EnableOCR := False
+
     __New(IniPath){
         If (IniPath = "settings_default.ini")
         {
             FileCopy, %IniPath%, settings.ini
             IniPath = settings.ini
         }
+        
         IniRead, _DofusPath, %IniPath%, Settings, DofusPath
         IniRead, _Speed, %IniPath%, Settings, Speed
         IniRead, _GuiStatus, %IniPath%, Settings, GuiStatus

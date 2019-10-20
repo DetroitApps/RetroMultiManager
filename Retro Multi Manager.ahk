@@ -5,16 +5,18 @@
 */
 
 #NoEnv
-; #Warn
 #SingleInstance, Force
 #Persistent
-SendMode Input
 SetWorkingDir %A_ScriptDir%
+CoordMode, Mouse, Window
 
-#Include Library\AES.ahk
 #Include Class\Accounts.ahk
 #Include Class\API.ahk
 #Include Class\Settings.ahk
+#Include Debug\Logger.ahk 
+#Include Debug\Tests.ahk
+#Include Library\AES.ahk
+#Include OCR\OCR.ahk
 
 ;----------------------------------------
 ;Main
@@ -28,24 +30,29 @@ If FileExist("settings.ini")
     IniPath = settings.ini
 Else
     IniPath = settings_default.ini
-oSettings := New Settings(IniPath)
+global oSettings := New Settings(IniPath)
 IniPath = settings.ini
+
+If oSettings.Debug
+    Global Logger := New Logger()
 
 If (oSettings.CheckForUpdates = True)
     CheckForUpdates()
 
-If (oSettings.FirstStart= True)
+If ((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
+    oSettings.EnableOCR := True
+
+If (oSettings.FirstStart = True)
 {
-    MsgBox, 65, First Start, %  "This is the first time you start RMM.`n" 
+    MsgBox, 65, First Start, %  "This is the first time you start Retro Multi Manager.`n" 
                                 . "You need to setup a master password to safely store all your passwords.`n"
-                                . "See the Github for more information."
+                                . "For more information, see the GitHub."
     IfMsgBox Ok
-    {
         MasterPassword := SetMasterPassword()
-        oSettings.SetFirstStart(FirstStart, "False", IniPath)
-    }
     IfMsgBox Cancel
         ExitApp
+
+    oSettings.SetFirstStart(FirstStart, "False", IniPath)
 }
 Else
 {
@@ -54,7 +61,8 @@ Else
     Else
         MasterPassword := "debug"
 }
-
+        
+   
 oSettings.InitShortcuts(IniPath)
 
 ;Gui init
@@ -72,7 +80,6 @@ If (!oSettings.FirstStart && oSettings.DefaultProfile)
 {
     ProfileSelection := oSettings.DefaultProfile
     Gosub, LoadProfile
-    ;MsgBox, % "[" . ArrayAccounts[1].Id . "] Name=" . ArrayAccounts[1].Username
 }
 
 Global API := New API()
@@ -137,6 +144,12 @@ CheckForUpdates(){
     If (githubVersion != localVersion)
         MsgBox, % "Update exists " . githubVersion . "/" . localVersion ; To do
     FileDelete, githubVersion.txt
+}
+
+ExitGracefully(){
+    Logger.Write("Program exited gracefully with " . Logger.TotalWarning . " warning and " . Logger.TotalErrors . " errors.")
+    Logger.CloseLogFiles()
+    ExitApp
 }
 
 ;----------------------------------------
@@ -212,5 +225,5 @@ F10::
     return
 
 F12::
-    ExitApp, 0
+    ExitGracefully()
     return

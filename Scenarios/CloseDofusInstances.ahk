@@ -1,4 +1,6 @@
 +F12::
 CloseDofusInstances:
-    API.CloseWindow(1)
+    Loop % API.GetTotalWindows()
+        API.CloseWindow(A_Index)
+    API.ResetWindowsIndex()
 return

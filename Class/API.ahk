@@ -1,4 +1,6 @@
-;API for scenarios
+/*
+    API for scenarios
+*/
 
 Class API {
     Debug := False
@@ -20,6 +22,16 @@ Class API {
         WinClose, ahk_pid %windowId%
     }
 
+    ResetWindowsIndex(){
+        New this.Window(0) ;highjack to reset index
+    }
+
+    SearchImageInWindow(imageName, ByRef outputX, ByRef outputY)
+    {
+        folder := "Resources\" . A_ScreenHeight . "p\"
+        OCR_GetPositionFromImage(folder . imageName, outputX, outputY)
+    }
+
     ;Simple getters
     GetTotalAccounts() {
         return ArrayAccounts.MaxIndex()
@@ -33,11 +45,22 @@ Class API {
         return this.WindowList.MaxIndex()
     }
 
+    GetUsername(id) {
+        return ArrayAccounts[id].Username
+    }
 
+    GetPassword(id) {
+        return ArrayAccounts[id].Password
+    }
 
     Class Window {
         __New(_pid){
             static idIndex := 1
+            if (_pid = 0)
+            {
+                idIndex = 1
+                return
+            }
             this.pid := _pid
             this.id := idIndex++
             this.fullTitle := ""
@@ -52,6 +75,11 @@ Class API {
             windowId := this.pid
             WinActivate, ahk_pid %windowId%
             WinWaitActive, ahk_pid %windowId%
+        }
+
+        Maximize(){
+            windowId := this.pid
+            WinMaximize, ahk_pid %windowId%
         }
 
         SetTitle(Byref Account){
