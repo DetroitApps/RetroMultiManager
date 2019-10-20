@@ -39,12 +39,6 @@ GuiToggleCheckUpdateOnStart:
     IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Settings, CheckForUpdates ;move to class
     return
 
-VisitGithub:
-    Run, https://github.com/DetroitApps/RetroMultiManager
-    return
-
-
-
 ReloadScript:
     Reload
     return

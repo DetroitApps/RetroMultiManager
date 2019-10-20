@@ -13,6 +13,10 @@ MergeScenarios:
         MsgBox, % "You activated developer mode. Please compile the Scenario Merger script in the Tools folder in order to modify scenarios."
     return
 
+VisitGithub:
+    Run, https://github.com/DetroitApps/RetroMultiManager
+    return
+
 ;Profile
 LoadProfile:
     ;Mixing GUI and script

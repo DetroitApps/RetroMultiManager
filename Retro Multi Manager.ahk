@@ -1,6 +1,6 @@
 /*
     Retro Multi Manager
-    A tool to help multi account on Dofus Retro
+    Smart AutoHotKey program to manage your accounts on Dofus Retro 1.30.0+.
     Author: DetroitApps
 */
 
@@ -10,8 +10,8 @@
 SetWorkingDir %A_ScriptDir%
 CoordMode, Mouse, Window
 
+#Include Class\API\API.ahk
 #Include Class\Accounts.ahk
-#Include Class\API.ahk
 #Include Class\Settings.ahk
 #Include Debug\Logger.ahk 
 #Include Debug\Tests.ahk
@@ -150,7 +150,11 @@ CheckForUpdates(){
     githubVersion := Trim(githubVersion, OmitChars := " `n")
     localVersion := Trim(localVersion, OmitChars := " `n")
     If (githubVersion != localVersion)
-        MsgBox, % "Update exists " . githubVersion . "/" . localVersion ; To do
+    {
+        MsgBox, % 68, Update found, An update exists!`nCurrentVersion: %localVersion%`nNew version: %githubVersion%`nWould you like to visit GitHub release page ?
+        IfMsgBox, Yes
+            Run, https://github.com/DetroitApps/RetroMultiManager/releases
+    }
     FileDelete, githubVersion.txt
 }
 

@@ -29,7 +29,6 @@ Gui, Add, Button,       x+10 w80 gBrowse, Browse
 Gui, Add, Text,         xs+10 ys+60 %guiLabelOptions%, Speed
 Gui, Add, DropDownList, x+10 AltSubmit vSpeedSelection gChangeSpeed, Fastest|Faster|Normal||Slower|Slowest
 
-
 ;Updates
 Gui, Add, Text,         ys+90 xs+10 %guiLabelOptions%, Program
 Gui, Add, Button,       x+10 gGuiCheckForUpdates, Check for updates
@@ -46,6 +45,7 @@ Gui, Add, Button,       x+10 gGuiLoadProfile, Load
 Gui, Add, Button,       x+10 gGuiSaveProfile, Save
 Gui, Add, CheckBox,     x+10 vCheckPasswordEncryption h20 0x200 Checked 1, Encrypt password
 Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h20 0x200, Default profile
+Gui, Add, Button,       x+10 gGuiClearAccountsData, Clear all
 
 ;Input fields
 start_y := 70
@@ -77,23 +77,27 @@ Loop 8 {
 }
 start_y += 10
 ;Might not be implemented
-;Gui, Add, Button, x+10 gClearInputs h30, Clear inputs
+
 
 ;GuiControl, -Password, InputPassword1
 
-;ACTIONS
+;Scenarios
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h200, Actions
-Gui, Font, Normal
+Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h100, Scenarios
+Gui, Font,              Normal s10
 
-Gui, Add, Text,         ys+30 xs+10 h20 0x200, Active profile 
+
 
 h := GetShortcutKey("OpenDofusInstances")
-Gui, Add, Button,       ys+50 xs+10 gGuiOpenDofus, [%h%] Start Dofus
+Gui, Add, Button,       ys+30 xs+10 gGuiOpenDofus, [%h%] Start Dofus
 h := GetShortcutKey("LoginAccounts")
 Gui, Add, Button,       x+10 gGuiLoginAccounts, [%h%] Login accounts
 h := GetShortcutKey("ConnectOnServer")
 Gui, Add, Button,       x+10 gGuiConnectServers, [%h%] Connect on servers
+
+Gui, Add, Text,         x+10 h20 0x200 w60, Custom scenarios
+
+Gui, Font,              s8
 
 ;STATUS BAR
 Gui, Add, StatusBar
