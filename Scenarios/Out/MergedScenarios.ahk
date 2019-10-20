@@ -2,6 +2,10 @@
 ;Do not edit it!
 
 ;Scenario merged from: C:\Dev\AHK\RetroMultiManager\Tools\..\Scenarios\CloseDofusInstances.ahk
+/*
+    Scenario: Close Dofus Instances
+*/
+
 +F12::
 CloseDofusInstances:
 	;Header (auto-generated)
@@ -22,7 +26,7 @@ return
 
 ;Scenario merged from: C:\Dev\AHK\RetroMultiManager\Tools\..\Scenarios\LoginAccounts.ahk
 /*
-    Scenario LoginAccounts
+    Scenario: LoginAccounts
     Will perform one OCR scan to find account input. 
     If it fails, it tries to load from default values (TO DO)
 */
@@ -91,6 +95,10 @@ GetAccountInputPosition:
     return
 
 ;Scenario merged from: C:\Dev\AHK\RetroMultiManager\Tools\..\Scenarios\OpenDofusInstances.ahk
+/*
+    Scenario: OpenDofusInstances
+*/
+
 OpenDofusInstances:
 	;Header (auto-generated)
 	Scenario := New API.Scenario(3,"OpenDofusInstances")

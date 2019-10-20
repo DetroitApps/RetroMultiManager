@@ -1,5 +1,5 @@
 /*
-    Scenario LoginAccounts
+    Scenario: LoginAccounts
     Will perform one OCR scan to find account input. 
     If it fails, it tries to load from default values (TO DO)
 */

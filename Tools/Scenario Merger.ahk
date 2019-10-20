@@ -33,5 +33,3 @@ Loop, %directory%*.ahk
 }
 mergedFile.Close()
 ExitApp
-
-;If (RegExMatch(line, "^\w+:{1}$" >= 0))

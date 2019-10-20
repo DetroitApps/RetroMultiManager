@@ -33,7 +33,7 @@ Menu, MySubmenu, Add,       TestMsg
 ;Menu Bar
 ;File
 Menu, FileMenu, Add,        &Close Gui, TestMsg
-Menu, FileMenu, Add,        &Reload Script`tCtrl+R, ReloadScript
+Menu, FileMenu, Add,        &Reload Script`tCtrl+R, Gui_ReloadScript
 Menu, FileMenu, Add,        &Quit`tF12, TestMsg
 Menu, MyMenuBar, Add,       &File, :FileMenu
 

@@ -36,10 +36,10 @@ TestMsg:
 ;Profile
 LoadProfile:
     ;Mixing GUI and script
-    profileIniPath := A_WorkingDir . "\Profiles\profile" . ProfileSelection . ".ini"
+    profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
     If (!FileExist(profileIniPath))
     {
-        MsgBox, % "Profile #" . ProfileSelection . " hasn't been created yet."
+        MsgBox, % "Profile #" . SelectProfile . " hasn't been created yet."
         return
     }
     Else 
@@ -48,11 +48,11 @@ LoadProfile:
         ArrayAccounts := []
         If Settings.GuiStatus
         {
-            GoSub, GuiClearAccountsData
+            GoSub, Gui_ClearAccountData
             GuiControl,, CheckEncryption, %Encrypt%
-            GuiControl, Choose, ProfileSelection, %ProfileSelection%
-            GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = ProfileSelection ? 1 : 0
-            SB_SetText("Active profile: " . ProfileSelection, 3)
+            GuiControl, Choose, SelectProfile, %SelectProfile%
+            GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = SelectProfile ? 1 : 0
+            SB_SetText("Active profile: " . SelectProfile, 3)
         }
         Loop 8 {
             IniRead, username, %profileIniPath%, Accounts, Username%A_Index%
@@ -84,7 +84,7 @@ LoadProfile:
 
 SaveProfile:
     FileCreateDir, Profiles
-    profileIniPath := A_WorkingDir . "\Profiles\profile" . ProfileSelection . ".ini"
+    profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
     file := FileOpen(profileIniPath, "w")
     If (file = 0)
     {
@@ -114,6 +114,6 @@ SaveProfile:
     Encrypt := CheckEncryption = 1 ? 1 : 0
     file.WriteLine("Encrypt=" . Encrypt)
     If (CheckDefaultProfile = 1)
-        IniWrite, %ProfileSelection%, %IniPath%, Profile, Default
+        IniWrite, %SelectProfile%, %IniPath%, Profile, Default
     file.Close()
     return

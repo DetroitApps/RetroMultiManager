@@ -81,7 +81,7 @@ Settings.InitHotkeys(IniPath)
 If (Settings.GuiStatus = True) {
     #Include Gui\Gui.ahk
     GuiControl,,InputDofusPath, % Settings.DofusPath
-    GuiControl, Choose, SpeedSelection, % Settings.Speed
+    GuiControl, Choose, SelectSpeed, % Settings.Speed
     If (Settings.CheckForUpdates = True)
         GuiControl, , CheckCheckUpdateOnStart, 1
     Gui, Submit, NoHide
@@ -90,7 +90,7 @@ If (Settings.GuiStatus = True) {
 ;Load default profile if exist
 If (!Settings.FirstStart && Settings.DefaultProfile)
 {
-    ProfileSelection := Settings.DefaultProfile
+    SelectProfile := Settings.DefaultProfile
     Gosub, LoadProfile
 }
 

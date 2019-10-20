@@ -1,3 +1,7 @@
+/*
+    Scenario: OpenDofusInstances
+*/
+
 Main:
     API.GuiUpdateProgressText("Opening Dofus instances...")
     API.GuiUpdateProgressBar(0)
