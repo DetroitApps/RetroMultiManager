@@ -42,7 +42,6 @@ Loop, Read, MakeFile
     }
 }
 
-FileCreateDir, %version%
 RunWait, "C:\Program Files\7-Zip\7z.exe" u Releases\%version%\%zipFilename% "%dataPath%"
 RunWait, "C:\Program Files\7-Zip\7z.exe" u Releases\%version%\%7zFilename% "%dataPath%"
 
