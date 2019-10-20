@@ -17,8 +17,6 @@
 
 ## About
 
-<img align="right" height="300" width="300" src="../assets/gui.png?raw=true" alt="Retro Multi Manager GUI"/>
-
 RMM is an open-source light-weight program to manage your accounts on **Dofus Retro**.
 
 Initially based on a simple 100 lines file, it has now more than a thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, OCR, and many more... (see list of features below for an expanded list).
