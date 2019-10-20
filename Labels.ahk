@@ -2,6 +2,17 @@ TestMsg:
     Msgbox, % "it's working chief!" . HK
     return
 
+MergeScenarios:
+    path = %A_ScriptDir%\Tools\Scenario Merger.exe
+    If FileExist(path)
+    {
+        RunWait, %path%
+        Reload
+    }
+    Else
+        MsgBox, % "You activated developer mode. Please compile the Scenario Merger script in the Tools folder in order to modify scenarios."
+    return
+
 ;Profile
 LoadProfile:
     ;Mixing GUI and script

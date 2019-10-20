@@ -30,8 +30,17 @@ If FileExist("settings.ini")
     IniPath = settings.ini
 Else
     IniPath = settings_default.ini
-global oSettings := New Settings(IniPath)
+Global oSettings := New Settings(IniPath)
 IniPath = settings.ini
+
+If oSettings.Dev
+{
+    FileGetTime, LastMergeTime, Scenarios\Out\MergedScenarios.ahk
+    FormatTime, Now,, Time
+    EnvSub, LastMergeTime, A_Now
+    If (LastMergeTime < -10)
+        Gosub, MergeScenarios
+}
 
 If oSettings.Debug
     Global Logger := New Logger()
@@ -61,8 +70,7 @@ Else
     Else
         MasterPassword := "debug"
 }
-        
-   
+
 oSettings.InitShortcuts(IniPath)
 
 ;Gui init

@@ -108,7 +108,7 @@ hwnd := SB_SetProgress(0, barPartId)
 
 ;Status bar quick functions
 
-SB_UpdateText("RMM loaded.")
+SB_UpdateText("Retro Multi Manager is alive!")
 
 
 ;LABELS INCLUDED FROM MAIN FILE

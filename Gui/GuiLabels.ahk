@@ -43,11 +43,7 @@ VisitGithub:
     Run, https://github.com/DetroitApps/RetroMultiManager
     return
 
-MergeScenarios:
-    path = %A_ScriptDir%\Tools\MergeScenarios.ahk
-    Run, %path%
-    ;Reload
-    return
+
 
 ReloadScript:
     Reload

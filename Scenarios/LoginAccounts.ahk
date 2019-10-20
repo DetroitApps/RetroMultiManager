@@ -4,7 +4,7 @@
     If it fails, it tries to load from default values (TO DO)
 */
 
-LoginAccounts:
+Main:
     inputX := 0
     inputY := 0
     
@@ -20,19 +20,24 @@ LoginAccounts:
                 Gosub, GetAccountInputPosition
             If (!inputX || !inputY || inputX = 0 || inputY = 0)
             {
-                Logger.WriteError("LoginAccounts: OCR failed or disabled. Trying to get account input position from default settings.")
+                API.LogWriteError("OCR failed or disabled. Trying to get account input position from default settings.")
                 IniRead, inputX, Resources\%A_ScreenHeight%p\window.ini, InputAccount, x, 0
                 IniRead, inputY, Resources\%A_ScreenHeight%p\window.ini, InputAccount, y, 0
                 If (inputX = "0" || inputY = "0")
                 {
-                    Logger.WriteError("LoginAccounts: Couldn't load account input position from INI, stopping current scenario.", 1)
+                    API.LogWriteError("Couldn't load account input position from INI, stopping current scenario.", 1)
                     return
                 }
+                Else 
+                    API.LogWrite("IniRead found input with position [" . inputX . "," . inputY . "].")
             }
             Else
-                Logger.Write("LoginAccounts: Image successfully found with position [." . inputX . "," . inputY . "].")
+            {
+                API.LogWrite("OCR found match with position [" . inputX . "," . inputY . "].")
+                inputY += 70 ; might not work for every resolution, to be tested!
+            }
         }
-        MouseMove, inputX, inputY + 70, 5 * oSettings.Speed
+        MouseMove, inputX, inputY, 5 * oSettings.Speed
         Click
         Sleep, 50 * oSettings.Speed
         SendRaw, % API.GetUsername(A_Index)
@@ -43,7 +48,7 @@ LoginAccounts:
         Sleep, 50 * oSettings.Speed
         Send, {Tab}
         Sleep, 50 * oSettings.Speed
-        ;Send {Enter}
+        Send {Enter}
         GUI_UpdateBar(A_Index, API.GetTotalWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }

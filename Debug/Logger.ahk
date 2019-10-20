@@ -5,20 +5,26 @@
 Class Logger {
     TotalWarning := 0
     TotalErrors := 0
+    LogFilePath := ""
+    LogFileLatestPath := ""
 
-    Write(content)
+    Write(ByRef content)
     {
         If oSettings.Debug
         {
-            this.LogFile.WriteLine("[INFO] " . content)
-            this.LogFileLatest.WriteLine("[INFO] " . content)
+            this.OpenLogFiles()
+            FormatTime, TimeString,, [hh:mm:ss]
+            this.LogFile.WriteLine(TimeString . "[INFO] " . content)
+            this.LogFileLatest.WriteLine(TimeString . "[INFO] " . content)
+            this.CloseLogFiles()
         }
     }
 
-    WriteError(content, level := 0)
+    WriteError(ByRef content, level := 0)
     {
         If oSettings.Debug
         {
+            this.OpenLogFiles()
             If (level = 0)
             {
                 this.LogFile.WriteLine("[WARNING] " . content)
@@ -31,6 +37,16 @@ Class Logger {
                 this.LogFileLatest.WriteLine("[ERROR] " . content)
                 TotalErrors++
             }
+            this.CloseLogFiles()
+        }
+    }
+
+    OpenLogFiles()
+    {
+        If oSettings.Debug
+        {
+            this.LogFile := FileOpen(this.LogFilePath, "a")
+            this.LogFileLatest := FileOpen(this.LogFileLatestPath, "a")
         }
     }
 
@@ -47,10 +63,15 @@ Class Logger {
     {
         FileCreateDir, Logs
 
+        ;Logfile timestamped
         FormatTime, TimeString,, dd-MM-yyyy_hh-mmtt
-        this.LogFile := FileOpen("Logs\" . TimeString . ".log", "w")
-        this.LogFileLatest := FileOpen("Logs\latest.log", "w")
+        this.LogFilePath := "Logs\" . TimeString . ".log"
+        this.LogFile := FileOpen(this.LogFilePath, "w")
+
+        ;Logfile latest
+        this.LogFileLatestPath := "Logs\latest.log"
+        this.LogFileLatest := FileOpen(this.LogFileLatestPath, "w")
         
-        this.Write("Initializing RMM.")
+        this.Write("Retro Multi Manager is alive!")
     }
 }

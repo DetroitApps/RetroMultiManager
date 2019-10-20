@@ -8,7 +8,8 @@ Class Settings {
     GuiStatus := False
     CheckForUpdates := False
     FirstStart := False
-    Debug := False 
+    Debug := False
+    Dev := False
     DefaultProfile := 1
     EnableOCR := False
 
@@ -25,6 +26,7 @@ Class Settings {
         IniRead, _CheckForUpdates, %IniPath%, Settings, CheckForUpdates
         IniRead, _FirstStart, %IniPath%, Settings, FirstStart
         IniRead, _Debug, %IniPath%, Settings, Debug
+        IniRead, _Dev, %IniPath%, Settings, Dev
         IniRead, _DefaultProfile, %IniPath%, Profile, Default, %A_Space%
 
         this.DofusPath := _DofusPath
@@ -33,7 +35,20 @@ Class Settings {
         this.CheckForUpdates := _CheckForUpdates = "True" ? True : False
         this.FirstStart := _FirstStart = "True" ? True : False
         this.Debug := _Debug = "True" ? True : False
+        this.Dev := _Dev = "True" ? True : False
         this.DefaultProfile := _DefaultProfile
+
+        
+        If (this.DofusPath = "")
+        {
+            defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\resources\app.asar.unpacked\retroclient\Dofus.exe"
+            If FileExist(defaultPath)
+            {
+                this.DofusPath := defaultPath
+                GuiControl,,InputDofusPath, defaultPath
+                IniWrite, %defaultPath%, %IniPath%, Settings, DofusPath
+            }
+        }
     }
 
     SetFirstStart(var, value, iniPath) {

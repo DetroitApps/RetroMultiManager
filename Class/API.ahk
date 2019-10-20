@@ -2,6 +2,8 @@
     API for scenarios
 */
 
+Global CurrentScenario := 0
+
 Class API {
     Debug := False
     WindowList := []
@@ -9,7 +11,8 @@ Class API {
     __New(){   
     }
 
-    SetDebug(ByRef mode) {
+    SetDebug(ByRef mode)
+    {
         this.Debug := (mode = True) ? True : False
     }
 
@@ -17,7 +20,8 @@ Class API {
         this.WindowList := []
     }
 
-    CloseWindow(id){
+    CloseWindow(id)
+    {
         windowId := this.WindowList[id].pid
         WinClose, ahk_pid %windowId%
     }
@@ -30,6 +34,16 @@ Class API {
     {
         folder := "Resources\" . A_ScreenHeight . "p\"
         OCR_GetPositionFromImage(folder . imageName, outputX, outputY)
+    }
+
+    LogWrite(ByRef content)
+    {
+        Logger.Write("[Scenario " . CurrentScenario.Title . "] " . content)
+    }
+
+    LogWriteError(ByRef content, type := 0)
+    {
+        Logger.WriteError("[Scenario " . CurrentScenario.Title . "] ", type)
     }
 
     ;Simple getters
@@ -51,6 +65,16 @@ Class API {
 
     GetPassword(id) {
         return ArrayAccounts[id].Password
+    }
+
+    Class Scenario {
+        Title := ""
+
+        __New(_Id, _Title)
+        {
+            this.Id := _Id
+            this.Title := _Title
+        }
     }
 
     Class Window {

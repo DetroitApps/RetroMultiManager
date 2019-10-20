@@ -1,4 +1,4 @@
-OpenDofusInstances:
+Main:
     GUI_UpdateText("Opening Dofus instances...")
     GUI_UpdateBar(0)
 
@@ -13,6 +13,7 @@ OpenDofusInstances:
         GUI_UpdateBar(A_Index, nbAccounts)
         SleepHandler(0)
     }
+    API.LogWrite("Successfully opened " . nbAccounts " windows.")
     GUI_UpdateBar(100)
     GUI_UpdateText("Done.")
     return
