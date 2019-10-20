@@ -24,26 +24,27 @@ Gui, Font,, Open Sans ; Preferred font.
 
 myIcon = %A_WorkingDir%\Resources\icon.png
 IfExist, %myIcon%
-    Menu, Tray, Icon, %myIcon%, 1, 1
-Menu, Tray, Add  ; Creates a separator line.
-Menu, Tray, Add, Item1, TestMsg  ; Creates a new menu item.
+    Menu, Tray, Icon,       %myIcon%, 1, 1
+
 Gui, Destroy
 Gui -AlwaysOnTop -Resize
-Menu, MySubmenu, Add, TestMsg
+Menu, MySubmenu, Add,       TestMsg
 
 ;Menu Bar
 ;File
-Menu, FileMenu, Add,    &Close Gui, TestMsg
-Menu, FileMenu, Add,    &Reload Script`tCtrl+R, ReloadScript
-Menu, FileMenu, Add,    &Quit`tF12, TestMsg
-Menu, MyMenuBar, Add,   &File, :FileMenu
+Menu, FileMenu, Add,        &Close Gui, TestMsg
+Menu, FileMenu, Add,        &Reload Script`tCtrl+R, ReloadScript
+Menu, FileMenu, Add,        &Quit`tF12, TestMsg
+Menu, MyMenuBar, Add,       &File, :FileMenu
 
-;Tools
-Menu, ToolsMenu, Add,   &Merge scenarios, MergeScenarios
-Menu, MyMenuBar, Add,   &Tools, :ToolsMenu
-Gui, Menu,              MyMenuBar
+;Scenarios
+Menu, ScenariosMenu, Add,   &Merge and reload, MergeScenarios
+Menu, ScenariosMenu, Add
+Menu, ScenariosMenu, Add,   &OpenDofusInstances,OpenDofusInstances
+Menu, MyMenuBar, Add,       &Scenarios, :ScenariosMenu
+
 
 ;Help
-Menu, HelpMenu, Add,    &Visit Github, VisitGithub
-Menu, MyMenuBar, Add,   &About, :HelpMenu
-Gui, Menu,              MyMenuBar
+Menu, HelpMenu, Add,        &Visit Github, VisitGithub
+Menu, MyMenuBar, Add,       &About, :HelpMenu
+Gui, Menu,                  MyMenuBar

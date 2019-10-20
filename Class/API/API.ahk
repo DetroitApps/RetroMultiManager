@@ -11,7 +11,22 @@ Class API {
     Debug := False
     WindowList := []
 
-    __New(){   
+    __New(){
+        this.LoadScenarios()
+    }
+
+    LoadScenarios(){
+        directory := A_ScriptDir . "\Scenarios\"
+        Loop, %directory%*.ahk
+        {
+            scenarioName := StrSplit(A_LoopFileName, ".")[1]
+            ;Menu bar
+            Menu, ScenariosMenu, Add,   &%scenarioName%, %scenarioName%
+            Menu, MyMenuBar, Add,       &Scenarios, :ScenariosMenu
+            Gui, Menu,                  MyMenuBar
+            ;Scenario select
+            GuiControl, , SelectScenario, %scenarioName%
+        }
     }
 
     SetDebug(ByRef mode)

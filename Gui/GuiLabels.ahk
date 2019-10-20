@@ -39,6 +39,11 @@ GuiToggleCheckUpdateOnStart:
     IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Settings, CheckForUpdates ;move to class
     return
 
+GuiRunScenario:
+    Gui, Submit, NoHide
+    Gosub, %SelectScenario%
+    return
+
 ReloadScript:
     Reload
     return

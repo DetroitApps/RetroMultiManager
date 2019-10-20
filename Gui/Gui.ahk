@@ -83,7 +83,7 @@ start_y += 10
 
 ;Scenarios
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h100, Scenarios
+Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, Scenarios
 Gui, Font,              Normal s10
 
 
@@ -95,7 +95,9 @@ Gui, Add, Button,       x+10 gGuiLoginAccounts, [%h%] Login accounts
 h := GetShortcutKey("ConnectOnServer")
 Gui, Add, Button,       x+10 gGuiConnectServers, [%h%] Connect on servers
 
-Gui, Add, Text,         x+10 h20 0x200 w60, Custom scenarios
+Gui, Add, Text,         ys+60 xs+10 h20 0x200, All scenarios
+Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
+Gui, Add, Button,       x+10 0x200 gGuiRunScenario, Run
 
 Gui, Font,              s8
 
