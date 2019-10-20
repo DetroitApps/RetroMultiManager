@@ -43,7 +43,10 @@ LoadProfile:
             If (username = "ERROR" || password = "ERROR")
                 break
             If (Encrypt = 1)
-                    password := AES.Decrypt(Password, MasterPassword, 256)
+            {
+                password := AES.Decrypt(Password, MasterPassword, 256)
+                password := RegExReplace(password, "[^[:ascii:]]") ;clean weird characters when decoding
+            }
             ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive)
             If oSettings.GuiStatus
             {
