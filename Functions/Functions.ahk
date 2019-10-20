@@ -1,3 +1,7 @@
+/*
+    Main functions
+*/
+
 ScreenCompatible() {
     MsgBox, 35, OCR, Your resolution is compatible with OCR. Would you like to download a preset of images from GitHub (less than 8 ko) ?
     IfMsgBox Yes

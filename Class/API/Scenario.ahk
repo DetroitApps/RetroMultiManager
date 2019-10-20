@@ -1,3 +1,7 @@
+/*
+    Class: Scenario
+*/
+
 Class Scenario {
     Title := ""
 

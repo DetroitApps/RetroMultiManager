@@ -1,5 +1,9 @@
 *.exe
-Profiles/*
-settings.ini
 *.code-workspace
+
+settings.ini
+
+
 Logs/*
+Profiles/*
+Tools/Release Maker/Releases

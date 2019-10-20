@@ -1,3 +1,7 @@
+/*
+    Gui functions
+*/
+
 SB_UpdateText(content){
     global
     SB_SetText(content, textPartId)

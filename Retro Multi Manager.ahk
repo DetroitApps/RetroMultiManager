@@ -14,7 +14,6 @@ CoordMode, Mouse, Window
 #Include Class\Accounts.ahk
 #Include Class\Settings.ahk
 #Include Debug\Logger.ahk 
-#Include Debug\Tests.ahk
 #Include Library\AES.ahk
 
 

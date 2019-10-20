@@ -1,3 +1,7 @@
+/*
+    Hotkeys
+*/
+
 F1::
     labelName := Settings.Hotkeys["F1"]
     if (labelName != "")

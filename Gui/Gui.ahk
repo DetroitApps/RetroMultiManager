@@ -24,7 +24,7 @@ Gui, Font,              Normal
 ;Dofus path
 Gui, Add, Text,         xs+10 ys+30 %guiLabelOptions%, Dofus.exe
 Gui, Add, Edit,         hp r1 x+10 w550 vInputDofusPath
-Gui, Add, Button,       x+10 w80 gGui_Browse, Gui_Browse
+Gui, Add, Button,       x+10 w80 gGui_Browse, Browse
 
 ;Speed
 Gui, Add, Text,         xs+10 ys+60 %guiLabelOptions%, Speed
