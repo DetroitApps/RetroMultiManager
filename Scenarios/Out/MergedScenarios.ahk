@@ -76,7 +76,7 @@ LoginAccounts:
         Sleep, 50 * oSettings.Speed
         Send, {Tab}
         Sleep, 50 * oSettings.Speed
-        ;Send {Enter}
+        Send {Enter}
         GUI_UpdateBar(A_Index, API.GetTotalWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
