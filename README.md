@@ -11,6 +11,7 @@
 - [Getting started](#getting-started)
   * [Installation](#installation)
 - [Features](#features)
+- [Roadmap](#roadmap)
 - [Licenses](#licenses)
 
 <!-- tocstop -->
@@ -45,6 +46,8 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
 
 ## Features
 
+<img align="right" height="300" width="300" src="../assets/gui.png?raw=true" alt="Retro Multi Manager GUI"/>
+
 - A powerful interface to manage your accounts
   - Multiple profiles
   - Independent from the main script, so it can be disabled to use RMM with hotkeys only
@@ -78,4 +81,5 @@ The content of this repository is bound by the following license(s):
 - The license doesn't apply for Library files
   - [SB_SetProgress]( https://autohotkey.com/board/topic/34593-stdlib-sb-setprogress/ ) by derRaphael ([EUPL v1.0](https://spdx.org/licenses/EUPL-1.0.html))
   - [AES](https://gist.github.com/jNizM/79aa6a4b8ec428bf780f) by [jNizM]( https://gist.github.com/jNizM )
+-  Icon made by [monkik](https://www.flaticon.com/authors/monkik) from [www.flaticon.com](http://www.flaticon.com/) 
 
