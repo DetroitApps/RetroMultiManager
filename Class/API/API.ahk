@@ -30,6 +30,25 @@ Class API {
         }
     }
 
+    GuiUpdateProgressText(content){
+        If (Settings.GuiStatus = True) {
+            SB_UpdateText(content)
+        }
+    }
+
+    GuiUpdateProgressBar(step, totalSteps := 0)
+    {
+        If (Settings.GuiStatus = True) {
+            If (totalSteps = 0)
+                SB_UpdateBar(step)
+            Else
+            {
+                progress := (step = totalSteps) ? 100 : step * Round(100 / totalSteps)
+                SB_UpdateBar(progress)
+            }
+        }
+    }
+
     SetDebug(ByRef mode)
     {
         this.Debug := (mode = True) ? True : False

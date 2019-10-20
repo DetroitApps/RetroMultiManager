@@ -43,6 +43,10 @@ Menu, ScenariosMenu, Add
 Menu, ScenariosMenu, Add,   &OpenDofusInstances,OpenDofusInstances
 Menu, MyMenuBar, Add,       &Scenarios, :ScenariosMenu
 
+;Tools
+Menu, ToolsMenu, Add,       &Toggle OCR, ToggleOCR
+Menu, ToolsMenu, Add,       &Download OCR Preset, DownloadOCRPreset
+Menu, MyMenuBar, Add,       &Tools, :ToolsMenu
 
 ;Help
 Menu, HelpMenu, Add,        &Visit Github, VisitGithub

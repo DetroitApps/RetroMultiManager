@@ -20,25 +20,32 @@ Class Settings {
             IniPath = settings.ini
         }
         
-        IniRead, _DofusPath, %IniPath%, Settings, DofusPath
-        IniRead, _Speed, %IniPath%, Settings, Speed
-        IniRead, _GuiStatus, %IniPath%, Settings, GuiStatus
-        IniRead, _CheckForUpdates, %IniPath%, Settings, CheckForUpdates
-        IniRead, _FirstStart, %IniPath%, Settings, FirstStart
-        IniRead, _Debug, %IniPath%, Settings, Debug
-        IniRead, _Dev, %IniPath%, Settings, Dev
-        IniRead, _DefaultProfile, %IniPath%, Profile, Default, %A_Space%
+        this.TitleApp := "Retro Multi Manager"
+        FileRead, version, version.txt
+        this.Version := version
 
-        this.DofusPath := _DofusPath
-        this.Speed := _Speed
-        this.GuiStatus := _GuiStatus = "True" ? True : False
-        this.CheckForUpdates := _CheckForUpdates = "True" ? True : False
-        this.FirstStart := _FirstStart = "True" ? True : False
-        this.Debug := _Debug = "True" ? True : False
-        this.Dev := _Dev = "True" ? True : False
-        this.DefaultProfile := _DefaultProfile
+        ;INI
+        IniRead, DofusPath, %IniPath%, Settings, DofusPath
+        IniRead, Speed, %IniPath%, Settings, Speed
+        IniRead, GuiStatus, %IniPath%, Settings, GuiStatus
+        IniRead, CheckForUpdates, %IniPath%, Settings, CheckForUpdates
+        IniRead, FirstStart, %IniPath%, Settings, FirstStart
+        IniRead, EnableOCR, %IniPath%, Settings, EnableOCR
+        IniRead, Debug, %IniPath%, Settings, Debug
+        IniRead, Dev, %IniPath%, Settings, Dev
+        IniRead, DefaultProfile, %IniPath%, Profile, Default, %A_Space%
 
-        
+        this.DofusPath := DofusPath
+        this.Speed := Speed
+        this.GuiStatus := GuiStatus = "True" ? True : False
+        this.CheckForUpdates := CheckForUpdates = "True" ? True : False
+        this.FirstStart := FirstStart = "True" ? True : False
+        this.EnableOCR := EnableOCR = "True" ? True : False
+        this.Debug := Debug = "True" ? True : False
+        this.Dev := Dev = "True" ? True : False
+        this.DefaultProfile := DefaultProfile
+
+        ;Try to get Dofus with default path
         If (this.DofusPath = "")
         {
             defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\resources\app.asar.unpacked\retroclient\Dofus.exe"
@@ -56,26 +63,26 @@ Class Settings {
         IniWrite, %value%, %iniPath%, Settings, FirstStart
     }
 
-    InitShortcuts(IniPath){
-        arrayShortcuts := []
+    InitHotkeys(IniPath){
+        arrayHotkeys := []
 
         Loop 12 {
             targetKey := "F" . A_Index
             IniRead, shortcut, %IniPath%, Hotkeys, %targetKey%
-            arrayShortcuts[A_Index] := shortcut
+            arrayHotkeys[A_Index] := shortcut
         }
-        this.Hotkeys := Object(   "F1", arrayShortcuts[1]
-                                    ,"F2", arrayShortcuts[2]
-                                    ,"F3", arrayShortcuts[3]
-                                    ,"F4", arrayShortcuts[4]
-                                    ,"F5", arrayShortcuts[5]
-                                    ,"F6", arrayShortcuts[6]
-                                    ,"F7", arrayShortcuts[7]
-                                    ,"F8", arrayShortcuts[8]
-                                    ,"F9", arrayShortcuts[9]
-                                    ,"F10", arrayShortcuts[10]
-                                    ,"F11", arrayShortcuts[11]
-                                    ,"F12", arrayShortcuts[12])
+        this.Hotkeys := Object(   "F1", arrayHotkeys[1]
+                                    ,"F2", arrayHotkeys[2]
+                                    ,"F3", arrayHotkeys[3]
+                                    ,"F4", arrayHotkeys[4]
+                                    ,"F5", arrayHotkeys[5]
+                                    ,"F6", arrayHotkeys[6]
+                                    ,"F7", arrayHotkeys[7]
+                                    ,"F8", arrayHotkeys[8]
+                                    ,"F9", arrayHotkeys[9]
+                                    ,"F10", arrayHotkeys[10]
+                                    ,"F11", arrayHotkeys[11]
+                                    ,"F12", arrayHotkeys[12])
         
     }
 }

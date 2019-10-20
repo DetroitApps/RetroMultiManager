@@ -86,11 +86,11 @@ Gui, Font,              Bold
 Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, Scenarios
 Gui, Font,              Normal s10
 
-h := GetShortcutKey("OpenDofusInstances")
+h := GetHotkeyForScenario("OpenDofusInstances")
 Gui, Add, Button,       ys+30 xs+10 gGuiOpenDofus, [%h%] Start Dofus
-h := GetShortcutKey("LoginAccounts")
+h := GetHotkeyForScenario("LoginAccounts")
 Gui, Add, Button,       x+10 gGuiLoginAccounts, [%h%] Login accounts
-h := GetShortcutKey("ConnectOnServer")
+h := GetHotkeyForScenario("ConnectOnServer")
 Gui, Add, Button,       x+10 gGuiConnectServers, [%h%] Connect on servers
 
 Gui, Font,              s8
@@ -105,7 +105,9 @@ Gui, Add, Button,       x+10 gGuiLoadScenarios, 🗘
 ;STATUS BAR
 Gui, Add, StatusBar
 
-Gui, Show,              w%guiWidth% h%guiHeight%, Retro Multi Manager 1.0 GUI
+TitleBar := Settings.TitleApp . A_Space . Settings.version
+Gui, Show,              w%guiWidth% h%guiHeight%, %TitleBar%
+TitleBar := ""
 
 SB_SetParts(300,300,100)
 barPartId := 1
@@ -115,7 +117,7 @@ hwnd := SB_SetProgress(0, barPartId)
 
 ;Status bar quick functions
 
-SB_UpdateText("Retro Multi Manager is alive!")
+SB_UpdateText(Settings.TitleApp . " is alive!")
 
 
 ;LABELS INCLUDED FROM MAIN FILE

@@ -47,7 +47,7 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
 
 - A powerful interface to manage your accounts
   - Multiple profiles
-  - Independent from the main script, so it can be disabled to use RMM with shortcuts only
+  - Independent from the main script, so it can be disabled to use RMM with hotkeys only
 - Secure account
   - Username and password encrypted
   - Master password safelock
@@ -61,6 +61,12 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
   - Develop scenarios with the API (early alpha)
     - Endless possibilities
 - Update checker
+
+## RoadMap
+
+[Trello](https://trello.com/b/NcZHByWN/retro-multi-manager-dev)
+
+If you have an account on Trello, you are allowed to comment cards.
 
 ## License
 

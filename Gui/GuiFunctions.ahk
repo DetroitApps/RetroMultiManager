@@ -8,10 +8,10 @@ SB_UpdateBar(value){
     SB_SetProgress(value, barPartId)
 }
 
-GetShortcutKey(labelName){
+GetHotkeyForScenario(labelName){
     global
 
-    For Key, Value in oSettings.Hotkeys {
+    For Key, Value in Settings.Hotkeys {
         If (Value = labelName)
             return Key
     }

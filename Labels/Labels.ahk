@@ -1,5 +1,16 @@
-TestMsg:
-    Msgbox, % "it's working chief!" . HK
+/*
+    Labels
+*/
+
+DownloadOCRPreset:
+    FileCreateDir, Resources
+    FileCreateDir, Resources\%A_ScreenHeight%p
+    UrlDownloadToFile, https://raw.githubusercontent.com/DetroitApps/RetroMultiManager/master/Resources/%A_ScreenHeight%p/account.png, Resources\%A_ScreenHeight%p\account.png
+    return
+
+ToggleOCR:
+    Settings.EnableOCR := !Settings.EnableOCR
+    IniWrite, % Settings.EnableOCR ? "True" : "False", %IniPath%, Settings, EnableOCR
     return
 
 MergeScenarios:
@@ -17,6 +28,11 @@ VisitGithub:
     Run, https://github.com/DetroitApps/RetroMultiManager
     return
 
+
+TestMsg:
+    Msgbox, % "It's working chief!" . HK
+    return
+
 ;Profile
 LoadProfile:
     ;Mixing GUI and script
@@ -30,12 +46,12 @@ LoadProfile:
     {   
         IniRead, Encrypt, %profileIniPath%, Security, Encrypt
         ArrayAccounts := []
-        If oSettings.GuiStatus
+        If Settings.GuiStatus
         {
             GoSub, GuiClearAccountsData
             GuiControl,, CheckEncryption, %Encrypt%
             GuiControl, Choose, ProfileSelection, %ProfileSelection%
-            GuiControl,, CheckDefaultProfile, % oSettings.DefaultProfile = ProfileSelection ? 1 : 0
+            GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = ProfileSelection ? 1 : 0
             SB_SetText("Active profile: " . ProfileSelection, 3)
         }
         Loop 8 {
@@ -54,7 +70,7 @@ LoadProfile:
                 password := RegExReplace(password, "[^[:ascii:]]")
             }
             ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive)
-            If oSettings.GuiStatus
+            If Settings.GuiStatus
             {
                 GuiControl, Text, InputUsername%A_Index%, %username%
                 GuiControl, Text, InputPassword%A_Index%, %password%

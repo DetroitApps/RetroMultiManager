@@ -17,16 +17,16 @@ GuiClearAccountsData:
 Browse:
     Gui, Submit, NoHide
     FileSelectFile, newDofusPath, 3, , Open a file, Dofus.exe (Dofus.exe)
-    oSettings.DofusPath := newDofusPath
-    GuiControl,,InputDofusPath, % oSettings.DofusPath
-    IniWrite, % oSettings.DofusPath, %IniPath%, Settings, DofusPath
+    Settings.DofusPath := newDofusPath
+    GuiControl,,InputDofusPath, % Settings.DofusPath
+    IniWrite, % Settings.DofusPath, %IniPath%, Settings, DofusPath
     SB_UpdateText("Dofus path successfully modified.")
     return
 
 ChangeSpeed:
     Gui, Submit, NoHide
-    oSettings.Speed := SpeedSelection
-    IniWrite, % oSettings.Speed, %IniPath%, Settings, Speed ;move to class
+    Settings.Speed := SpeedSelection
+    IniWrite, % Settings.Speed, %IniPath%, Settings, Speed ;move to class
     SB_UpdateText("Script speed successfully modified (" . SpeedSelection . ").")
     return
 

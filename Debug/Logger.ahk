@@ -10,7 +10,7 @@ Class Logger {
 
     Write(ByRef content)
     {
-        If oSettings.Debug
+        If Settings.Debug
         {
             this.OpenLogFiles()
             FormatTime, TimeString,, [hh:mm:ss]
@@ -22,7 +22,7 @@ Class Logger {
 
     WriteError(ByRef content, level := 0)
     {
-        If oSettings.Debug
+        If Settings.Debug
         {
             this.OpenLogFiles()
             If (level = 0)
@@ -43,7 +43,7 @@ Class Logger {
 
     OpenLogFiles()
     {
-        If oSettings.Debug
+        If Settings.Debug
         {
             this.LogFile := FileOpen(this.LogFilePath, "a")
             this.LogFileLatest := FileOpen(this.LogFileLatestPath, "a")
@@ -52,7 +52,7 @@ Class Logger {
 
     CloseLogFiles()
     {
-        If oSettings.Debug
+        If Settings.Debug
         {
             this.LogFile.Close()
             this.LogFileLatest.Close()
@@ -72,6 +72,6 @@ Class Logger {
         this.LogFileLatestPath := "Logs\latest.log"
         this.LogFileLatest := FileOpen(this.LogFileLatestPath, "w")
         
-        this.Write("Retro Multi Manager is alive!")
+        this.Write(Settings.TitleApp . " is alive!")
     }
 }
