@@ -8,9 +8,9 @@ cBlack = 121212
 
 ;Scaling
 guiWidth := 850
-guiHeight := 800
+guiHeight := 700
 guiMargin := 10
-groupboxWidth := guiWidth / 1.1
+groupboxWidth := guiWidth / 1.05
 guiLabelOptions = h20 0x200 w80
 
 ;Gui Settings
@@ -27,7 +27,7 @@ IfExist, %myIcon%
     Menu, Tray, Icon,       %myIcon%, 1, 1
 
 Gui, Destroy
-Gui -AlwaysOnTop -Resize
+Gui -AlwaysOnTop Resize
 Menu, MySubmenu, Add,       TestMsg
 
 ;Menu Bar

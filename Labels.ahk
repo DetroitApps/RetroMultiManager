@@ -86,7 +86,7 @@ SaveProfile:
         File.WriteLine("Class" . A_Index . "=" . SelectClass%A_Index%)
         IsActive := CheckActive%A_Index% = 1 ? 1 : 0
         File.WriteLine("IsActive" . A_Index . "=" . IsActive)
-        ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%,SelectClass%A_Index%, IsActive)
+        ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, SelectClass%A_Index%, IsActive)
     }
     File.WriteLine("`n[Security]")
     Encrypt := CheckPasswordEncryption = 1 ? 1 : 0

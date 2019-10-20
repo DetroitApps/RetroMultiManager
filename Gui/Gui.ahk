@@ -22,7 +22,7 @@ Gui, Add, GroupBox,     xm ym+10 y+10 Section w%groupboxWidth% h120, Settings
 Gui, Font,              Normal
 ;Dofus path
 Gui, Add, Text,         xs+10 ys+30 %guiLabelOptions%, Dofus.exe
-Gui, Add, Edit,         hp r1 x+10 w450 vInputDofusPath, C:\path ;hardcode
+Gui, Add, Edit,         hp r1 x+10 w550 vInputDofusPath
 Gui, Add, Button,       x+10 w80 gBrowse, Browse
 
 ;Speed
@@ -86,8 +86,6 @@ Gui, Font,              Bold
 Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, Scenarios
 Gui, Font,              Normal s10
 
-
-
 h := GetShortcutKey("OpenDofusInstances")
 Gui, Add, Button,       ys+30 xs+10 gGuiOpenDofus, [%h%] Start Dofus
 h := GetShortcutKey("LoginAccounts")
@@ -95,11 +93,14 @@ Gui, Add, Button,       x+10 gGuiLoginAccounts, [%h%] Login accounts
 h := GetShortcutKey("ConnectOnServer")
 Gui, Add, Button,       x+10 gGuiConnectServers, [%h%] Connect on servers
 
+Gui, Font,              s8
+
 Gui, Add, Text,         ys+60 xs+10 h20 0x200, All scenarios
 Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
-Gui, Add, Button,       x+10 0x200 gGuiRunScenario, Run
+Gui, Add, Button,       x+10 gGuiRunScenario, ▶
+Gui, Add, Button,       x+10 gGuiLoadScenarios, 🗘
 
-Gui, Font,              s8
+
 
 ;STATUS BAR
 Gui, Add, StatusBar

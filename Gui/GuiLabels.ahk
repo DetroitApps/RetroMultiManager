@@ -44,6 +44,10 @@ GuiRunScenario:
     Gosub, %SelectScenario%
     return
 
+GuiLoadScenarios:
+    API.LoadScenarios()
+    return
+
 ReloadScript:
     Reload
     return

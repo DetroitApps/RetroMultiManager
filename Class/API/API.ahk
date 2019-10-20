@@ -17,6 +17,7 @@ Class API {
 
     LoadScenarios(){
         directory := A_ScriptDir . "\Scenarios\"
+        GuiControl, , SelectScenario, |
         Loop, %directory%*.ahk
         {
             scenarioName := StrSplit(A_LoopFileName, ".")[1]

@@ -4,14 +4,18 @@ Main:
 
     API.ClearWindowList()
     nbAccounts := API.GetTotalAccounts()
+
+    i := 1
     Loop % nbAccounts {
+        If !ArrayAccounts[i].IsActive
+            Continue
         Run, % oSettings.DofusPath,,, pid
-        
-        API.WindowList[A_Index] := New API.Window(pid)
-        API.WindowList[A_Index].WaitOpen()
-        API.WindowList[A_Index].SetTitle(ArrayAccounts[A_Index])
-        GUI_UpdateBar(A_Index, nbAccounts)
+        API.WindowList[i] := New API.Window(pid)
+        API.WindowList[i].WaitOpen()
+        API.WindowList[i].SetTitle(ArrayAccounts[i])
+        GUI_UpdateBar(i, nbAccounts)
         SleepHandler(0)
+        i++
     }
     API.LogWrite("Successfully opened " . nbAccounts " windows.")
     GUI_UpdateBar(100)
