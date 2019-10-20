@@ -3,7 +3,7 @@
 */
 
 GuiClearAccountsData:
-    GuiControl,,CheckPasswordEncryption, 0
+    GuiControl,,CheckEncryption, 0
     GuiControl,,CheckDefaultProfile, 0
     Loop 8 {
         GuiControl,,CheckActive%A_Index%, 1

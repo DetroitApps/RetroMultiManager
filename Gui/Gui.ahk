@@ -43,7 +43,7 @@ Gui, Add, Text,         xs+10 ys+30 h20 0x200, Profile
 Gui, Add, DropDownList, x+10 vProfileSelection w50, 1||2|3|4|5
 Gui, Add, Button,       x+10 gGuiLoadProfile, Load
 Gui, Add, Button,       x+10 gGuiSaveProfile, Save
-Gui, Add, CheckBox,     x+10 vCheckPasswordEncryption h20 0x200 Checked 1, Encrypt password
+Gui, Add, CheckBox,     x+10 vCheckEncryption h20 0x200 Checked 1, Encrypt password
 Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h20 0x200, Default profile
 Gui, Add, Button,       x+10 gGuiClearAccountsData, Clear all
 

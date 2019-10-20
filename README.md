@@ -11,6 +11,7 @@
 - [Getting started](#getting-started)
   * [Installation](#installation)
 - [Features](#features)
+- [Licenses](#licenses)
 
 <!-- tocstop -->
 
@@ -48,7 +49,7 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
   - Multiple profiles
   - Independent from the main script, so it can be disabled to use RMM with shortcuts only
 - Secure account
-  - Password encrypted
+  - Username and password encrypted
   - Master password safelock
 - Embedded scenario system
   - Automatize many actions in the game, included scenarios are :
@@ -60,3 +61,15 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
   - Develop scenarios with the API (early alpha)
     - Endless possibilities
 - Update checker
+
+## License
+
+Copyright © 2019 Detroit Apps
+
+The content of this repository is bound by the following license(s):
+
+- The computer software Retro Multi Manager and its associated source code is licensed under the [GNU General Public License v3.0](https://github.com/DetroitApps/RetroMultiManager/blob/master/LICENSE) license.
+- The license doesn't apply for Library files
+  - [SB_SetProgress]( https://autohotkey.com/board/topic/34593-stdlib-sb-setprogress/ ) by derRaphael ([EUPL v1.0](https://spdx.org/licenses/EUPL-1.0.html))
+  - [AES](https://gist.github.com/jNizM/79aa6a4b8ec428bf780f) by [jNizM]( https://gist.github.com/jNizM )
+
