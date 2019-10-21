@@ -22,6 +22,11 @@ CoordMode, Mouse, Window
 ;----------------------------------------
 
 ; Globals
+
+;quick access for msgbox
+Global MBICON := Object("Error", 16, "Question", 32, "Exclamation", 48, "Info", 64)
+Global MBBTN := Object("OkCancel", 1, "AbortRetryIgnore", 2, "YesNoCancel", 3, "YesNo", 4, "RetryCancel", 5, "CancelTryAgainContinue", 6)
+
 Global API
 Global Logger
 Global Settings
@@ -53,9 +58,7 @@ If (Settings.CheckForUpdates = True)
 
 If (Settings.FirstStart = True)
 {
-    MsgBox, 65, First Start, %  "This is the first time you start " . Settings.TitleApp . "`n" 
-                                . "You need to setup a master password to safely store all your passwords.`n"
-                                . "For more information, see the GitHub."
+    MsgBox, 65, % Translate("FirstStartTitle"), % Translate("FirstStart", [Settings.TitleApp])
     IfMsgBox Ok
         MasterPassword := SetMasterPassword()
         If ((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
@@ -68,10 +71,10 @@ If (Settings.FirstStart = True)
 }
 Else
 {
-    If !Settings.Debug
+    If !Settings.Dev
         MasterPassword := SetMasterPassword()
     Else
-        MasterPassword := "debug"
+        MasterPassword := "dev"
 }
 
 Settings.InitHotkeys(IniPath)

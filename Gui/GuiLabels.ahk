@@ -19,14 +19,14 @@ Gui_Browse:
     FileSelectFile, newDofusPath, 3, , Open a file, Dofus.exe (Dofus.exe)
     Settings.DofusPath := newDofusPath
     GuiControl,,InputDofusPath, % Settings.DofusPath
-    IniWrite, % Settings.DofusPath, %IniPath%, Settings, DofusPath
+    IniWrite, % Settings.DofusPath, %IniPath%, Game, Path
     SB_UpdateText("Dofus path successfully modified.")
     return
 
 Gui_ChangeSpeed:
     Gui, Submit, NoHide
     Settings.Speed := SelectSpeed
-    IniWrite, % Settings.Speed, %IniPath%, Settings, Speed ;move to class
+    IniWrite, % Settings.Speed, %IniPath%, Game, Speed ;move to class
     SB_UpdateText("Script speed successfully modified (" . SelectSpeed . ").")
     return
 
@@ -36,7 +36,7 @@ Gui_CheckForUpdates:
 
 Gui_ToggleCheckUpdateOnStart:
     Gui, Submit, NoHide
-    IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Settings, CheckForUpdates ;move to class
+    IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Program, CheckForUpdates ;move to class
     return
 
 Gui_RunScenario:

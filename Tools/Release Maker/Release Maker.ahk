@@ -45,11 +45,6 @@ Loop, Read, MakeFile
 RunWait, "C:\Program Files\7-Zip\7z.exe" u Releases\%version%\%zipFilename% "%dataPath%"
 RunWait, "C:\Program Files\7-Zip\7z.exe" u Releases\%version%\%7zFilename% "%dataPath%"
 
-
-/*FileCopy, %zipFilename%, , 1
-FileCopy, %7zFilename%, %version%, 1
-*/
-
 FileRemoveDir, %dataPath%, 1
 build++
 IniWrite, %build%, build.ini, Build, Id

@@ -10,7 +10,7 @@ DownloadOCRPreset:
 
 ToggleOCR:
     Settings.EnableOCR := !Settings.EnableOCR
-    IniWrite, % Settings.EnableOCR ? "True" : "False", %IniPath%, Settings, EnableOCR
+    IniWrite, % Settings.EnableOCR ? "True" : "False", %IniPath%, Game, EnableOCR
     return
 
 MergeScenarios:
@@ -114,6 +114,6 @@ SaveProfile:
     Encrypt := CheckEncryption = 1 ? 1 : 0
     file.WriteLine("Encrypt=" . Encrypt)
     If (CheckDefaultProfile = 1)
-        IniWrite, %SelectProfile%, %IniPath%, Profile, Default
+        IniWrite, %SelectProfile%, %IniPath%, Program, DefaultProfile
     file.Close()
     return

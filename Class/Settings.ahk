@@ -3,47 +3,59 @@
 */
 
 Class Settings {
+    ;Default values
     DofusPath := ""
     Speed := 0
+    EnableOCR := False
+    Language := ""
+    DefaultProfile := 1
     GuiStatus := False
     CheckForUpdates := False
     FirstStart := False
     Debug := False
     Dev := False
-    DefaultProfile := 1
-    EnableOCR := False
 
     __New(IniPath){
+        this.TitleApp := "Retro Multi Manager"
+        FileRead, version, version.txt
+        this.Version := version
+
+        ; Grab config from INI
+
         If (IniPath = "settings_default.ini")
         {
             FileCopy, %IniPath%, settings.ini
             IniPath = settings.ini
         }
-        
-        this.TitleApp := "Retro Multi Manager"
-        FileRead, version, version.txt
-        this.Version := version
 
-        ;INI
-        IniRead, DofusPath, %IniPath%, Settings, DofusPath
-        IniRead, Speed, %IniPath%, Settings, Speed
-        IniRead, GuiStatus, %IniPath%, Settings, GuiStatus
-        IniRead, CheckForUpdates, %IniPath%, Settings, CheckForUpdates
-        IniRead, FirstStart, %IniPath%, Settings, FirstStart
-        IniRead, EnableOCR, %IniPath%, Settings, EnableOCR
-        IniRead, Debug, %IniPath%, Settings, Debug
-        IniRead, Dev, %IniPath%, Settings, Dev
-        IniRead, DefaultProfile, %IniPath%, Profile, Default, %A_Space%
+        ; Game
+        IniRead, DofusPath, %IniPath%, Game, Path
+        IniRead, Speed, %IniPath%, Game, Speed
+        IniRead, EnableOCR, %IniPath%, Game, EnableOCR
 
         this.DofusPath := DofusPath
         this.Speed := Speed
+        this.EnableOCR := EnableOCR = "True" ? True : False
+
+        ; Program
+        IniRead, Language, %IniPath%, Program, Language, "en-us"
+        IniRead, DefaultProfile, %IniPath%, Program, DefaultProfile, %A_Space%
+        IniRead, GuiStatus, %IniPath%, Program, Gui
+        IniRead, CheckForUpdates, %IniPath%, Program, CheckForUpdates
+        IniRead, FirstStart, %IniPath%, Program, FirstStart
+
+        this.Language := Language
         this.GuiStatus := GuiStatus = "True" ? True : False
         this.CheckForUpdates := CheckForUpdates = "True" ? True : False
         this.FirstStart := FirstStart = "True" ? True : False
-        this.EnableOCR := EnableOCR = "True" ? True : False
+        this.DefaultProfile := DefaultProfile
+
+        ; Mode
+        IniRead, Debug, %IniPath%, Mode, Debug
+        IniRead, Dev, %IniPath%, Mode, Dev
+
         this.Debug := Debug = "True" ? True : False
         this.Dev := Dev = "True" ? True : False
-        this.DefaultProfile := DefaultProfile
 
         ;Try to get Dofus with default path
         If (this.DofusPath = "")
@@ -53,14 +65,14 @@ Class Settings {
             {
                 this.DofusPath := defaultPath
                 GuiControl,,InputDofusPath, defaultPath
-                IniWrite, %defaultPath%, %IniPath%, Settings, DofusPath
+                IniWrite, %defaultPath%, %IniPath%, Game, Path
             }
         }
     }
 
     SetFirstStart(var, value, iniPath) {
         this.FirstStart := value
-        IniWrite, %value%, %iniPath%, Settings, FirstStart
+        IniWrite, %value%, %iniPath%, Program, FirstStart
     }
 
     InitHotkeys(IniPath){
