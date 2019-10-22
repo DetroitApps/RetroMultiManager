@@ -20,12 +20,14 @@ Main:
                 Gosub, GetAccountInputPosition
             If (!inputX || !inputY || inputX = 0 || inputY = 0)
             {
-                API.LogWriteError("OCR failed or disabled. Trying to get account input position from default settings.")
-                IniRead, inputX, Resources\%A_ScreenHeight%p\window.ini, InputAccount, x, 0
-                IniRead, inputY, Resources\%A_ScreenHeight%p\window.ini, InputAccount, y, 0
+                API.LogWrite("OCR failed or disabled. Trying to get account input position from default settings.", 1)
+                ;Scenario.
+                section := A_ScreenWidth . "x" . A_ScreenHeight
+                IniRead, inputX, Scenarios\OpenDofusInstances.ini, %section%, x, 0
+                IniRead, inputY, Scenarios\OpenDofusInstances.ini, %section%, y, 0
                 If (inputX = "0" || inputY = "0")
                 {
-                    API.LogWriteError("Couldn't load account input position from INI, stopping current scenario.", 1)
+                    API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
                     return
                 }
                 Else 
@@ -48,7 +50,7 @@ Main:
         Sleep, 50 * Settings.Speed
         Send, {Tab}
         Sleep, 50 * Settings.Speed
-        Send {Enter}
+        ;Send {Enter}
         API.GuiUpdateProgressBar(A_Index, API.GetTotalWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
@@ -58,6 +60,6 @@ Main:
 GetAccountInputPosition:
     MouseMove, 0, 0
     Sleep 1000 * Settings.Speed
-    API.SearchImageInWindow("account.png", inputX, inputY)
+    API.SearchImageInWindow("account" . A_ScreenWidth . "x" . A_ScreenHeight . ".png", inputX, inputY)
     Sleep 1500 * Settings.Speed
     return

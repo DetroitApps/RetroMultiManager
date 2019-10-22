@@ -2,15 +2,37 @@
     Gui main file
 */
 
-#Include Library\SB.ahk
-#include Gui\GuiStyle.ahk
-#Include Gui\GuiFunctions.ahk
+#Include lib\SB.ahk
+#Include functions\gui-functions.ahk
+#Include gui\gui-style.ahk
 
 ;----------------------------------------
 ;GUI
 ;----------------------------------------
 
-;Header
+;MENU BAR
+;File
+Menu, FileMenu, Add,        % Translate("CloseGui") "`tEscape", Gui_CloseGui
+Menu, FileMenu, Add,        Reload Script`tCtrl+R, Gui_ReloadScript
+Menu, FileMenu, Add,        Quit`tShift+F12, TestMsg
+Menu, MyMenuBar, Add,       File, :FileMenu
+
+;Scenarios
+Menu, ScenariosMenu, Add,   Merge and reload, MergeScenarios
+Menu, ScenariosMenu, Add
+Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
+
+;Tools
+Menu, ToolsMenu, Add,       Toggle OCR, ToggleOCR
+Menu, ToolsMenu, Add,       Download OCR Preset, DownloadOCRPreset
+Menu, MyMenuBar, Add,       Tools, :ToolsMenu
+
+;About
+Menu, AboutMenu, Add,       Visit Github, VisitGithub
+Menu, MyMenuBar, Add,       ?, :AboutMenu
+Gui, Menu,                  MyMenuBar
+
+;HEADER
 Gui, Font,              cBlack s16
 Sleep, 500
 Gui, Add, Text,         w%guiWidth% y10 center, % Settings.TitleApp . A_Space . "v" Settings.version
@@ -77,10 +99,6 @@ Loop 8 {
     start_y += 30
 }
 start_y += 10
-;Might not be implemented
-
-
-;GuiControl, -Password, InputPassword1
 
 ;Scenarios
 Gui, Font,              Bold
@@ -101,8 +119,6 @@ Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
 Gui, Add, Button,       x+10 gGui_RunScenario, ▶
 Gui, Add, Button,       x+10 gGui_LoadScenarios, 🗘
 
-
-
 ;STATUS BAR
 Gui, Add, StatusBar
 
@@ -119,6 +135,5 @@ hwnd := SB_SetProgress(0, barPartId)
 ;Status bar quick functions
 
 SB_UpdateText(Settings.TitleApp . " is alive!")
-
 
 ;LABELS INCLUDED FROM MAIN FILE

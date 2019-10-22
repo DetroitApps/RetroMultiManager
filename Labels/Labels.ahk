@@ -4,8 +4,9 @@
 
 DownloadOCRPreset:
     FileCreateDir, Resources
-    FileCreateDir, Resources\%A_ScreenHeight%p
-    UrlDownloadToFile, https://raw.githubusercontent.com/DetroitApps/RetroMultiManager/master/Resources/%A_ScreenHeight%p/account.png, Resources\%A_ScreenHeight%p\account.png
+    FileCreateDir, Resources\ocr
+    ImageTitle := "account" . A_ScreenHeight . "x" . A_ScreenHeight . ".png"
+    UrlDownloadToFile, % "https://raw.githubusercontent.com/DetroitApps/RetroMultiManager/master/Resources/ocr/" . ImageTitle, % "Resources\ocr\" . ImageTitle
     return
 
 ToggleOCR:
@@ -26,6 +27,12 @@ MergeScenarios:
 
 VisitGithub:
     Run, https://github.com/DetroitApps/RetroMultiManager
+    return
+
+ExitGracefully:
+    Logger.Write("Program exited gracefully with " . Logger.TotalWarning . " warning and " . Logger.TotalErrors . " errors.")
+    Logger.CloseLogFiles()
+    ExitApp
     return
 
 

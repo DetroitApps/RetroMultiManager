@@ -2,7 +2,7 @@
     Scenario: Close Dofus Instances
 */
 
-+F12::
+F12::
 Main:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)

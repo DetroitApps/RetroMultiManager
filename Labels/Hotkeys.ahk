@@ -2,6 +2,12 @@
     Hotkeys
 */
 
++F12::
+    Gosub, ExitGracefully
+    return
+
+;Available through INI
+
 F1::
     labelName := Settings.Hotkeys["F1"]
     if (labelName != "")
@@ -60,8 +66,4 @@ F10::
     labelName := Settings.Hotkeys["F10"]
     if (labelName != "")
         Gosub, %labelName%
-    return
-
-F12::
-    ExitGracefully()
     return

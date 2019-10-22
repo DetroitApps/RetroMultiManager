@@ -34,6 +34,10 @@ Gui_CheckForUpdates:
     CheckForUpdates()
     return
 
+Gui_CloseGui:
+    Gui, Destroy
+    return
+
 Gui_ToggleCheckUpdateOnStart:
     Gui, Submit, NoHide
     IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Program, CheckForUpdates ;move to class

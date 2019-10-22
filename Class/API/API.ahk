@@ -5,8 +5,8 @@
 Global CurrentScenario := 0
 
 Class API {
-    #Include Class\API\Scenario.ahk
-    #Include Class\API\Window.ahk
+    #Include class\API\scenario.ahk
+    #Include class\API\window.ahk
 
     Debug := False
     WindowList := []
@@ -22,8 +22,8 @@ Class API {
         {
             scenarioName := StrSplit(A_LoopFileName, ".")[1]
             ;Menu bar
-            Menu, ScenariosMenu, Add,   &%scenarioName%, %scenarioName%
-            Menu, MyMenuBar, Add,       &Scenarios, :ScenariosMenu
+            Menu, ScenariosMenu, Add,   %scenarioName%, %scenarioName%
+            Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
             Gui, Menu,                  MyMenuBar
             ;Scenario select
             GuiControl, , SelectScenario, %scenarioName%
@@ -70,18 +70,14 @@ Class API {
 
     SearchImageInWindow(imageName, ByRef outputX, ByRef outputY)
     {
-        folder := "Resources\" . A_ScreenHeight . "p\"
+        folder := "Resources\ocr\"
         OCR_GetPositionFromImage(folder . imageName, outputX, outputY)
     }
 
-    LogWrite(ByRef content)
+    LogWrite(ByRef content, ByRef type := 0)
     {
-        Logger.Write("[Scenario " . CurrentScenario.Title . "] " . content)
-    }
+        Logger.Write(content, type, CurrentScenario.Title)
 
-    LogWriteError(ByRef content, type := 0)
-    {
-        Logger.WriteError("[Scenario " . CurrentScenario.Title . "] ", type)
     }
 
     ;Simple getters

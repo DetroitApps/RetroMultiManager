@@ -7,15 +7,16 @@
 #NoEnv
 #SingleInstance, Force
 #Persistent
+
+StringCaseSense On
 SetWorkingDir %A_ScriptDir%
 CoordMode, Mouse, Window
 
-#Include Class\API\API.ahk
-#Include Class\Accounts.ahk
-#Include Class\Settings.ahk
-#Include Debug\Logger.ahk 
-#Include Library\AES.ahk
-
+#Include class\API\API.ahk
+#Include class\accounts.ahk
+#Include class\logger.ahk
+#Include class\settings.ahk
+#Include lib\AES.ahk
 
 ;----------------------------------------
 ; MAIN
@@ -41,17 +42,22 @@ Else
 Settings := New Settings(IniPath)
 IniPath = settings.ini
 
-If Settings.Dev
-{
-    FileGetTime, LastMergeTime, Scenarios\Out\MergedScenarios.ahk
-    FormatTime, Now,, Time
-    EnvSub, LastMergeTime, A_Now
-    If (LastMergeTime < -10)
-        Gosub, MergeScenarios
-}
-
 If Settings.Debug
     Logger := New Logger()
+
+If Settings.Dev
+{
+    FileGetTime, lastMergeTime, Scenarios\Out\MergedScenarios.ahk
+    diff := A_Now - lastMergeTime
+    If (diff > 10)
+    {
+        Gosub, MergeScenarios
+        ExitApp
+    }
+    FormatTime, formattedTime, lastMergeTime, dd/MM/yyyy hh:mm:sstt
+    line := "Last scenarios merge " . diff . " seconds ago. (" . formattedTime . ")"
+    TrayTip, Scenarios, %line%, 3, 17
+}
 
 If (Settings.CheckForUpdates = True)
     CheckForUpdates()
@@ -67,7 +73,7 @@ If (Settings.FirstStart = True)
     IfMsgBox Cancel
         ExitApp
 
-    Settings.SetFirstStart(FirstStart, "False", IniPath)
+    Settings.SetFirstStart("False", IniPath)
 }
 Else
 {
@@ -81,7 +87,9 @@ Settings.InitHotkeys(IniPath)
 
 ;Gui init
 If (Settings.GuiStatus = True) {
-    #Include Gui\Gui.ahk
+    #Include gui\gui.ahk
+
+
     GuiControl,,InputDofusPath, % Settings.DofusPath
     GuiControl, Choose, SelectSpeed, % Settings.Speed
     If (Settings.CheckForUpdates = True)
@@ -108,19 +116,19 @@ Return
 ; Functions
 ;----------------------------------------
 
-#Include Functions\Functions.ahk
-#Include Functions\OCR.ahk
+#Include functions\functions.ahk
+#Include functions\ocr.ahk
 
 ;----------------------------------------
 ; Labels
 ;----------------------------------------
 
-#Include Gui\GuiLabels.ahk
-#Include Labels\Labels.ahk
-#Include Scenarios\Out\MergedScenarios.ahk
+#Include labels\gui-labels.ahk
+#Include labels\labels.ahk
+#Include scenarios\Out\MergedScenarios.ahk
 
 ;----------------------------------------
 ; Hotkeys
 ;----------------------------------------
 
-#Include Labels\Hotkeys.ahk
+#Include labels\hotkeys.ahk

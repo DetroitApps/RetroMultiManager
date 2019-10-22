@@ -60,7 +60,7 @@ Class Settings {
         ;Try to get Dofus with default path
         If (this.DofusPath = "")
         {
-            defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\resources\app.asar.unpacked\retroclient\Dofus.exe"
+            defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\Resources\app.asar.unpacked\retroclient\Dofus.exe"
             If FileExist(defaultPath)
             {
                 this.DofusPath := defaultPath
@@ -70,7 +70,7 @@ Class Settings {
         }
     }
 
-    SetFirstStart(var, value, iniPath) {
+    SetFirstStart(value, iniPath) {
         this.FirstStart := value
         IniWrite, %value%, %iniPath%, Program, FirstStart
     }

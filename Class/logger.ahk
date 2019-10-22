@@ -1,5 +1,6 @@
 /*
     Logger
+    Write a log file for debug/dev mode
 */
 
 Class Logger {
@@ -8,14 +9,22 @@ Class Logger {
     LogFilePath := ""
     LogFileLatestPath := ""
 
-    Write(ByRef content)
+    Write(ByRef content, level := 0, scenario := 0)
     {
         If Settings.Debug
         {
             this.OpenLogFiles()
-            FormatTime, TimeString,, [hh:mm:ss]
-            this.LogFile.WriteLine(TimeString . "[INFO] " . content)
-            this.LogFileLatest.WriteLine(TimeString . "[INFO] " . content)
+            line := this.GetCurrentTime()
+            Switch level
+            {
+                Default: line := line . "[INFO] "
+                Case 1: line := line . "[WARNING] "
+                Case 2: line := line . "[ERROR] "
+                Case 3: line := line . "[DEBUG] "
+            }
+            line := (scenario = 0) ? line . content : "[Scenario " . scenario . "]" . line . content
+            this.LogFile.WriteLine(line)
+            this.LogFileLatest.WriteLine(line)
             this.CloseLogFiles()
         }
     }
@@ -39,6 +48,12 @@ Class Logger {
             }
             this.CloseLogFiles()
         }
+    }
+
+    GetCurrentTime()
+    {
+        FormatTime, TimeString,, [hh:mm:ss]
+        return TimeString
     }
 
     OpenLogFiles()
