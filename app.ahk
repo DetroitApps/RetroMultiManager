@@ -42,8 +42,6 @@ Else
 Settings := New Settings(IniPath)
 IniPath = settings.ini
 
-If Settings.Debug
-    Logger := New Logger()
 
 If Settings.Dev
 {
@@ -58,6 +56,9 @@ If Settings.Dev
     line := "Last scenarios merge " . diff . " seconds ago. (" . formattedTime . ")"
     TrayTip, Scenarios, %line%, 3, 17
 }
+
+If Settings.Debug
+    Logger := New Logger()
 
 If (Settings.CheckForUpdates = True)
     CheckForUpdates()
@@ -88,7 +89,6 @@ Settings.InitHotkeys(IniPath)
 ;Gui init
 If (Settings.GuiStatus = True) {
     #Include gui\gui.ahk
-
 
     GuiControl,,InputDofusPath, % Settings.DofusPath
     GuiControl, Choose, SelectSpeed, % Settings.Speed

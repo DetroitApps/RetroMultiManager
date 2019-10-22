@@ -2,6 +2,10 @@
     Gui labels
 */
 
+GuiClose:
+    ExitApp
+    return
+
 Gui_ClearAccountData:
     GuiControl,,CheckEncryption, 0
     GuiControl,,CheckDefaultProfile, 0

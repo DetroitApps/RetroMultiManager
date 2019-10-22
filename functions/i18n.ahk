@@ -11,22 +11,34 @@ Translate(key, args := 0, customLanguageFile := 0)
     Else
         languageFile := % languageFolder "\" customLanguageFile ".ini"
 
+    If !FileExist(languageFile)
+    {
+        MsgBox, % MBICON["Error"] + MBBTN["RetryCancel"], Fatal Error, % "Couldn't load language file '" languageFile "'. Program aborted."
+        IfMsgBox, Retry
+            Translate(key, args, customLanguageFile)
+        Else
+            ExitApp
+    }
+
     translatedText := TranslateX(key, languageFile)    
     ;Deal with error
-    If (translatedText = 0)
+    If !translatedText
     {
         If Settings.Dev {
             Loop {
-                MsgBox, % MBICON["Error"] + MBBTN["AbortRetryIgnore"], Error, Can't find language file "%languageFile%" or missing string for key {%key%}. Press Ignore to continue anyway.
+                If translatedText
+                    break
+                MsgBox, % MBICON["Error"] + MBBTN["AbortRetryIgnore"], Error, % "File " languageFile " is missing string for key {" key "}.`nPress Ignore to continue anyway."
                 IfMsgBox, Abort
                     ExitApp
                 IfMsgBox, Retry
-                    TranslateX(key, languageFile)
+                    translatedText := TranslateX(key, languageFile)
                 Else
-                    break
+                    return % "{" key "}"
             }
         }
-        return % "{" key "}"
+        Else
+            return % "{" key "}"
     }
 
     ;check and replace args ({1}, {2}, ...)
@@ -38,9 +50,9 @@ Translate(key, args := 0, customLanguageFile := 0)
 
 TranslateX(ByRef key, ByRef languageFile)
 {
-    IniRead, readValue, %languageFile%, Strings, %key%, 0
+    IniRead, readValue, %languageFile%, Strings, %key%, %A_Space%
     
-    If (readValue = 0)
+    If !readValue
         return readValue
 
     translatedText := readValue
@@ -48,8 +60,8 @@ TranslateX(ByRef key, ByRef languageFile)
     ;Check for multiline message (key2, key3 etc...)
     i := 2
     Loop {
-        IniRead, readValue, %languageFile%, Strings, %key%%i%, 0
-        If (readValue = 0)
+        IniRead, readValue, %languageFile%, Strings, %key%%i%, %A_Space%
+        If !readValue
             return translatedText
         Else
             translatedText := translatedText . "`n" . readValue

@@ -21,11 +21,12 @@ Main:
             If (!inputX || !inputY || inputX = 0 || inputY = 0)
             {
                 API.LogWrite("OCR failed or disabled. Trying to get account input position from default settings.", 1)
-                ;Scenario.
+
                 section := A_ScreenWidth . "x" . A_ScreenHeight
-                IniRead, inputX, Scenarios\OpenDofusInstances.ini, %section%, x, 0
-                IniRead, inputY, Scenarios\OpenDofusInstances.ini, %section%, y, 0
-                If (inputX = "0" || inputY = "0")
+                inputX := Scenario.GetValueFromIni(section, "x")
+                inputY := Scenario.GetValueFromIni(section, "y")
+                
+                If (!inputX || !inputY)
                 {
                     API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
                     return

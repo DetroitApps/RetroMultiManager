@@ -13,7 +13,7 @@
 ;MENU BAR
 ;File
 Menu, FileMenu, Add,        % Translate("CloseGui") "`tEscape", Gui_CloseGui
-Menu, FileMenu, Add,        Reload Script`tCtrl+R, Gui_ReloadScript
+Menu, FileMenu, Add,        % Translate("ReloadScript") "`tCtrl+R", Gui_ReloadScript
 Menu, FileMenu, Add,        Quit`tShift+F12, TestMsg
 Menu, MyMenuBar, Add,       File, :FileMenu
 

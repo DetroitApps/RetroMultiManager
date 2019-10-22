@@ -11,7 +11,7 @@ directory := A_ScriptDir . "\..\Scenarios\"
 Loop, %directory%*.ahk
 {
     fileNumber := A_Index
-    mergedFile.WriteLine(";Scenario merged from: " . A_LoopFileFullPath)
+    mergedFile.WriteLine(";Scenario merged from: Scenarios\" . A_LoopFileName)
     Loop
     {
         FileReadLine, line, %A_LoopFileFullPath%, %A_Index%

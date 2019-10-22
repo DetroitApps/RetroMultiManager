@@ -21,8 +21,6 @@ MergeScenarios:
         RunWait, %path%
         Reload
     }
-    Else
-        MsgBox, % "You activated developer mode. Please compile the Scenario Merger script in the Tools folder in order to modify scenarios."
     return
 
 VisitGithub:

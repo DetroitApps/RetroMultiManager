@@ -21,6 +21,7 @@ Class API {
         Loop, %directory%*.ahk
         {
             scenarioName := StrSplit(A_LoopFileName, ".")[1]
+            Logger.Write("I'm alive!",,scenarioName)
             ;Menu bar
             Menu, ScenariosMenu, Add,   %scenarioName%, %scenarioName%
             Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
@@ -77,7 +78,6 @@ Class API {
     LogWrite(ByRef content, ByRef type := 0)
     {
         Logger.Write(content, type, CurrentScenario.Title)
-
     }
 
     ;Simple getters

@@ -3,7 +3,7 @@
 
 settings.ini
 
-
-Logs/*
+logs/*
 Profiles/*
 Tools/Release Maker/Releases
+Tools/Translation Helper

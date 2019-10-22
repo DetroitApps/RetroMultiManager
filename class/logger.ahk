@@ -17,12 +17,12 @@ Class Logger {
             line := this.GetCurrentTime()
             Switch level
             {
-                Default: line := line . "[INFO] "
-                Case 1: line := line . "[WARNING] "
-                Case 2: line := line . "[ERROR] "
-                Case 3: line := line . "[DEBUG] "
+                Default: line := line . "[INFO]"
+                Case 1: line := line . "[WARNING]"
+                Case 2: line := line . "[ERROR]"
+                Case 3: line := line . "[DEBUG]"
             }
-            line := (scenario = 0) ? line . content : "[Scenario " . scenario . "]" . line . content
+            line := (scenario = 0) ? line . A_Space . content : line . "[Scenario " . scenario . "] " . content
             this.LogFile.WriteLine(line)
             this.LogFileLatest.WriteLine(line)
             this.CloseLogFiles()
@@ -76,15 +76,15 @@ Class Logger {
 
     __New()
     {
-        FileCreateDir, Logs
+        FileCreateDir, logs
 
         ;Logfile timestamped
-        FormatTime, TimeString,, dd-MM-yyyy_hh-mmtt
-        this.LogFilePath := "Logs\" . TimeString . ".log"
+        FormatTime, TimeString,, dd-MM-yyyy_hh-mm-sstt
+        this.LogFilePath := "logs\" . TimeString . ".log"
         this.LogFile := FileOpen(this.LogFilePath, "w")
 
         ;Logfile latest
-        this.LogFileLatestPath := "Logs\latest.log"
+        this.LogFileLatestPath := "logs\latest.log"
         this.LogFileLatest := FileOpen(this.LogFileLatestPath, "w")
         
         this.Write(Settings.TitleApp . " is alive!")
