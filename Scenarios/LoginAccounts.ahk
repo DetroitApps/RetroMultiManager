@@ -9,9 +9,10 @@ Main:
     inputY := 0
     
     API.GuiUpdateProgressBar(0)
-    Loop, % API.GetTotalWindows() {
+    Loop, % API.GetNbWindows() {
         window := API.GetWindow(A_Index)
         window.Activate()
+        window.WaitActive()
         window.Maximize()
         Sleep, 50 * Settings.Speed
         If (A_Index = 1)
@@ -52,7 +53,7 @@ Main:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         ;Send {Enter}
-        API.GuiUpdateProgressBar(A_Index, API.GetTotalWindows())
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
     API.GuiUpdateProgressBar(100)

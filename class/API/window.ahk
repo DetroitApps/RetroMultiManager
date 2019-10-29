@@ -1,30 +1,31 @@
 Class Window {
-    __New(_pid){
-        static idIndex := 1
-        if (_pid = 0)
+    __New(parent, index, pid){
+        if (_pid = 0) ; ??
         {
             idIndex = 1
             return
         }
-        this.pid := _pid
-        this.id := idIndex++
+        this.pid := pid
+        this.id := index
         this.fullTitle := ""
+        this.parent := parent
     }
 
     WaitOpen(){
-        waitForId := this.pid
-        WinWait, ahk_pid %waitForId%
+        WinWait, % "ahk_pid " this.pid
     }
 
     Activate(){
-        windowId := this.pid
-        WinActivate, ahk_pid %windowId%
-        WinWaitActive, ahk_pid %windowId%
+        WinActivate, % "ahk_pid " this.pid
+        this.parent.CurrentWindow := this.id
+    }
+
+    WaitActive(){
+        WinWaitActive, % "ahk_pid " this.pid
     }
 
     Maximize(){
-        windowId := this.pid
-        WinMaximize, ahk_pid %windowId%
+        WinMaximize, % "ahk_pid " this.pid
     }
 
     SetTitle(Byref Account){

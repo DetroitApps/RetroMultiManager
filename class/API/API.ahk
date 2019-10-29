@@ -10,6 +10,7 @@ Class API {
 
     Debug := False
     WindowList := []
+    CurrentWindow := 1
 
     __New(){
         this.LoadScenarios()
@@ -85,11 +86,19 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
+    NewWindow(pid){
+        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
+        window := New this.Window(this, index, pid)
+        this.WindowList[index] := window
+        this.AddWindowToList(window)
+        return window
+    }
+
     GetWindow(id){
         return this.WindowList[id]
     }
 
-    GetTotalWindows() {
+    GetNbWindows() {
         return this.WindowList.MaxIndex()
     }
 

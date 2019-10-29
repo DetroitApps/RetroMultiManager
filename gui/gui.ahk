@@ -14,7 +14,7 @@
 ;File
 Menu, FileMenu, Add,        % Translate("CloseGui") "`tEscape", Gui_CloseGui
 Menu, FileMenu, Add,        % Translate("ReloadScript") "`tCtrl+R", Gui_ReloadScript
-Menu, FileMenu, Add,        Quit`tShift+F12, TestMsg
+Menu, FileMenu, Add,        % Translate("Quit") "`tShift+F12", TestMsg
 Menu, MyMenuBar, Add,       File, :FileMenu
 
 ;Scenarios
@@ -61,6 +61,7 @@ Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnSt
 Gui, Font,              Bold
 Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, Accounts
 Gui, Font,              Normal
+
 
 Gui, Add, Text,         xs+10 ys+30 h20 0x200, Profile
 Gui, Add, DropDownList, x+10 vSelectProfile w50, 1||2|3|4|5
@@ -116,8 +117,8 @@ Gui, Font,              s8
 
 Gui, Add, Text,         ys+60 xs+10 h20 0x200, All scenarios
 Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
-Gui, Add, Button,       x+10 gGui_RunScenario, ▶
-Gui, Add, Button,       x+10 gGui_LoadScenarios, 🗘
+Gui, Add, Button,       x+10 gGui_RunScenario, Run
+Gui, Add, Button,       x+5 gGui_LoadScenarios, Reload
 
 ;STATUS BAR
 Gui, Add, StatusBar

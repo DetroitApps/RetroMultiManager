@@ -16,13 +16,44 @@ CloseDofusInstances:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)
 
-    Loop % API.GetTotalWindows()
+    Loop % API.GetNbWindows()
         API.CloseWindow(A_Index)
-    API.LogWrite("Successfully closed " . API.GetTotalWindows() . " windows.")
+    API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
     API.ResetWindowsIndex()
 return
+
+;Scenario merged from: Scenarios\CycleWindows.ahk
+/*
+    Scenario: OpenDofusInstances
+*/
+
+SC029::
++SC029::
+CycleWindows:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(2,"CycleWindows")
+	currentScenario := Scenario
+	;End Header
+
+    If GetKeyState("LShift")
+        destWin := GetDestinationWindow(false)
+    Else
+        destWin := GetDestinationWindow(true)
+    
+    window := API.GetWindow(destWin)
+    window.Activate()
+return
+
+GetDestinationWindow(ascend)
+{
+    If ascend 
+        destWin := (API.CurrentWindow = API.GetNbWindows()) ? 1 : API.CurrentWindow + 1
+    Else
+        destWin := (API.CurrentWindow = 1) ? API.GetNbWindows() : API.CurrentWindow - 1
+    return destWin
+}
 
 ;Scenario merged from: Scenarios\LoginAccounts.ahk
 /*
@@ -33,7 +64,7 @@ return
 
 LoginAccounts:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(2,"LoginAccounts")
+	Scenario := New API.Scenario(3,"LoginAccounts")
 	currentScenario := Scenario
 	;End Header
 
@@ -41,9 +72,10 @@ LoginAccounts:
     inputY := 0
     
     API.GuiUpdateProgressBar(0)
-    Loop, % API.GetTotalWindows() {
+    Loop, % API.GetNbWindows() {
         window := API.GetWindow(A_Index)
         window.Activate()
+        window.WaitActive()
         window.Maximize()
         Sleep, 50 * Settings.Speed
         If (A_Index = 1)
@@ -84,7 +116,7 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         ;Send {Enter}
-        API.GuiUpdateProgressBar(A_Index, API.GetTotalWindows())
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
     API.GuiUpdateProgressBar(100)
@@ -104,7 +136,7 @@ GetAccountInputPosition:
 
 OpenDofusInstances:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(3,"OpenDofusInstances")
+	Scenario := New API.Scenario(4,"OpenDofusInstances")
 	currentScenario := Scenario
 	;End Header
 
@@ -119,9 +151,9 @@ OpenDofusInstances:
         If !ArrayAccounts[i].IsActive
             Continue
         Run, % Settings.DofusPath,,, pid
-        API.WindowList[i] := New API.Window(pid)
-        API.WindowList[i].WaitOpen()
-        API.WindowList[i].SetTitle(ArrayAccounts[i])
+        window := API.NewWindow(pid)
+        window.WaitOpen()
+        window.SetTitle(ArrayAccounts[i])
         API.GuiUpdateProgressBar(i, nbAccounts)
         SleepHandler(0)
         i++

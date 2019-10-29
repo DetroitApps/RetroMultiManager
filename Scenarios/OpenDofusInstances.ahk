@@ -14,9 +14,9 @@ Main:
         If !ArrayAccounts[i].IsActive
             Continue
         Run, % Settings.DofusPath,,, pid
-        API.WindowList[i] := New API.Window(pid)
-        API.WindowList[i].WaitOpen()
-        API.WindowList[i].SetTitle(ArrayAccounts[i])
+        window := API.NewWindow(pid)
+        window.WaitOpen()
+        window.SetTitle(ArrayAccounts[i])
         API.GuiUpdateProgressBar(i, nbAccounts)
         SleepHandler(0)
         i++
