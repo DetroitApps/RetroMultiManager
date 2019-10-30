@@ -34,7 +34,7 @@ Translate(key, args*)
             Loop {
                 If translatedText
                     break
-                MsgBox, % 16+2, % Translate("DevMode"), % "File " i18n.LanguageFile " is missing string for key {" key "}.`nPress Ignore to continue anyway."
+                MsgBox, % 16+2, Dev Mode, % "File " i18n.LanguageFile " is missing string for key {" key "}.`nPress Ignore to continue anyway."
                 IfMsgBox, Abort
                     ExitApp
                 IfMsgBox, Retry

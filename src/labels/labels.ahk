@@ -46,7 +46,7 @@ LoadProfile:
             GuiControl,, CheckEncryption, %Encrypt%
             GuiControl, Choose, SelectProfile, %SelectProfile%
             GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = SelectProfile ? 1 : 0
-            SB_SetText(Translate("ActiveProfile") ":" SelectProfile, 3)
+            SB_SetText(Translate("ActiveProfile") ": " SelectProfile, 3)
         }
         Loop 8 {
             IniRead, username, %profileIniPath%, Accounts, Username%A_Index%

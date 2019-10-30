@@ -58,7 +58,7 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
   - Automatize many actions in the game, included scenarios are :
     - Open Dofus instances (opens as many instances as you have accounts)
     - Autologin
-    - Connect to servers and characters
+    - Connect players on server
     - Toggle between your Dofus instances
     - Close all Dofus instances
   - Develop scenarios with the API (early alpha)
@@ -73,7 +73,7 @@ If you have an account on Trello, you are allowed to comment cards.
 
 ## License
 
-Copyright � 2019 Detroit Apps
+Copyright © 2019 Detroit Apps
 
 The content of this repository is bound by the following license(s):
 
