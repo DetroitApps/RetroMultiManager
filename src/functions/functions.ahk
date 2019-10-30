@@ -6,9 +6,12 @@
 
 ; Misc
 
-;Redo as screen not compatible
-/*ScreenCompatible() {
+ResolutionNotSupported() {
+    MsgBox 0x31, Resolution not supported, You resolution %A_ScreenWidth%x%A_ScreenHeight% is currently not supported.`n`nPlease refer to the GitHub for more information.
 
+    IfMsgBox Cancel, {
+        ExitApp
+    }
 }
 */
 
