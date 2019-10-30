@@ -13,7 +13,7 @@ Class Scenario {
 
     GetValueFromIni(ByRef section, ByRef key)
     {
-        IniRead, readValue, % "Scenarios/" . this.Title ".ini", %section%, %key%, %A_Space%
+        IniRead, readValue, % "resources/" . this.Title ".ini", %section%, %key%, %A_Space%
         return readValue
     }
 }

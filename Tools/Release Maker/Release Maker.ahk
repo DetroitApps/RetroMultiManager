@@ -17,6 +17,13 @@ Loop, Read, MakeFile
 {
     newFilename := ""
     folderName := ""
+    FileGetAttrib, attributes, % rootDir . A_LoopReadLine
+    If InStr( attributes, "D" )
+    {
+        FileCopyDir, % rootDir . A_LoopReadLine, %dataPath%\%A_LoopReadLine%, 1
+        Continue
+    }
+            
     If (InStr(A_LoopReadLine, "\"))
     {
         folderName := StrSplit(A_LoopReadLine, "\")[1]

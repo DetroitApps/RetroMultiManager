@@ -1,4 +1,5 @@
 Tools\Scenario Merger.ahk
-Retro Multi Manager.ahk
+app.ahk
+resources
 settings_default.ini
 version.txt
