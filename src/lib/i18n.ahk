@@ -13,7 +13,7 @@ Class i18n {
         this.DevMode := DevMode
         If !FileExist(this.LanguageFile)
         {
-            MsgBox, 16, Critical Error, % "Couldn't load language file '" this.LanguageFile "'. Program aborted."
+            MsgBox, 16, Fatal Error, % "Couldn't load language file '" this.LanguageFile "'. Program aborted."
             ExitApp -1
         }
     }
