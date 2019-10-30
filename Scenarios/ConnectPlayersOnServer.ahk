@@ -1,5 +1,5 @@
 /*
-    Scenario: ConnectServersPlayers
+    Scenario: ConnectPlayersOnServer
 */
 
 Main:

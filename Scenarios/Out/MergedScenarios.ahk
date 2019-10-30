@@ -24,14 +24,14 @@ CloseDofusInstances:
     API.ResetWindowsIndex()
 return
 
-;Scenario merged from: Scenarios\ConnectServersPlayers.ahk
+;Scenario merged from: Scenarios\ConnectPlayersOnServer.ahk
 /*
-    Scenario: ConnectServersPlayers
+    Scenario: ConnectPlayersOnServer
 */
 
-ConnectServersPlayers:
+ConnectPlayersOnServer:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(2,"ConnectServersPlayers")
+	Scenario := New API.Scenario(2,"ConnectPlayersOnServer")
 	currentScenario := Scenario
 	;End Header
 
@@ -48,7 +48,7 @@ ConnectServersPlayers:
         Sleep 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
-        Sleep 500 * Settings.Speed
+        Sleep 600 * Settings.Speed
         Click, 2
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         SleepHandler(0)

@@ -108,7 +108,7 @@ Gui, Font,              Normal s10
 
 Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] Start Dofus"
 Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] Login accounts"
-Gui, Add, Button,       x+10 gGui_ConnectServers, % "[" GetHotkeyForScenario("ConnectServersPlayers") "] Connect on servers"
+Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] Connect players on server"
 
 Gui, Font,              s8
 

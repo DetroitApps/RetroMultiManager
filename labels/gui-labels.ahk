@@ -78,8 +78,8 @@ Gui_LoginAccounts:
     Gosub, LoginAccounts
     return
 
-Gui_ConnectServers:
-    Gosub, ConnectServersPlayers
+Gui_ConnectPlayersOnServer:
+    Gosub, ConnectPlayersOnServer
     return
 
 ;ALL INDIVIDUAL LABELS
