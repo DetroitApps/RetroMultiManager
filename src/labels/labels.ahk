@@ -32,7 +32,8 @@ LoadProfile:
     profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
     If (!FileExist(profileIniPath))
     {
-        MsgBox, % "Profile #" . SelectProfile . " hasn't been created yet."
+        ;"Profile #" . SelectProfile . " hasn't been created yet."
+        MsgBox,, % Translate("Error"), % Translate("ProfileNotExistingMsg", SelectProfile)
         return
     }
     Else 
@@ -45,7 +46,7 @@ LoadProfile:
             GuiControl,, CheckEncryption, %Encrypt%
             GuiControl, Choose, SelectProfile, %SelectProfile%
             GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = SelectProfile ? 1 : 0
-            SB_SetText("Active profile: " . SelectProfile, 3)
+            SB_SetText(Translate("ActiveProfile") ":" SelectProfile, 3)
         }
         Loop 8 {
             IniRead, username, %profileIniPath%, Accounts, Username%A_Index%
@@ -81,7 +82,7 @@ SaveProfile:
     file := FileOpen(profileIniPath, "w")
     If (file = 0)
     {
-        MsgBox, % "[" . A_LastError .  "] Couldn't save profile with path " . profileIniPath . "."
+        MsgBox,, % Translate("Error"), % "[" A_LastError "]" Translate("ErrorSaveProfile", profileIniPath) "."
         return
     }
     file.WriteLine("[Accounts]")

@@ -12,23 +12,28 @@
 
 ;MENU BAR
 ;File
-Menu, FileMenu, Add,        % Translate("CloseGui") "`tEscape", Gui_CloseGui
+Menu, FileMenu, Add,        % Translate("CloseGui") "`t" Translate("Escape"), Gui_CloseGui
 Menu, FileMenu, Add,        % Translate("ReloadScript") "`tCtrl+R", Gui_ReloadScript
 Menu, FileMenu, Add,        % Translate("Quit") "`tShift+F12", TestMsg
-Menu, MyMenuBar, Add,       File, :FileMenu
+Menu, MyMenuBar, Add,       % Translate("File"), :FileMenu
 
 ;Scenarios
-Menu, ScenariosMenu, Add,   Merge and reload, MergeScenarios
+Menu, ScenariosMenu, Add,   % Translate("MergeAndReload"), MergeScenarios
 Menu, ScenariosMenu, Add
-Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
+Menu, MyMenuBar, Add,       % Translate("Scenarios"), :ScenariosMenu
 
-;Tools
+/*;Tools
 Menu, ToolsMenu, Add,       
 Menu, ToolsMenu, Add,       
-Menu, MyMenuBar, Add,       Tools, :ToolsMenu
+Menu, MyMenuBar, Add,       % Translate("Tools"), :ToolsMenu
+*/
+;Language
+Menu, LanguageMenu, Add,    en-US, Gui_SetLanguageEN
+Menu, LanguageMenu, Add,    fr-FR, Gui_SetLanguageFR
+Menu, MyMenuBar, Add,       Language, :LanguageMenu
 
 ;About
-Menu, AboutMenu, Add,       Visit Github, VisitGithub
+Menu, AboutMenu, Add,       % Translate("VisitGithub"), VisitGithub
 Menu, MyMenuBar, Add,       ?, :AboutMenu
 Gui, Menu,                  MyMenuBar
 
@@ -37,39 +42,39 @@ Gui, Font,              cBlack s16
 Sleep, 500
 Gui, Add, Text,         w%guiWidth% y10 center, % Settings.TitleApp . A_Space . "v" Settings.version
 Gui, Font,              s8
-Gui, Add, Text,         w%guiWidth% y+1 center, For Dofus Retro 1.3.0
+Gui, Add, Text,         w%guiWidth% y+1 center, % Translate("For") " Dofus Retro 1.3.0"
 
 ;SCRIPT SETTINGS
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+10 Section w%groupboxWidth% h120, Settings
+Gui, Add, GroupBox,     xm ym+10 y+10 Section w%groupboxWidth% h120, % Translate("Settings")
 Gui, Font,              Normal
 ;Dofus path
 Gui, Add, Text,         xs+10 ys+30 %guiLabelOptions%, Dofus.exe
 Gui, Add, Edit,         hp r1 x+10 w550 vInputDofusPath
-Gui, Add, Button,       x+10 w80 gGui_Browse, Browse
+Gui, Add, Button,       x+10 w80 gGui_Browse, % Translate("Browse")
 
 ;Speed
-Gui, Add, Text,         xs+10 ys+60 %guiLabelOptions%, Speed
-Gui, Add, DropDownList, x+10 AltSubmit vSelectSpeed gGui_ChangeSpeed, Fastest|Faster|Normal||Slower|Slowest
+Gui, Add, Text,         xs+10 ys+60 %guiLabelOptions%, % Translate("Speed")
+Gui, Add, DropDownList, x+10 AltSubmit vSelectSpeed gGui_ChangeSpeed, % Translate("SpeedFastest") "|" Translate("SpeedFaster") "|" Translate("SpeedNormal") "||" Translate("SpeedSlower") "|" Translate("SpeedSlowest")
 
 ;Updates
-Gui, Add, Text,         ys+90 xs+10 %guiLabelOptions%, Program
-Gui, Add, Button,       x+10 gGui_CheckForUpdates, Check for updates
-Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnStart h20 0x200, Check on start
+Gui, Add, Text,         ys+90 xs+10 %guiLabelOptions%, % Translate("Program")
+Gui, Add, Button,       x+10 gGui_CheckForUpdates, % Translate("CheckForUpdates")
+Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnStart h20 0x200, % Translate("CheckOnStart")
 
 ;ACCOUNTS
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, Accounts
+Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, % Translate("Accounts")
 Gui, Font,              Normal
 
 
-Gui, Add, Text,         xs+10 ys+30 h20 0x200, Profile
+Gui, Add, Text,         xs+10 ys+30 h20 0x200, % Translate("Profile")
 Gui, Add, DropDownList, x+10 vSelectProfile w50, 1||2|3|4|5
-Gui, Add, Button,       x+10 gGui_LoadProfile, Load
-Gui, Add, Button,       x+10 gGui_SaveProfile, Save
-Gui, Add, CheckBox,     x+10 vCheckEncryption h20 0x200 Checked 1, Encrypt password
-Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h20 0x200, Default profile
-Gui, Add, Button,       x+10 gGui_ClearAccountData, Clear all
+Gui, Add, Button,       x+10 gGui_LoadProfile, % Translate("Load")
+Gui, Add, Button,       x+10 gGui_SaveProfile, % Translate("Save")
+Gui, Add, CheckBox,     x+10 vCheckEncryption h20 0x200 Checked 1, % Translate("EncryptAccounts")
+Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h20 0x200, % Translate("DefaultProfile")
+Gui, Add, Button,       x+10 gGui_ClearAccountData, % Translate("ClearAll")
 
 ;Input fields
 start_y := 70
@@ -82,14 +87,14 @@ Loop 8 {
     ;Active
     Gui, Add, CheckBox, x+5 vCheckActive%A_Index% h20 0x200 Checked 1
     ;Username
-    Gui, Add, Text,     x+10 h20 0x200 w60, Username
+    Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Username")
     Gui, Add, Edit,     hp r1 x+10 w100 vInputUsername%A_Index%
     ;Password
-    Gui, Add, Text,     x+10 h20 0x200 w60, Password
+    Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Password")
     Gui, Add, Edit,     Password hp r1 x+10 w100 vInputPassword%A_Index%
     Gui, Add, Button,   gGui_RevealPassword%A_Index% x+1, 👁
     ;Nickname
-    Gui, Add, Text,     x+10 h20 0x200 w60, Nickname
+    Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Nickname")
     Gui, Add, Edit,     hp r1 x+10 w100 vInputNickname%A_Index%
     ;Class
     Gui, Add, DropDownList, x+10 vSelectClass%A_Index% w80, Cra|Ecaflip|Eniripsa|Enutrof|Feca|Iop|Osamodas|Pandawa|Sacrieur|Sadida|Sram|Xelor
@@ -103,19 +108,19 @@ start_y += 10
 
 ;Scenarios
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, Scenarios
+Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, % Translate("Scenarios")
 Gui, Font,              Normal s10
 
-Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] Start Dofus"
-Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] Login accounts"
-Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] Connect players on server"
+Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] " Translate("StartDofus")
+Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] " Translate("LoginAccounts")
+Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] " Translate("ConnectPlayersOnServer")
 
 Gui, Font,              s8
 
-Gui, Add, Text,         ys+60 xs+10 h20 0x200, All scenarios
+Gui, Add, Text,         ys+60 xs+10 h20 0x200, % Translate("AllScenarios")
 Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
-Gui, Add, Button,       x+10 gGui_RunScenario, Run
-Gui, Add, Button,       x+5 gGui_LoadScenarios, Reload
+Gui, Add, Button,       x+10 gGui_RunScenario, % Translate("Run")
+Gui, Add, Button,       x+5 gGui_LoadScenarios, % Translate("Reload")
 
 ;STATUS BAR
 Gui, Add, StatusBar
@@ -132,6 +137,6 @@ hwnd := SB_SetProgress(0, barPartId)
 
 ;Status bar quick functions
 
-SB_UpdateText(Settings.TitleApp . " is alive!")
+SB_UpdateText(Translate("AliveMsg", Settings.TitleApp))
 
 ;LABELS INCLUDED FROM MAIN FILE

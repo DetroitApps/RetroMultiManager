@@ -82,6 +82,13 @@ Gui_ConnectPlayersOnServer:
     Gosub, ConnectPlayersOnServer
     return
 
+Gui_SetLanguageFR:
+    Settings.SetLanguage("fr-FR")
+return
+Gui_SetLanguageEN:
+    Settings.SetLanguage("en-US")
+return
+
 ;ALL INDIVIDUAL LABELS
 Gui_RevealPassword1:
     RevealPassword("InputPassword1")

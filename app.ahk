@@ -17,6 +17,7 @@ CoordMode, Mouse, Window
 #Include src\class\logger.ahk
 #Include src\class\settings.ahk
 #Include src\lib\AES.ahk
+#Include src\lib\i18n.ahk
 
 ;----------------------------------------
 ; MAIN
@@ -29,6 +30,7 @@ Global MBICON := Object("Error", 16, "Question", 32, "Exclamation", 48, "Info", 
 Global MBBTN := Object("OkCancel", 1, "AbortRetryIgnore", 2, "YesNoCancel", 3, "YesNo", 4, "RetryCancel", 5, "CancelTryAgainContinue", 6)
 
 Global API
+Global i18n
 Global Logger
 Global Settings
 Global MasterPassword := ""
@@ -42,6 +44,7 @@ Else
 Settings := New Settings(IniPath)
 IniPath = settings.ini
 
+i18n := New i18n("resources\i18n", Settings.Language, Settings.Dev)
 
 If Settings.Dev
 {
@@ -65,7 +68,7 @@ If (Settings.CheckForUpdates = True)
 
 If (Settings.FirstStart = True)
 {
-    MsgBox, 65, % Translate("FirstStartTitle"), % Translate("FirstStart", [Settings.TitleApp])
+    MsgBox, 65, % Translate("FirstStartTitle"), % Translate("FirstStart", Settings.TitleApp)
     IfMsgBox Ok
         MasterPassword := SetMasterPassword()
         If !((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))

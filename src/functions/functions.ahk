@@ -2,26 +2,23 @@
     Main functions
 */
 
-#Include src\functions\i18n.ahk
-
 ; Misc
 
 ResolutionNotSupported() {
-    MsgBox 0x31, Resolution not supported, You resolution %A_ScreenWidth%x%A_ScreenHeight% is currently not supported.`n`nPlease refer to the GitHub for more information.
+    MsgBox 0x31, % Translate("ResolutionNotSupportedTitle"), % Translate("ResolutionNotSupportedMsg", A_ScreenWidth, A_ScreenHeight)
 
     IfMsgBox Cancel, {
         ExitApp
     }
 }
-*/
 
 SetMasterPassword() {
-    InputBox, password, Master Password,Type your master password:,hide,,130
+    InputBox, password, % Translate("MasterPasswordTitle"), % Translate("MasterPasswordMsg"),hide,,130
     If (ErrorLevel)
         ExitApp
     Else If (password = "")
     {
-        MsgBox, 49, Error, % "Master password can't be empty. `nPress Ok to retry."
+        MsgBox, 49, Translate("Error"), % Translate("EmptyMasterPasswordError")
         IfMsgBox Ok
             SetMasterPassword()
         IfMsgBox Cancel
@@ -48,7 +45,7 @@ CheckForUpdates(){
     localVersion := Trim(localVersion, OmitChars := " `n")
     If (githubVersion != localVersion)
     {
-        MsgBox, % 68, Update found, An update exists!`nCurrentVersion: %localVersion%`nNew version: %githubVersion%`nWould you like to visit GitHub release page ?
+        MsgBox, % 68, % Translate("UpdateFoundTitle"), % Translate("UpdateFoundMsg", localVersion, githubVersion)
         IfMsgBox, Yes
             Run, https://github.com/DetroitApps/RetroMultiManager/releases
     }

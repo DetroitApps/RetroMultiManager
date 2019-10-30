@@ -18,7 +18,7 @@ Class Settings {
         this.TitleApp := "Retro Multi Manager"
         FileRead, version, version.txt
         this.Version := version
-
+        this.IniPath := IniPath
         ; Grab config from INI
 
         If (IniPath = "settings_default.ini")
@@ -35,18 +35,20 @@ Class Settings {
         this.Speed := Speed
 
         ; Program
-        IniRead, Language, %IniPath%, Program, Language, "en-us"
+        IniRead, Language, %IniPath%, Program, Language, %A_Space%
         IniRead, DefaultProfile, %IniPath%, Program, DefaultProfile, %A_Space%
         IniRead, GuiStatus, %IniPath%, Program, Gui
         IniRead, CheckForUpdates, %IniPath%, Program, CheckForUpdates
         IniRead, FirstStart, %IniPath%, Program, FirstStart
 
-        this.Language := Language
+        If !Language
+            this.Language := (A_Language = "040C") ? "fr-FR" : "en-US"
+        Else
+            this.Language := Language
         this.GuiStatus := GuiStatus = "True" ? True : False
         this.CheckForUpdates := CheckForUpdates = "True" ? True : False
         this.FirstStart := FirstStart = "True" ? True : False
         this.DefaultProfile := DefaultProfile
-
         ; Mode
         IniRead, Debug, %IniPath%, Mode, Debug
         IniRead, Dev, %IniPath%, Mode, Dev
@@ -70,6 +72,13 @@ Class Settings {
     SetFirstStart(value, iniPath) {
         this.FirstStart := value
         IniWrite, %value%, %iniPath%, Program, FirstStart
+    }
+
+    SetLanguage(lang)
+    {
+        this.Language := lang
+        IniWrite, %lang%, % this.IniPath, Program, Language
+        Reload
     }
 
     InitHotkeys(IniPath){
