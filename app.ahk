@@ -12,11 +12,11 @@ StringCaseSense On
 SetWorkingDir %A_ScriptDir%
 CoordMode, Mouse, Window
 
-#Include class\API\API.ahk
-#Include class\accounts.ahk
-#Include class\logger.ahk
-#Include class\settings.ahk
-#Include lib\AES.ahk
+#Include src\class\API\API.ahk
+#Include src\class\accounts.ahk
+#Include src\class\logger.ahk
+#Include src\class\settings.ahk
+#Include src\lib\AES.ahk
 
 ;----------------------------------------
 ; MAIN
@@ -68,9 +68,11 @@ If (Settings.FirstStart = True)
     MsgBox, 65, % Translate("FirstStartTitle"), % Translate("FirstStart", [Settings.TitleApp])
     IfMsgBox Ok
         MasterPassword := SetMasterPassword()
-        If ((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
+        ;redo as screen not compatible warning
+        /*If ((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
             If ScreenCompatible()
                 Settings.EnableOCR := True
+        */
     IfMsgBox Cancel
         ExitApp
 
@@ -88,7 +90,7 @@ Settings.InitHotkeys(IniPath)
 
 ;Gui init
 If (Settings.GuiStatus = True) {
-    #Include gui\gui.ahk
+    #Include src\gui\gui.ahk
 
     GuiControl,,InputDofusPath, % Settings.DofusPath
     GuiControl, Choose, SelectSpeed, % Settings.Speed
@@ -116,19 +118,18 @@ Return
 ; Functions
 ;----------------------------------------
 
-#Include functions\functions.ahk
-#Include functions\ocr.ahk
+#Include src\functions\functions.ahk
 
 ;----------------------------------------
 ; Labels
 ;----------------------------------------
 
-#Include labels\gui-labels.ahk
-#Include labels\labels.ahk
-#Include scenarios\Out\MergedScenarios.ahk
+#Include src\labels\gui-labels.ahk
+#Include src\labels\labels.ahk
+#Include Scenarios\Out\MergedScenarios.ahk
 
 ;----------------------------------------
 ; Hotkeys
 ;----------------------------------------
 
-#Include labels\hotkeys.ahk
+#Include src\labels\hotkeys.ahk

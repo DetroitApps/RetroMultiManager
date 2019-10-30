@@ -2,18 +2,6 @@
     Labels
 */
 
-DownloadOCRPreset:
-    FileCreateDir, Resources
-    FileCreateDir, Resources\ocr
-    ImageTitle := "account" . A_ScreenHeight . "x" . A_ScreenHeight . ".png"
-    UrlDownloadToFile, % "https://raw.githubusercontent.com/DetroitApps/RetroMultiManager/master/Resources/ocr/" . ImageTitle, % "Resources\ocr\" . ImageTitle
-    return
-
-ToggleOCR:
-    Settings.EnableOCR := !Settings.EnableOCR
-    IniWrite, % Settings.EnableOCR ? "True" : "False", %IniPath%, Game, EnableOCR
-    return
-
 MergeScenarios:
     path = %A_ScriptDir%\Tools\Scenario Merger.exe
     If FileExist(path)

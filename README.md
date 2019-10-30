@@ -20,7 +20,7 @@
 
 RMM is an open-source light-weight program to manage your accounts on **Dofus Retro**.
 
-Initially based on a simple 100 lines file, it has now more than a thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, OCR, and many more... (see list of features below for an expanded list).
+Initially based on a simple 100 lines file, it has now more than a thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, and many more... (see list of features below for an expanded list).
 
 It is developed with the sweet [AutoHotKey](https://www.autohotkey.com/) scripting language.
 
@@ -57,7 +57,7 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
 - Embedded scenario system
   - Automatize many actions in the game, included scenarios are :
     - Open Dofus instances (opens as many instances as you have accounts)
-    - Autologin (fills account form with OCR or INI settings)
+    - Autologin
     - Connect to servers and characters
     - Toggle between your Dofus instances
     - Close all Dofus instances
@@ -73,7 +73,7 @@ If you have an account on Trello, you are allowed to comment cards.
 
 ## License
 
-Copyright © 2019 Detroit Apps
+Copyright ï¿½ 2019 Detroit Apps
 
 The content of this repository is bound by the following license(s):
 

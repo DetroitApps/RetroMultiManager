@@ -6,7 +6,6 @@ Class Settings {
     ;Default values
     DofusPath := ""
     Speed := 0
-    EnableOCR := False
     Language := ""
     DefaultProfile := 1
     GuiStatus := False
@@ -31,11 +30,9 @@ Class Settings {
         ; Game
         IniRead, DofusPath, %IniPath%, Game, Path
         IniRead, Speed, %IniPath%, Game, Speed
-        IniRead, EnableOCR, %IniPath%, Game, EnableOCR
 
         this.DofusPath := DofusPath
         this.Speed := Speed
-        this.EnableOCR := EnableOCR = "True" ? True : False
 
         ; Program
         IniRead, Language, %IniPath%, Program, Language, "en-us"

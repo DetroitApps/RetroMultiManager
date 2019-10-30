@@ -2,9 +2,9 @@
     Gui main file
 */
 
-#Include lib\SB.ahk
-#Include functions\gui-functions.ahk
-#Include gui\gui-style.ahk
+#Include src\lib\SB.ahk
+#Include src\functions\gui-functions.ahk
+#Include src\gui\gui-style.ahk
 
 ;----------------------------------------
 ;GUI
@@ -23,8 +23,8 @@ Menu, ScenariosMenu, Add
 Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
 
 ;Tools
-Menu, ToolsMenu, Add,       Toggle OCR, ToggleOCR
-Menu, ToolsMenu, Add,       Download OCR Preset, DownloadOCRPreset
+Menu, ToolsMenu, Add,       
+Menu, ToolsMenu, Add,       
 Menu, MyMenuBar, Add,       Tools, :ToolsMenu
 
 ;About
