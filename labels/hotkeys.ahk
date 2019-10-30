@@ -67,3 +67,9 @@ F10::
     if (labelName != "")
         Gosub, %labelName%
     return
+
+F11::
+    labelName := Settings.Hotkeys["F11"]
+    if (labelName != "")
+        Gosub, %labelName%
+    return

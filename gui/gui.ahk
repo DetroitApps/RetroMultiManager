@@ -106,12 +106,9 @@ Gui, Font,              Bold
 Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, Scenarios
 Gui, Font,              Normal s10
 
-h := GetHotkeyForScenario("OpenDofusInstances")
-Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, [%h%] Start Dofus
-h := GetHotkeyForScenario("LoginAccounts")
-Gui, Add, Button,       x+10 gGui_LoginAccounts, [%h%] Login accounts
-h := GetHotkeyForScenario("ConnectOnServer")
-Gui, Add, Button,       x+10 gGui_ConnectServers, [%h%] Connect on servers
+Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] Start Dofus"
+Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] Login accounts"
+Gui, Add, Button,       x+10 gGui_ConnectServers, % "[" GetHotkeyForScenario("ConnectServersPlayers") "] Connect on servers"
 
 Gui, Font,              s8
 

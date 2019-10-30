@@ -52,7 +52,7 @@ Main:
         Sleep, 50 * Settings.Speed
         Send, {Tab}
         Sleep, 50 * Settings.Speed
-        ;Send {Enter}
+        Send {Enter}
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }

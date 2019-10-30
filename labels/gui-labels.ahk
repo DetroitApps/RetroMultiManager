@@ -79,7 +79,7 @@ Gui_LoginAccounts:
     return
 
 Gui_ConnectServers:
-    MsgBox, Todo
+    Gosub, ConnectServersPlayers
     return
 
 ;ALL INDIVIDUAL LABELS

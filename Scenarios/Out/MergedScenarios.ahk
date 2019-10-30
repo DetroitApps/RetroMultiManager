@@ -24,6 +24,39 @@ CloseDofusInstances:
     API.ResetWindowsIndex()
 return
 
+;Scenario merged from: Scenarios\ConnectServersPlayers.ahk
+/*
+    Scenario: ConnectServersPlayers
+*/
+
+ConnectServersPlayers:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(2,"ConnectServersPlayers")
+	currentScenario := Scenario
+	;End Header
+
+    section := A_ScreenWidth . "x" . A_ScreenHeight
+    inputX := Scenario.GetValueFromIni(section, "Server1_x")
+    inputY := Scenario.GetValueFromIni(section, "Server1_y")
+
+    API.GuiUpdateProgressBar(0)
+    Loop, % API.GetNbWindows() {
+        window := API.GetWindow(A_Index)
+        window.Activate()
+        window.WaitActive()
+
+        Sleep 50 * Settings.Speed
+        MouseMove, inputX, inputY, 5 * Settings.Speed
+        Click, 2
+        Sleep 500 * Settings.Speed
+        Click, 2
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
+        SleepHandler(0)
+    }
+    API.LogWrite("Successfully connected " API.GetNbWindows() " characters.")
+    API.GuiUpdateProgressBar(100)
+return
+
 ;Scenario merged from: Scenarios\CycleWindows.ahk
 /*
     Scenario: OpenDofusInstances
@@ -33,7 +66,7 @@ SC029::
 +SC029::
 CycleWindows:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(2,"CycleWindows")
+	Scenario := New API.Scenario(3,"CycleWindows")
 	currentScenario := Scenario
 	;End Header
 
@@ -64,7 +97,7 @@ GetDestinationWindow(ascend)
 
 LoginAccounts:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(3,"LoginAccounts")
+	Scenario := New API.Scenario(4,"LoginAccounts")
 	currentScenario := Scenario
 	;End Header
 
@@ -115,7 +148,7 @@ LoginAccounts:
         Sleep, 50 * Settings.Speed
         Send, {Tab}
         Sleep, 50 * Settings.Speed
-        ;Send {Enter}
+        Send {Enter}
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
@@ -136,7 +169,7 @@ GetAccountInputPosition:
 
 OpenDofusInstances:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(4,"OpenDofusInstances")
+	Scenario := New API.Scenario(5,"OpenDofusInstances")
 	currentScenario := Scenario
 	;End Header
 
