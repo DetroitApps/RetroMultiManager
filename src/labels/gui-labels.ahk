@@ -6,6 +6,15 @@ GuiClose:
     ExitApp
     return
 
+#SC029::
+Gui_1Click2Play:
+    Gosub, OpenDofusInstances
+    SleepHandler(2500)
+    Gosub, LoginAccounts
+    SleepHandler(2500)
+    Gosub, ConnectPlayersOnServer
+    return
+
 Gui_ClearAccountData:
     GuiControl,,CheckEncryption, 0
     GuiControl,,CheckDefaultProfile, 0
@@ -45,6 +54,12 @@ Gui_CloseGui:
 Gui_ToggleCheckUpdateOnStart:
     Gui, Submit, NoHide
     IniWrite, % CheckCheckUpdateOnStart = 1 ? "True" : "False", %IniPath%, Program, CheckForUpdates ;move to class
+    return
+
+Gui_WaitForAnkamaShield:
+    Gui, Submit, NoHide
+    IniWrite, % CheckWaitForAnkamaShield = 1 ? "True" : "False", %IniPath%, Program, WaitForAnkamaShield ;move to class
+    Settings.WaitForAnkamaShield := CheckWaitForAnkamaShield = 1 ? True : False
     return
 
 Gui_RunScenario:

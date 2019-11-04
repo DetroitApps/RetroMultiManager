@@ -57,6 +57,8 @@ Gui, Add, Button,       x+10 w80 gGui_Browse, % Translate("Browse")
 ;Speed
 Gui, Add, Text,         xs+10 ys+60 %guiLabelOptions%, % Translate("Speed")
 Gui, Add, DropDownList, x+10 AltSubmit vSelectSpeed gGui_ChangeSpeed, % Translate("SpeedFastest") "|" Translate("SpeedFaster") "|" Translate("SpeedNormal") "||" Translate("SpeedSlower") "|" Translate("SpeedSlowest")
+Gui, Add, CheckBox,     x+10 gGui_WaitForAnkamaShield vCheckWaitForAnkamaShield h20 0x200, % Translate("WaitForAnkamaShield")
+
 
 ;Updates
 Gui, Add, Text,         ys+90 xs+10 %guiLabelOptions%, % Translate("Program")
@@ -115,7 +117,8 @@ Gui, Font,              Bold
 Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, % Translate("Scenarios")
 Gui, Font,              Normal s10
 
-Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] " Translate("StartDofus")
+Gui, Add, Button,       ys+30 xs+10 gGui_1Click2Play, % "1 Click 2 Play"
+Gui, Add, Button,       x+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] " Translate("StartDofus")
 Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] " Translate("LoginAccounts")
 Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] " Translate("ConnectPlayersOnServer")
 Gui, Add, Button,       x+10 gGui_CloseDofus, % "[" GetHotkeyForScenario("CloseDofusInstances") "] " Translate("CloseDofusInstances")

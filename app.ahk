@@ -96,6 +96,8 @@ If (Settings.GuiStatus = True) {
     GuiControl, Choose, SelectSpeed, % Settings.Speed
     If (Settings.CheckForUpdates = True)
         GuiControl, , CheckCheckUpdateOnStart, 1
+    If (Settings.WaitForAnkamaShield = True)
+        GuiControl, , CheckWaitForAnkamaShield, 1
     Gui, Submit, NoHide
 }
 

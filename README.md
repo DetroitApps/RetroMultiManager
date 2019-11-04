@@ -27,7 +27,7 @@ It is developed with the sweet [AutoHotKey](https://www.autohotkey.com/) scripti
 
 ## Warning
 
-This software is <u>not a cheat</u> and <u>never will be</u>. Its only purpose is to play the game with multiple accounts easier than what is currently offered by the game itself. If you are looking for something that plays the game for you, you are not in the right place.
+This software is **not a cheat** and **never will be**. Its only purpose is to play the game with multiple accounts easier than what is currently offered by the game itself. If you are looking for something that plays the game for you, you are not in the right place.
 
 ## Limitations
 

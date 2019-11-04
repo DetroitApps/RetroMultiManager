@@ -16,6 +16,8 @@ Main:
         return
     }
     Loop, % API.GetNbWindows() {
+        If (Settings.WaitForAnkamaShield = True)
+            MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
         window := API.GetWindow(A_Index)
         window.Activate()
         window.WaitActive()

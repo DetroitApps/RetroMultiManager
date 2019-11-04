@@ -10,6 +10,7 @@ Class Settings {
     DefaultProfile := 1
     GuiStatus := False
     CheckForUpdates := False
+    WaitForAnkamaShield := False
     FirstStart := False
     Debug := False
     Dev := False
@@ -19,8 +20,8 @@ Class Settings {
         FileRead, version, version.txt
         this.Version := version
         this.IniPath := IniPath
+        
         ; Grab config from INI
-
         If (IniPath = "settings_default.ini")
         {
             FileCopy, %IniPath%, settings.ini
@@ -39,6 +40,7 @@ Class Settings {
         IniRead, DefaultProfile, %IniPath%, Program, DefaultProfile, %A_Space%
         IniRead, GuiStatus, %IniPath%, Program, Gui
         IniRead, CheckForUpdates, %IniPath%, Program, CheckForUpdates
+        IniRead, WaitForAnkamaShield, %IniPath%, Program, WaitForAnkamaShield
         IniRead, FirstStart, %IniPath%, Program, FirstStart
 
         If !Language
@@ -47,8 +49,10 @@ Class Settings {
             this.Language := Language
         this.GuiStatus := GuiStatus = "True" ? True : False
         this.CheckForUpdates := CheckForUpdates = "True" ? True : False
+        this.WaitForAnkamaShield := WaitForAnkamaShield = "True" ? True : False
         this.FirstStart := FirstStart = "True" ? True : False
         this.DefaultProfile := DefaultProfile
+
         ; Mode
         IniRead, Debug, %IniPath%, Mode, Debug
         IniRead, Dev, %IniPath%, Mode, Dev

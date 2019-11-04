@@ -32,7 +32,10 @@ Loop, Read, MakeFile
     ;Compile ahk files
     If (InStr(A_LoopReadLine, ".ahk"))
     {
-        outputFile := rootDir . StrSplit(A_LoopReadLine, ".")[1] . ".exe"
+        if (InStr(A_LoopReadLine, "app.ahk"))
+            outputFile := rootDir . "Retro Multi Manager.exe"
+        else
+            outputFile := rootDir . StrSplit(A_LoopReadLine, ".")[1] . ".exe"
         cmd :=  """c:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe"" /in """ . rootDir . A_LoopReadLine
                 . """ /out """ . outputFile 
                  . """ /icon """ . rootDir . "Resources\icon.ico"""
