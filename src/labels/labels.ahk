@@ -59,11 +59,8 @@ LoadProfile:
                 break
             If (Encrypt = 1)
             {
-                username := AES.Decrypt(username, MasterPassword, 256)
-                ;msgbox, %username%
-                username := RegExReplace(username, "[^[:ascii:]]") ;clean weird characters when decoding
-                password := AES.Decrypt(password, MasterPassword, 256)
-                password := RegExReplace(password, "[^[:ascii:]]")
+                username := XOR_String_Minus(username, MasterPassword)
+                password := XOR_String_Minus(password, MasterPassword)
             }
             ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive, playerSlot, serverSlot)
             If Settings.GuiStatus
@@ -83,7 +80,7 @@ LoadProfile:
 SaveProfile:
     FileCreateDir, Profiles
     profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
-    file := FileOpen(profileIniPath, "w")
+    file := FileOpen(profileIniPath, "w", "UTF-16")
     If (file = 0)
     {
         MsgBox,, % Translate("Error"), % "[" A_LastError "]" Translate("ErrorSaveProfile", profileIniPath) "."
@@ -96,11 +93,12 @@ SaveProfile:
 
         username := InputUsername%A_Index%
         If (CheckEncryption = 1)
-            username := AES.Encrypt(username, MasterPassword, 256)
+            username := XOR_String_Plus(username, MasterPassword)
         file.WriteLine("Username" . A_Index . "=" . username)
         password := InputPassword%A_Index%
         If (CheckEncryption = 1)
-            password := AES.Encrypt(password, MasterPassword, 256)
+            password := XOR_String_Plus(password, MasterPassword)
+        Logger.Write(username)
         file.WriteLine("Password" . A_Index . "=" . password)
         file.WriteLine("Nickname" . A_Index . "=" . InputNickname%A_Index%)
         file.WriteLine("Class" . A_Index . "=" . SelectClass%A_Index%)

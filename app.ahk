@@ -16,7 +16,7 @@ CoordMode, Mouse, Window
 #Include src\class\accounts.ahk
 #Include src\class\logger.ahk
 #Include src\class\settings.ahk
-#Include src\lib\AES.ahk
+#Include src\lib\OTP.ahk
 #Include src\lib\i18n.ahk
 
 ;----------------------------------------
