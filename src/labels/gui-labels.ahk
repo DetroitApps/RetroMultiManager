@@ -74,6 +74,10 @@ Gui_OpenDofus:
     Gosub, OpenDofusInstances
     return
 
+Gui_CloseDofus:
+    Gosub, CloseDofusInstances
+    return
+
 Gui_LoginAccounts:
     Gosub, LoginAccounts
     return

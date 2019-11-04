@@ -7,7 +7,7 @@ cWhite = FFFFFF
 cBlack = 121212
 
 ;Scaling
-guiWidth := 850
+guiWidth := 900
 guiHeight := 700
 guiMargin := 10
 groupboxWidth := guiWidth / 1.05

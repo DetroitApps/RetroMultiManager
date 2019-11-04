@@ -10,20 +10,17 @@ Main:
     section := A_ScreenWidth . "x" . A_ScreenHeight
     inputX := Scenario.GetValueFromIni(section, "x")
     inputY := Scenario.GetValueFromIni(section, "y")
-
+    If (inputX = -1 || inputY = -1)
+    {
+        API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+        return
+    }
     Loop, % API.GetNbWindows() {
         window := API.GetWindow(A_Index)
         window.Activate()
         window.WaitActive()
         window.Maximize()
         Sleep, 50 * Settings.Speed
-        If (!inputX || !inputY)
-        {
-            API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
-            return
-        }
-        Else 
-            API.LogWrite("IniRead found input with position [" . inputX . "," . inputY . "].")
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
         Sleep, 50 * Settings.Speed

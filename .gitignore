@@ -1,5 +1,6 @@
 *.exe
 *.code-workspace
+*.log
 
 settings.ini
 

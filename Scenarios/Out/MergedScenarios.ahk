@@ -18,6 +18,7 @@ CloseDofusInstances:
 
     Loop % API.GetNbWindows()
         API.CloseWindow(A_Index)
+    API.WindowList := []
     API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
@@ -35,24 +36,50 @@ ConnectPlayersOnServer:
 	currentScenario := Scenario
 	;End Header
 
-    section := A_ScreenWidth . "x" . A_ScreenHeight
-    inputX := Scenario.GetValueFromIni(section, "Server1_x")
-    inputY := Scenario.GetValueFromIni(section, "Server1_y")
-
     API.GuiUpdateProgressBar(0)
+
+    section := A_ScreenWidth . "x" . A_ScreenHeight
     Loop, % API.GetNbWindows() {
+
+        ;Get value for server slot
+        inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].ServerSlot)
+        inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].ServerSlot)
+        If (inputX = -1 || inputY = -1)
+        {
+            API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+            return
+        }
+
         window := API.GetWindow(A_Index)
         window.Activate()
         window.WaitActive()
 
+        ;Connect on server
         Sleep 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
-        Sleep 600 * Settings.Speed
+        Sleep 1500
+
+        ;Get value for player slot
+        If (ArrayAccounts[A_Index].ServerSlot != ArrayAccounts[A_Index].PlayerSlot)
+        {
+            inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].PlayerSlot)
+            inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].PlayerSlot)
+            If (inputX = -1 || inputY = -1)
+            {
+                API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+                return
+            }
+            MouseMove, inputX, inputY, 5 * Settings.Speed
+        }
+
+        ;Connect player
+        Sleep 50 * Settings.Speed
         Click, 2
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
-        SleepHandler(0)
+        Sleep 500
     }
+
     API.LogWrite("Successfully connected " API.GetNbWindows() " characters.")
     API.GuiUpdateProgressBar(100)
 return
@@ -106,20 +133,17 @@ LoginAccounts:
     section := A_ScreenWidth . "x" . A_ScreenHeight
     inputX := Scenario.GetValueFromIni(section, "x")
     inputY := Scenario.GetValueFromIni(section, "y")
-
+    If (inputX = -1 || inputY = -1)
+    {
+        API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+        return
+    }
     Loop, % API.GetNbWindows() {
         window := API.GetWindow(A_Index)
         window.Activate()
         window.WaitActive()
         window.Maximize()
         Sleep, 50 * Settings.Speed
-        If (!inputX || !inputY)
-        {
-            API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
-            return
-        }
-        Else 
-            API.LogWrite("IniRead found input with position [" . inputX . "," . inputY . "].")
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
         Sleep, 50 * Settings.Speed
@@ -138,6 +162,42 @@ LoginAccounts:
     API.GuiUpdateProgressBar(100)
     return
 
+;Scenario merged from: Scenarios\MoveAllPlayers.ahk
+/*
+    Scenario: MoveAllPlayers
+*/
+
+^SC029::
+MoveAllPlayers:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(5,"MoveAllPlayers")
+	currentScenario := Scenario
+	;End Header
+
+    API.GuiUpdateProgressBar(0)
+    MouseGetPos, outputX, outputY
+    nbWindow := API.GetNbWindows()
+    Loop, % nbWindow {
+        window := API.GetWindow(A_Index)
+        API.GuiUpdateProgressText("Moving player " A_Index ".")
+        API.GuiUpdateProgressBar(A_Index, nbWindow)
+
+        window.Activate()
+        window.WaitActive()
+
+        Click, outputX, outputY
+
+        Sleep 250
+    }
+    
+    window := API.GetWindow(1)
+    window.Activate()
+    window.WaitActive()
+    
+    API.LogWrite("Successfully moved " nbWindow " characters.")
+    API.GuiUpdateProgressBar(100)
+return
+
 ;Scenario merged from: Scenarios\OpenDofusInstances.ahk
 /*
     Scenario: OpenDofusInstances
@@ -145,7 +205,7 @@ LoginAccounts:
 
 OpenDofusInstances:
 	;Header (auto-generated)
-	Scenario := New API.Scenario(5,"OpenDofusInstances")
+	Scenario := New API.Scenario(6,"OpenDofusInstances")
 	currentScenario := Scenario
 	;End Header
 
@@ -155,19 +215,17 @@ OpenDofusInstances:
     API.ClearWindowList()
     nbAccounts := API.GetTotalAccounts()
 
-    i := 1
     Loop % nbAccounts {
-        If !ArrayAccounts[i].IsActive
+        If !ArrayAccounts[A_Index].IsActive
             Continue
         Run, % Settings.DofusPath,,, pid
         window := API.NewWindow(pid)
         window.WaitOpen()
-        window.SetTitle(ArrayAccounts[i])
-        API.GuiUpdateProgressBar(i, nbAccounts)
+        window.SetTitle(ArrayAccounts[A_Index])
+        API.GuiUpdateProgressBar(A_Index, nbAccounts)
         SleepHandler(0)
-        i++
     }
-    API.LogWrite("Successfully opened " . nbAccounts " windows.")
+    API.LogWrite("Successfully opened " . API.GetNbWindows() " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return

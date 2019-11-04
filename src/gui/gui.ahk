@@ -27,6 +27,7 @@ Menu, ToolsMenu, Add,
 Menu, ToolsMenu, Add,       
 Menu, MyMenuBar, Add,       % Translate("Tools"), :ToolsMenu
 */
+
 ;Language
 Menu, LanguageMenu, Add,    en-US, Gui_SetLanguageEN
 Menu, LanguageMenu, Add,    fr-FR, Gui_SetLanguageFR
@@ -87,7 +88,7 @@ Loop 8 {
     ;Active
     Gui, Add, CheckBox, x+5 vCheckActive%A_Index% h20 0x200 Checked 1
     ;Username
-    Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Username")
+    Gui, Add, Text,     x+5 h20 0x200 w70, % Translate("Username")
     Gui, Add, Edit,     hp r1 x+10 w100 vInputUsername%A_Index%
     ;Password
     Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Password")
@@ -99,7 +100,10 @@ Loop 8 {
     ;Class
     Gui, Add, DropDownList, x+10 vSelectClass%A_Index% w80, Cra|Ecaflip|Eniripsa|Enutrof|Feca|Iop|Osamodas|Pandawa|Sacrieur|Sadida|Sram|Xelor
     
-    Gui, Add, Button,   gGui_MoveAccountUp%A_Index% x+1, ↑
+    Gui, Add, DropDownList, x+1 vSelectServerSlot%A_Index% w30, 1||2|3|4|5
+    Gui, Add, DropDownList, x+5 vSelectPlayerSlot%A_Index% w30, 1||2|3|4|5
+
+    Gui, Add, Button,   gGui_MoveAccountUp%A_Index% x+5, ↑
     Gui, Add, Button,   gGui_MoveAccountDown%A_Index% x+1, ↓
     
     start_y += 30
@@ -114,14 +118,23 @@ Gui, Font,              Normal s10
 Gui, Add, Button,       ys+30 xs+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] " Translate("StartDofus")
 Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] " Translate("LoginAccounts")
 Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] " Translate("ConnectPlayersOnServer")
+Gui, Add, Button,       x+10 gGui_CloseDofus, % "[" GetHotkeyForScenario("CloseDofusInstances") "] " Translate("CloseDofusInstances")
+
+Gui, Font,              Bold
+Gui, Add, Text,         ys+60 xs+10, % Translate("OtherHotkeys")
+Gui, Font,              Normal s10
+
+Gui, Add, Text,         ys+80 xs+10, % "² :`t" Translate("Cycle")
+Gui, Add, Text,         ys+100 xs+10, % "Shitft+² :`t" Translate("CycleBackwards")
 
 Gui, Font,              s8
 
-Gui, Add, Text,         ys+60 xs+10 h20 0x200, % Translate("AllScenarios")
-Gui, Add, DropDownList, ys+80 xs+10 0x200 vSelectScenario
+/*
+Gui, Add, Text,         ys+80 xs+10 h20 0x200, % Translate("AllScenarios")
+Gui, Add, DropDownList, ys+100 xs+10 0x200 vSelectScenario
 Gui, Add, Button,       x+10 gGui_RunScenario, % Translate("Run")
 Gui, Add, Button,       x+5 gGui_LoadScenarios, % Translate("Reload")
-
+*/
 ;STATUS BAR
 Gui, Add, StatusBar
 
