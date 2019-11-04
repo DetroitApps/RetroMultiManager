@@ -44,13 +44,13 @@ ConnectPlayersOnServer:
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
             Continue
-
         ;Get value for server slot
         inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].ServerSlot)
         inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].ServerSlot)
         If (!inputX || !inputY)
         {
-            API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+            API.LogWrite("Couldn't load server slot position from INI, stopping current scenario.", 2)
+            MsgBox, 16, Error, Couldn't load server slot position from INI, stopping current scenario.
             return
         }
 
@@ -71,7 +71,8 @@ ConnectPlayersOnServer:
             inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].PlayerSlot)
             If (inputX = -1 || inputY = -1)
             {
-                API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+                API.LogWrite("Couldn't load player slot position from INI, stopping current scenario.", 2)
+                MsgBox, 16, Error, Couldn't load player slot position from INI, stopping current scenario.
                 return
             }
             MouseMove, inputX, inputY, 5 * Settings.Speed
@@ -82,10 +83,10 @@ ConnectPlayersOnServer:
         Click, 2
         API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++
-        Sleep 500
+        Sleep 1500
     }
 
-    API.LogWrite("Successfully connected " i " characters.")
+    API.LogWrite("Successfully connected " i - 1 " characters.")
     API.GuiUpdateProgressBar(100)
 return
 
@@ -141,6 +142,7 @@ LoginAccounts:
     If (!inputX || !inputY)
     {
         API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+        MsgBox, 16, Error, Couldn't load account input position from INI, stopping current scenario.
         return
     }
     i := 1

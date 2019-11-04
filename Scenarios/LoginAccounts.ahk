@@ -13,6 +13,7 @@ Main:
     If (!inputX || !inputY)
     {
         API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
+        MsgBox, 16, Error, Couldn't load account input position from INI, stopping current scenario.
         return
     }
     i := 1

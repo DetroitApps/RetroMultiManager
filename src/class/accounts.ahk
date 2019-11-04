@@ -3,7 +3,8 @@
 */
 
 Class Account {
-    __New(_Username, _Password, _Nickname, _CharacterClass, _IsActive, _PlayerSlot := 1, _ServerSlot := 1){
+    __New(_Username, _Password, _Nickname, _CharacterClass, _IsActive, _ServerSlot := 1, _PlayerSlot := 1)
+    {
         static idIndex := 1
 
         this.Username := _Username
@@ -11,8 +12,8 @@ Class Account {
         this.Nickname := _Nickname
         this.CharacterClass := _CharacterClass
         this.IsActive := _IsActive
-        this.PlayerSlot := _PlayerSlot
         this.ServerSlot := _ServerSlot
+        this.PlayerSlot := _PlayerSlot
         this.Id := idIndex++
     }
 }

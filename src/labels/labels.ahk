@@ -98,7 +98,6 @@ SaveProfile:
         password := InputPassword%A_Index%
         If (CheckEncryption = 1)
             password := XOR_String_Plus(password, MasterPassword)
-        Logger.Write(username)
         file.WriteLine("Password" . A_Index . "=" . password)
         file.WriteLine("Nickname" . A_Index . "=" . InputNickname%A_Index%)
         file.WriteLine("Class" . A_Index . "=" . SelectClass%A_Index%)
@@ -106,7 +105,7 @@ SaveProfile:
         file.WriteLine("ServerSlot" . A_Index . "=" . SelectServerSlot%A_Index%)
         IsActive := CheckActive%A_Index% = 1 ? 1 : 0
         file.WriteLine("IsActive" . A_Index . "=" . IsActive)
-        ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, SelectClass%A_Index%, IsActive)
+        ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, SelectClass%A_Index%, IsActive, SelectServerSlot%A_Index%, SelectPlayerSlot%A_Index%)
     }
     file.WriteLine("`n[Security]")
     Encrypt := CheckEncryption = 1 ? 1 : 0
