@@ -7,6 +7,7 @@
 <!-- toc -->
 
 - [About](#about)
+- [Warning](#warning)
 - [Limitations](#limitations)
 - [Getting started](#getting-started)
   * [Installation](#installation)
@@ -18,15 +19,24 @@
 
 ## About
 
-RMM is an open-source light-weight program to manage your accounts on **Dofus Retro**.
+RMM is an open-source light-weight program to manage your accounts on **Dofus Retro 1.30**.
 
-Initially based on a simple 100 lines file, it has now more than a thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, and many more... (see list of features below for an expanded list).
+Initially based on a simple 100 lines file, it has now more than a couple thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, and many more... (see list of features below for an expanded list).
 
 It is developed with the sweet [AutoHotKey](https://www.autohotkey.com/) scripting language.
 
+## Warning
+
+This software is <u>not a cheat</u> and <u>never will be</u>. Its only purpose is to play the game with multiple accounts easier than what is currently offered by the game itself. If you are looking for something that plays the game for you, you are not in the right place.
+
 ## Limitations
 
-The software is currently only available for resolution 1920x1080 and 2560x1440. Other resolutions won't benefit from all the features.
+Because it uses predefined position to perform actions, RMM is currently only available for these resolutions :
+
+- 1920x1080
+- 2560x1440
+
+If you have another resolution, please raise an issue and we will work on adding yours to the list.
 
 ## Getting started
 
@@ -35,14 +45,15 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
 #### I trust the developer and I'm lazy
 
 - Go on the [release page](https://github.com/DetroitApps/RetroMultiManager/releases) and **download the last release**.
-- Install Retro Multi Manager with the provided installer.
+- Unzip the archive, preferably **<u>not</u>** in a Windows special folders (Program Files, App Data etc...)
+- Start **RetroMultiManager.exe**
 
 #### From sources
 
 - Download and install [AutoHotKey](https://www.autohotkey.com/).
-- Go on the [release page](https://github.com/DetroitApps/RetroMultiManager/releases) and **download the last sources release**.
-- Extract the archive anywhere on your computer.
-- Right-click on **Retro Multi Manager.ahk** and click on **Compile Script** or **Run Script**.
+- Go on the [release page](https://github.com/DetroitApps/RetroMultiManager/releases) and **download the last sources release** or clone the repository.
+- Unzip the archive, preferably **<u>not</u>** in a Windows special folders (Program Files, App Data etc...)
+- Right-click on **app.ahk** and click on **Compile Script** or **Run Script**.
 
 ## Features
 
@@ -50,7 +61,7 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
 
 - A powerful interface to manage your accounts
   - Multiple profiles
-  - Independent from the main script, so it can be disabled to use RMM with hotkeys only
+  - Independent from the main script, so it can be hidden to use RMM with hotkeys only
 - Secure account
   - Username and password encrypted
   - Master password safelock
@@ -63,6 +74,9 @@ The software is currently only available for resolution 1920x1080 and 2560x1440.
     - Close all Dofus instances
   - Develop scenarios with the API (early alpha)
     - Endless possibilities
+- Multiple languages, for now:
+  - French
+  - English
 - Update checker
 
 ## RoadMap
@@ -81,5 +95,6 @@ The content of this repository is bound by the following license(s):
 - The license doesn't apply for Library files
   - [SB_SetProgress]( https://autohotkey.com/board/topic/34593-stdlib-sb-setprogress/ ) by derRaphael ([EUPL v1.0](https://spdx.org/licenses/EUPL-1.0.html))
   - [AES](https://gist.github.com/jNizM/79aa6a4b8ec428bf780f) by [jNizM]( https://gist.github.com/jNizM )
+  - [i18n-autohotkey](https://github.com/iammael/i18n-autohotkey) by [IAmMael](https://github.com/iammael/) ([MIT](https://github.com/iammael/i18n-autohotkey/blob/master/LICENSE))
 -  Icon made by [monkik](https://www.flaticon.com/authors/monkik) from [www.flaticon.com](http://www.flaticon.com/) 
 
