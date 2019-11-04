@@ -39,18 +39,22 @@ ConnectPlayersOnServer:
     API.GuiUpdateProgressBar(0)
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
-    Loop, % API.GetNbWindows() {
+    i := 1
+    Loop, % API.GetTotalAccounts() {
+        ;Skip unactive accounts
+        If !ArrayAccounts[A_Index].IsActive
+            Continue
 
         ;Get value for server slot
         inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].ServerSlot)
         inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].ServerSlot)
-        If (inputX = -1 || inputY = -1)
+        If (!inputX || !inputY)
         {
             API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
             return
         }
 
-        window := API.GetWindow(A_Index)
+        window := API.GetWindow(i)
         window.Activate()
         window.WaitActive()
 
@@ -76,11 +80,12 @@ ConnectPlayersOnServer:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        i++
         Sleep 500
     }
 
-    API.LogWrite("Successfully connected " API.GetNbWindows() " characters.")
+    API.LogWrite("Successfully connected " i " characters.")
     API.GuiUpdateProgressBar(100)
 return
 
@@ -133,15 +138,19 @@ LoginAccounts:
     section := A_ScreenWidth . "x" . A_ScreenHeight
     inputX := Scenario.GetValueFromIni(section, "x")
     inputY := Scenario.GetValueFromIni(section, "y")
-    If (inputX = -1 || inputY = -1)
+    If (!inputX || !inputY)
     {
         API.LogWrite("Couldn't load account input position from INI, stopping current scenario.", 2)
         return
     }
-    Loop, % API.GetNbWindows() {
+    i := 1
+    Loop, % API.GetTotalAccounts() {
+        ;Skip unactive accounts
+        If !ArrayAccounts[A_Index].IsActive
+            Continue
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
-        window := API.GetWindow(A_Index)
+        window := API.GetWindow(i)
         window.Activate()
         window.WaitActive()
         window.Maximize()
@@ -158,7 +167,8 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        i++
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
     API.GuiUpdateProgressBar(100)
