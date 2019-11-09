@@ -62,7 +62,7 @@ LoadProfile:
                 username := XOR_String_Minus(username, MasterPassword)
                 password := XOR_String_Minus(password, MasterPassword)
             }
-            ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive, playerSlot, serverSlot)
+            ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive, serverSlot, playerSlot)
             If Settings.GuiStatus
             {
                 GuiControl, Text, InputUsername%A_Index%, %username%
