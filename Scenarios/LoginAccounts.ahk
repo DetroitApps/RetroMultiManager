@@ -20,9 +20,13 @@ Main:
     Loop, % API.GetTotalAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
+        {
+            API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
             Continue
+        }
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
+        API.LogWrite("Trying to connect account #" A_Index ".")
         window := API.GetWindow(i)
         window.Activate()
         window.WaitActive()

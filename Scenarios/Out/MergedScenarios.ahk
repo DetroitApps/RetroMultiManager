@@ -18,11 +18,10 @@ CloseDofusInstances:
 
     Loop % API.GetNbWindows()
         API.CloseWindow(A_Index)
+    API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")    
     API.WindowList := []
-    API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
-    API.ResetWindowsIndex()
 return
 
 ;Scenario merged from: Scenarios\ConnectPlayersOnServer.ahk
@@ -43,7 +42,11 @@ ConnectPlayersOnServer:
     Loop, % API.GetTotalAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
+        {
+            API.LogWrite("Skipping character #" A_Index ", marked as inactive.")
             Continue
+        }
+        API.LogWrite("Trying to connect character #" A_Index " on server slot " ArrayAccounts[A_Index].ServerSlot " and player slot " ArrayAccounts[A_Index].PlayerSlot ".")        
         ;Get value for server slot
         inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].ServerSlot)
         inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].ServerSlot)
@@ -149,9 +152,13 @@ LoginAccounts:
     Loop, % API.GetTotalAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
+        {
+            API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
             Continue
+        }
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
+        API.LogWrite("Trying to connect account #" A_Index ".")
         window := API.GetWindow(i)
         window.Activate()
         window.WaitActive()

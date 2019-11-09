@@ -4,7 +4,7 @@
 */
 
 Class Logger {
-    TotalWarning := 0
+    TotalWarnings := 0
     TotalErrors := 0
     LogFilePath := ""
     LogFileLatestPath := ""
@@ -17,35 +17,20 @@ Class Logger {
             line := this.GetCurrentTime()
             Switch level
             {
-                Default: line := line . "[INFO]"
-                Case 1: line := line . "[WARNING]"
-                Case 2: line := line . "[ERROR]"
-                Case 3: line := line . "[DEBUG]"
+                Default: 
+                    line := line . "[INFO]"
+                Case 1: 
+                    line := line . "[WARNING]"
+                    TotalWarnings++
+                Case 2: 
+                    line := line . "[ERROR]"
+                    TotalErrors++
+                Case 3: 
+                    line := line . "[DEBUG]"
             }
             line := (scenario = 0) ? line . A_Space . content : line . "[Scenario " . scenario . "] " . content
             this.LogFile.WriteLine(line)
             this.LogFileLatest.WriteLine(line)
-            this.CloseLogFiles()
-        }
-    }
-
-    WriteError(ByRef content, level := 0)
-    {
-        If Settings.Debug
-        {
-            this.OpenLogFiles()
-            If (level = 0)
-            {
-                this.LogFile.WriteLine("[WARNING] " . content)
-                this.LogFileLatest.WriteLine("[WARNING] " . content)
-                TotalWarning++
-            }
-            Else
-            {
-                this.LogFile.WriteLine("[ERROR] " . content)
-                this.LogFileLatest.WriteLine("[ERROR] " . content)
-                TotalErrors++
-            }
             this.CloseLogFiles()
         }
     }

@@ -66,10 +66,6 @@ Class API {
         WinClose, ahk_pid %windowId%
     }
 
-    ResetWindowsIndex(){
-        New this.Window(0) ;highjack to reset index
-    }
-
     LogWrite(ByRef content, ByRef type := 0)
     {
         Logger.Write(content, type, CurrentScenario.Title)

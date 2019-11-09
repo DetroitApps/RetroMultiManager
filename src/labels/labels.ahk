@@ -115,6 +115,7 @@ SaveProfile:
         IsActive := CheckActive%A_Index% = 1 ? 1 : 0
         file.WriteLine("IsActive" . A_Index . "=" . IsActive)
         ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, SelectClass%A_Index%, IsActive, SelectServerSlot%A_Index%, SelectPlayerSlot%A_Index%)
+        Logger.WriteAccount(ArrayAccounts[A_Index])
     }
     file.WriteLine("`n[Security]")
     Encrypt := CheckEncryption = 1 ? 1 : 0
