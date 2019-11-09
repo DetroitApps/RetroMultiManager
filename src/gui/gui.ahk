@@ -33,6 +33,12 @@ Menu, LanguageMenu, Add,    en-US, Gui_SetLanguageEN
 Menu, LanguageMenu, Add,    fr-FR, Gui_SetLanguageFR
 Menu, MyMenuBar, Add,       Language, :LanguageMenu
 
+;Settings
+Menu, SettingsMenu, Add,    Debug, Gui_SetDebugMode
+If Settings.Debug
+    Menu, SettingsMenu, Check,  Debug
+Menu, MyMenuBar, Add,       % Translate("Settings"), :SettingsMenu
+
 ;About
 Menu, AboutMenu, Add,       % Translate("VisitGithub"), VisitGithub
 Menu, MyMenuBar, Add,       ?, :AboutMenu

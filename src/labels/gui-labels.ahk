@@ -36,6 +36,19 @@ Gui_Browse:
     SB_UpdateText("Dofus path successfully modified.")
     return
 
+Gui_SetDebugMode:
+    Gui, Submit, NoHide
+    IniRead, Debug, %IniPath%, Mode, Debug
+    debugMode := (Settings.Debug = True) ? "False" : "True"
+    Settings.Debug := !Settings.Debug
+    If Settings.Debug
+        Menu, SettingsMenu, Check, Debug
+    Else
+        Menu, SettingsMenu, UnCheck, Debug
+    IniWrite, %debugMode%, %IniPath%, Mode, Debug
+    GoSub, AskReload
+    return
+
 Gui_ChangeSpeed:
     Gui, Submit, NoHide
     Settings.Speed := SelectSpeed

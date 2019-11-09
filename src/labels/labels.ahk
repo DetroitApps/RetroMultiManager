@@ -2,6 +2,12 @@
     Labels
 */
 
+AskReload:
+    MsgBox, 49, % Translate("AskReloadTitle"), % Translate("AskReloadMsg")
+    IfMsgBox, Ok
+        Reload
+    return
+
 MergeScenarios:
     path = %A_ScriptDir%\Tools\Scenario Merger.exe
     If FileExist(path)
