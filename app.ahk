@@ -71,7 +71,7 @@ If (Settings.FirstStart = True)
     MsgBox, 65, % Translate("FirstStartTitle"), % Translate("FirstStart", Settings.TitleApp)
     IfMsgBox Ok
         MasterPassword := SetMasterPassword()
-        If !((A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
+        If !((A_ScreenWidth = 1366 && A_ScreenHeight = 768) || (A_ScreenWidth = 2560 && A_ScreenHeight = 1440) || (A_ScreenWidth = 1920 && A_ScreenHeight = 1080))
             ResolutionNotSupported()
     IfMsgBox Cancel
         ExitApp

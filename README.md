@@ -35,6 +35,7 @@ Because it uses predefined position to perform actions, RMM is currently only av
 
 - 1920x1080
 - 2560x1440
+- 1366x768
 
 If you have another resolution, please raise an issue and we will work on adding yours to the list.
 
