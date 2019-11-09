@@ -50,6 +50,31 @@ Class Logger {
         }
     }
 
+    WriteAccount(ByRef account)
+    {
+        If Settings.Debug
+        {
+            this.Write("-----------------------------------------------")
+            this.Write("Logging account information for #" account.Id)
+            this.Write("Username: " this.HideInfo(account.Username))
+            this.Write("Password: " this.HideInfo(account.Password))
+            this.Write("Nickname: " account.Nickname)
+            this.Write("CharacterClass: " account.CharacterClass)
+            this.Write("IsActive: " account.IsActive)
+            this.Write("ServerSlot: " account.ServerSlot)
+            this.Write("PlayerSlot: " account.PlayerSlot)
+            this.Write("-----------------------------------------------")
+        }
+    }
+
+    HideInfo(info)
+    {
+        hiddenInfo := ""
+        Loop % StrLen(info)
+            hiddenInfo := hiddenInfo . "*"
+        return hiddenInfo
+    }
+
     GetCurrentTime()
     {
         FormatTime, TimeString,, [hh:mm:ss]

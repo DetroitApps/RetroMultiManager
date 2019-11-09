@@ -35,6 +35,7 @@ TestMsg:
 ;Profile
 LoadProfile:
     ;Mixing GUI and script
+    Logger.Write("Starting loading profile.")
     profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
     If (!FileExist(profileIniPath))
     {
@@ -69,6 +70,7 @@ LoadProfile:
                 password := XOR_String_Minus(password, MasterPassword)
             }
             ArrayAccounts[A_Index] := New Account(username, password, nickname, characterClass, isActive, serverSlot, playerSlot)
+            Logger.WriteAccount(ArrayAccounts[A_Index])
             If Settings.GuiStatus
             {
                 GuiControl, Text, InputUsername%A_Index%, %username%
@@ -84,6 +86,7 @@ LoadProfile:
     return
 
 SaveProfile:
+    Logger.Write("Starting saving profile.")
     FileCreateDir, Profiles
     profileIniPath := A_WorkingDir . "\Profiles\profile" . SelectProfile . ".ini"
     file := FileOpen(profileIniPath, "w", "UTF-16")
