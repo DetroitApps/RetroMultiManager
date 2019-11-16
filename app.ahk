@@ -35,6 +35,7 @@ Global Logger
 Global Settings
 Global MasterPassword := ""
 Global ArrayAccounts := []
+Global ArrayInstances := []
 
 ; Settings
 If FileExist("settings.ini")

@@ -9,7 +9,6 @@ Class API {
     #Include src\class\API\window.ahk
 
     Debug := False
-    WindowList := []
     CurrentWindow := 1
 
     __New(){
@@ -57,12 +56,12 @@ Class API {
     }
 
     ClearWindowList(){
-        this.WindowList := []
+        ArrayInstances := []
     }
 
     CloseWindow(id)
     {
-        windowId := this.WindowList[id].pid
+        windowId := ArrayInstances[id].pid
         WinClose, ahk_pid %windowId%
     }
 
@@ -76,20 +75,20 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
-    NewWindow(pid){
-        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
-        window := New this.Window(this, index, pid)
-        this.WindowList[index] := window
-        Logger.Write("Creating window #" index " with pid '" pid "'.")
+    NewWindow(hwnd){
+        index := (ArrayInstances.MaxIndex() > 0) ? ArrayInstances.MaxIndex() + 1 : 1
+        window := New this.Window(this, index, hwnd)
+        ArrayInstances[index] := window
+        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
         return window
     }
 
     GetWindow(id){
-        return this.WindowList[id]
+        return ArrayInstances[id]
     }
 
     GetNbWindows() {
-        return this.WindowList.MaxIndex()
+        return ArrayInstances.MaxIndex()
     }
 
     GetUsername(id) {

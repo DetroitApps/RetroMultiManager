@@ -10,7 +10,7 @@ Main:
     Loop % API.GetNbWindows()
         API.CloseWindow(A_Index)
     API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")    
-    API.WindowList := []
+    API.ClearWindowList()
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
 return
