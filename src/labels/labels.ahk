@@ -9,7 +9,7 @@ AskReload:
     return
 
 MergeScenarios:
-    path = %A_ScriptDir%\Tools\Scenario Merger.exe
+    path = %A_ScriptDir%\Tools\Scenario Merger.ahk
     If FileExist(path)
     {
         RunWait, %path%
