@@ -165,7 +165,7 @@ LoginAccounts:
         window.Maximize()
         Sleep, 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
-        Click
+        Click, 2
         Sleep, 50 * Settings.Speed
         SendRaw, % API.GetUsername(A_Index)
         Sleep, 50 * Settings.Speed
