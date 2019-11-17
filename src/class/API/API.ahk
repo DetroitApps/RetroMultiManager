@@ -61,8 +61,8 @@ Class API {
 
     CloseWindow(id)
     {
-        windowId := ArrayInstances[id].pid
-        WinClose, ahk_pid %windowId%
+        windowHwnd := ArrayInstances[id].hwnd
+        WinClose, ahk_id %windowHwnd%
     }
 
     LogWrite(ByRef content, ByRef type := 0)

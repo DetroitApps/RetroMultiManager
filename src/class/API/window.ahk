@@ -13,6 +13,7 @@ Class Window {
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
     }
+    */
 
     Activate(){
         Logger.Write("Activating window #" this.id " (hwnd '" this.hwnd "', fullTitle '" this.fullTitle "').")
@@ -32,7 +33,6 @@ Class Window {
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
     }
-    */
 
     Maximize(){
         WinMaximize, % "ahk_id " this.hwnd
