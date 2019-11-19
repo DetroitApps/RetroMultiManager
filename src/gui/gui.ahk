@@ -96,15 +96,18 @@ Loop 8 {
     ;Active
     Gui, Add, CheckBox, x+5 vCheckActive%A_Index% h20 0x200 Checked 1
     ;Username
-    Gui, Add, Text,     x+5 h20 0x200 w70, % Translate("Username")
+    Gui, Add, Text,     x+5 h20 0x200 w50, % Translate("Username")
     Gui, Add, Edit,     hp r1 x+10 w100 vInputUsername%A_Index%
     ;Password
     Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Password")
     Gui, Add, Edit,     Password hp r1 x+10 w100 vInputPassword%A_Index%
     Gui, Add, Button,   gGui_RevealPassword%A_Index% x+1, 👁
     ;Nickname
-    Gui, Add, Text,     x+10 h20 0x200 w70, % Translate("Nickname")
+    Gui, Add, Text,     x+10 h20 0x200 w50, % Translate("Nickname")
     Gui, Add, Edit,     hp r1 x+10 w100 vInputNickname%A_Index%
+    ;Nickname
+    Gui, Add, Text,     x+10 h20 0x200 w40, % Translate("Initiative")
+    Gui, Add, Edit,     hp r1 x+10 w50 vInputInitiative%A_Index%
     ;Class
     Gui, Add, DropDownList, x+10 vSelectClass%A_Index% w80, Cra|Ecaflip|Eniripsa|Enutrof|Feca|Iop|Osamodas|Pandawa|Sacrieur|Sadida|Sram|Xelor
     
