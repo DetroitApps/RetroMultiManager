@@ -15,6 +15,7 @@ Class Account {
         this.IsActive := _IsActive
         this.ServerSlot := _ServerSlot
         this.PlayerSlot := _PlayerSlot
+        this.Window := {}
         this.Id := idIndex++
     }
 }

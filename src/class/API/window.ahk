@@ -1,7 +1,6 @@
 Class Window {
-    __New(parent, index, hwnd){
+    __New(parent, hwnd){
         this.hwnd := hwnd
-        this.id := index
         this.fullTitle := ""
         this.parent := parent
     }
@@ -18,10 +17,7 @@ Class Window {
     Activate(){
         Logger.Write("Activating window #" this.id " (hwnd '" this.hwnd "', fullTitle '" this.fullTitle "').")
         If WinExist("ahk_id " . this.hwnd)
-        {
             WinActivate
-            this.parent.CurrentWindow := this.id
-        }
         Else
             Logger.Write("HWND not found : '" this.hwnd "'", 2)
         If (this.hwnd = "")

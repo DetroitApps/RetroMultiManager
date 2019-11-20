@@ -16,9 +16,9 @@ CloseDofusInstances:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)
 
-    Loop % API.GetNbWindows()
+    Loop % API.GetTotalAccounts()
         API.CloseWindow(A_Index)
-    API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")    
+    API.LogWrite("Successfully closed " . API.GetTotalAccounts() . " windows.")    
     API.ClearWindowList()
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
@@ -84,7 +84,7 @@ ConnectPlayersOnServer:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
         i++
         Sleep 1500
     }
@@ -112,15 +112,18 @@ CycleWindows:
         destWin := GetDestinationWindow(true)
     
     window := API.GetWindow(destWin)
+
+    API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")
     window.Activate()
+    API.CurrentWindow := destWin
 return
 
 GetDestinationWindow(ascend)
 {
     If ascend 
-        destWin := (API.CurrentWindow = API.GetNbWindows()) ? 1 : API.CurrentWindow + 1
+        destWin := (API.CurrentWindow = API.GetTotalAccounts()) ? 1 : API.CurrentWindow + 1
     Else
-        destWin := (API.CurrentWindow = 1) ? API.GetNbWindows() : API.CurrentWindow - 1
+        destWin := (API.CurrentWindow = 1) ? API.GetTotalAccounts() : API.CurrentWindow - 1
     return destWin
 }
 
@@ -178,7 +181,8 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
+
         i++
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
@@ -199,7 +203,7 @@ MoveAllPlayers:
 
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY
-    nbWindow := API.GetNbWindows()
+    nbWindow := API.GetTotalAccounts()
     Loop, % nbWindow {
         window := API.GetWindow(A_Index)
         API.GuiUpdateProgressText("Moving player " A_Index ".")
@@ -242,13 +246,6 @@ OpenDofusInstances:
         If !ArrayAccounts[A_Index].IsActive
             Continue
         Run, % Settings.DofusPath,,,
-        /*
-        window := API.NewWindow(pid)
-        window.WaitOpen()
-        window.SetTitle(ArrayAccounts[A_Index])
-        API.GuiUpdateProgressBar(A_Index, nbAccounts)
-        API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
-        */
         SleepHandler(0)
     }
     
@@ -275,11 +272,11 @@ OpenDofusInstances:
 
     API.GuiUpdateProgressBar(2, 3)
     API.GuiUpdateProgressText("Saving windows state...")
+
     ;Save all Dofus instances
     Loop % windows {
-        window := API.NewWindow(windows%A_Index%)
-        window.SetTitle(ArrayAccounts[A_Index])
-        API.GuiUpdateProgressBar(A_Index, nbAccounts)
+        API.SaveWindow(windows%A_Index%, A_Index)
+        ;window.SetTitle(ArrayAccounts[A_Index])
         API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
     }
 

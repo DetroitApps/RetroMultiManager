@@ -13,13 +13,6 @@ Main:
         If !ArrayAccounts[A_Index].IsActive
             Continue
         Run, % Settings.DofusPath,,,
-        /*
-        window := API.NewWindow(pid)
-        window.WaitOpen()
-        window.SetTitle(ArrayAccounts[A_Index])
-        API.GuiUpdateProgressBar(A_Index, nbAccounts)
-        API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
-        */
         SleepHandler(0)
     }
     
@@ -46,11 +39,11 @@ Main:
 
     API.GuiUpdateProgressBar(2, 3)
     API.GuiUpdateProgressText("Saving windows state...")
+
     ;Save all Dofus instances
     Loop % windows {
-        window := API.NewWindow(windows%A_Index%)
-        window.SetTitle(ArrayAccounts[A_Index])
-        API.GuiUpdateProgressBar(A_Index, nbAccounts)
+        API.SaveWindow(windows%A_Index%, A_Index)
+        ;window.SetTitle(ArrayAccounts[A_Index])
         API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
     }
 

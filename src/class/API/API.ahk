@@ -56,12 +56,15 @@ Class API {
     }
 
     ClearWindowList(){
-        ArrayInstances := []
+        Loop, GetTotalAccounts() {
+            this.getWindow(A_Index) := {}
+        }
+        
     }
 
     CloseWindow(id)
     {
-        windowHwnd := ArrayInstances[id].hwnd
+        windowHwnd := this.getWindow(id).hwnd
         WinClose, ahk_id %windowHwnd%
     }
 
@@ -75,20 +78,13 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
-    NewWindow(hwnd){
-        index := (ArrayInstances.MaxIndex() > 0) ? ArrayInstances.MaxIndex() + 1 : 1
-        window := New this.Window(this, index, hwnd)
-        ArrayInstances[index] := window
-        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
-        return window
+    SaveWindow(hwnd, id){
+        ArrayAccounts[id].Window := New this.Window(this, hwnd)
+        Logger.Write("Saving window #" id " with hwnd '" this.getWindow(id).hwnd "' for account '" this.GetUsername(id) "'.")
     }
 
     GetWindow(id){
-        return ArrayInstances[id]
-    }
-
-    GetNbWindows() {
-        return ArrayInstances.MaxIndex()
+        return ArrayAccounts[id].Window
     }
 
     GetUsername(id) {
