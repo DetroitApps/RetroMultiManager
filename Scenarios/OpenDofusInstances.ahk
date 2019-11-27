@@ -12,7 +12,7 @@ Main:
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
-        Run, % Settings.DofusPath,,,
+        Run, % Settings.DofusPath
         SleepHandler(0)
     }
     
@@ -24,7 +24,7 @@ Main:
 
     ;Wait for all account to be ready to login
     While, windows != nbAccounts And i <= maxTry {
-        WinGet, windows, List, Dofus 1.30.0
+        WinGet, windows, List, Dofus
         API.LogWrite("Wait for all account to be ready to login (" i "/" maxTry ")")
         i := i + 1
         SleepHandler(0)
