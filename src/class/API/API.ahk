@@ -62,8 +62,8 @@ Class API {
 
     CloseWindow(id)
     {
-        windowId := this.WindowList[id].pid
-        WinClose, ahk_pid %windowId%
+        windowId := this.WindowList[id].hwnd
+        WinClose, ahk_id %windowId%
     }
 
     LogWrite(ByRef content, ByRef type := 0)
@@ -76,11 +76,20 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
-    NewWindow(pid){
+    /*NewWindow(pid){
         index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
         window := New this.Window(this, index, pid)
         this.WindowList[index] := window
         Logger.Write("Creating window #" index " with pid '" pid "'.")
+        return window
+    }
+    */
+
+    NewWindow(hwnd){
+        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
+        window := New this.Window(this, index, hwnd)
+        this.WindowList[index] := window
+        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
         return window
     }
 
@@ -92,11 +101,11 @@ Class API {
         return this.WindowList.MaxIndex()
     }
 
-    GetUsername(id) {
-        return ArrayAccounts[id].Username
+    GetUsername(hwnd) {
+        return ArrayAccounts[hwnd].Username
     }
 
-    GetPassword(id) {
-        return ArrayAccounts[id].Password
+    GetPassword(hwnd) {
+        return ArrayAccounts[hwnd].Password
     }
 }

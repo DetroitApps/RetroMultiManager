@@ -98,8 +98,8 @@ return
     Scenario: OpenDofusInstances
 */
 
-SC029::
-+SC029::
+CapsLock::
++CapsLock::
 CycleWindows:
 	;Header (auto-generated)
 	Scenario := New API.Scenario(3,"CycleWindows")
@@ -110,7 +110,6 @@ CycleWindows:
         destWin := GetDestinationWindow(false)
     Else
         destWin := GetDestinationWindow(true)
-    
     window := API.GetWindow(destWin)
     window.Activate()
 return
@@ -166,6 +165,8 @@ LoginAccounts:
         Sleep, 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
+        Sleep, 50 * Settings.Speed
+        Send, ^a
         Sleep, 50 * Settings.Speed
         SendRaw, % API.GetUsername(A_Index)
         Sleep, 50 * Settings.Speed
@@ -239,13 +240,22 @@ OpenDofusInstances:
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
-        Run, % Settings.DofusPath,,, pid
-        window := API.NewWindow(pid)
-        window.WaitOpen()
-        window.SetTitle(ArrayAccounts[A_Index])
+        Run, % Settings.DofusPath
         API.GuiUpdateProgressBar(A_Index, nbAccounts)
         SleepHandler(0)
     }
+
+    WinGet, windows, List, Dofus
+    i := windows
+    Loop, %windows%
+    {
+        this_window := windows%i%
+        win := API.NewWindow(this_window)
+        win.WaitOpen()
+        win.SetTitle(ArrayAccounts[A_Index])
+        i--
+    }
+
     API.LogWrite("Successfully opened " . API.GetNbWindows() " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
