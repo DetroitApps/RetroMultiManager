@@ -35,6 +35,8 @@ Main:
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
         Sleep, 50 * Settings.Speed
+        Send, ^a
+        Sleep, 50 * Settings.Speed
         SendRaw, % API.GetUsername(A_Index)
         Sleep, 50 * Settings.Speed
         Send, {Tab}
