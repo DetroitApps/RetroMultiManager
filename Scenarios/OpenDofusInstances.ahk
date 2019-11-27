@@ -17,6 +17,8 @@ Main:
         SleepHandler(0)
     }
 
+    Sleep, 100 * Settings.Speed
+
     WinGet, windows, List, Dofus
     i := windows
     Loop, %windows%

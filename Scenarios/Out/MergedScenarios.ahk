@@ -245,6 +245,8 @@ OpenDofusInstances:
         SleepHandler(0)
     }
 
+    Sleep, 50 * Settings.Speed
+
     WinGet, windows, List, Dofus
     i := windows
     Loop, %windows%
