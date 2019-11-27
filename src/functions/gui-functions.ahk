@@ -43,6 +43,8 @@ WriteAccountLine(account, id){
     GuiControl,,InputUsername%id%, % account.Username
     GuiControl,,InputPassword%id%, % account.Password
     GuiControl,,InputNickname%id%, % account.Nickname
+    GuiControl, Choose,SelectServerSlot%id%, % account.ServerSlot
+    GuiControl, Choose,SelectPlayerSlot%id%, % account.PlayerSlot
     If(account.CharacterClass = "")
         GuiControl, Choose, SelectClass%id%, 0
     Else
@@ -55,14 +57,18 @@ MoveAccountOrder(originId, direction){
                                 ,InputPassword%originId%
                                 ,InputNickname%originId%
                                 ,SelectClass%originId%
-                                ,CheckActive%originId%)
+                                ,CheckActive%originId%
+                                ,SelectServerSlot%originId%
+                                ,SelectPlayerSlot%originId%)
     destId := originId
     destId += direction = 1 ? 1 : -1
     accountDest := New Account(InputUsername%destId%
                                 ,InputPassword%destId%
                                 ,InputNickname%destId%
                                 ,SelectClass%destId%
-                                ,CheckActive%destId%)
+                                ,CheckActive%destId%
+                                ,SelectServerSlot%destId%
+                                ,SelectPlayerSlot%destId%)
     WriteAccountLine(accountOrigin, direction = 1 ? originId + 1 : originId - 1)
     WriteAccountLine(accountDest, originId)
 }
