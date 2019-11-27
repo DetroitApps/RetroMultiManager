@@ -120,10 +120,11 @@ start_y += 10
 
 ;Scenarios
 Gui, Font,              Bold
-Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h120, % Translate("Scenarios")
-Gui, Font,              Normal s10
+Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h140, % Translate("Scenarios")
 
+Gui, Font,              s10
 Gui, Add, Button,       ys+30 xs+10 gGui_1Click2Play, % "1 Click 2 Play"
+Gui, Font,              Normal s10
 Gui, Add, Button,       x+10 gGui_OpenDofus, % "[" GetHotkeyForScenario("OpenDofusInstances") "] " Translate("StartDofus")
 Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("LoginAccounts") "] " Translate("LoginAccounts")
 Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] " Translate("ConnectPlayersOnServer")
@@ -133,8 +134,9 @@ Gui, Font,              Bold
 Gui, Add, Text,         ys+60 xs+10, % Translate("OtherHotkeys")
 Gui, Font,              Normal s10
 
-Gui, Add, Text,         ys+80 xs+10, % "² :`t" Translate("Cycle")
-Gui, Add, Text,         ys+100 xs+10, % "Shitft+² :`t" Translate("CycleBackwards")
+Gui, Add, Text,         ys+80 xs+10, % "F1-F8 :`t`t" Translate("GoOnWindows")
+Gui, Add, Text,         ys+100 xs+10, % Translate("CapsLock") " :`t" Translate("Cycle")
+Gui, Add, Text,         ys+120 xs+10, % "Shitft+" Translate("CapsLock") " :`t" Translate("CycleBackwards")
 
 Gui, Font,              s8
 

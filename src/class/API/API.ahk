@@ -76,15 +76,6 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
-    /*NewWindow(pid){
-        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
-        window := New this.Window(this, index, pid)
-        this.WindowList[index] := window
-        Logger.Write("Creating window #" index " with pid '" pid "'.")
-        return window
-    }
-    */
-
     NewWindow(hwnd){
         index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
         window := New this.Window(this, index, hwnd)
