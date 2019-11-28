@@ -7,8 +7,8 @@ cWhite = FFFFFF
 cBlack = 121212
 
 ;Scaling
-guiWidth := 900
-guiHeight := 700
+guiWidth := 800
+guiHeight := 600
 guiMargin := 10
 groupboxWidth := guiWidth / 1.05
 guiLabelOptions = h20 0x200 w80
@@ -16,14 +16,13 @@ guiLabelOptions = h20 0x200 w80
 ;Gui Settings
 Gui, -dpiscale
 Gui, Color, %cWhite%
-Gui -AlwaysOnTop +Resize
 
 myIcon = %A_WorkingDir%\Resources\icon.ico
 IfExist, %myIcon%
     Menu, Tray, Icon,       %myIcon%, 1, 1
 
 Gui, Destroy
-Gui -AlwaysOnTop Resize
+Gui -AlwaysOnTop
 
 Gui, Font,, MS Sans Serif
 Gui, Font,, Arial

@@ -6,12 +6,17 @@ GuiClose:
     ExitApp
     return
 
-#SC029::
 Gui_1Click2Play:
+    If (Modifications = True)
+    {
+        MsgBox, 49, % Translate("ModificationsTitle"), % Translate("ModificationsMsg")
+        IfMsgBox, Cancel
+            return
+    }
     Gosub, OpenDofusInstances
-    SleepHandler(2500)
+    SleepHandler(2000)
     Gosub, LoginAccounts
-    SleepHandler(2500)
+    SleepHandler(2000)
     Gosub, ConnectPlayersOnServer
     return
 
@@ -25,6 +30,12 @@ Gui_ClearAccountData:
         GuiControl,,InputNickname%A_Index%
         GuiControl, Choose, SelectClass%A_Index%, 0
     }
+    return
+
+Gui_ToggleModifications:
+    If (HasStarted = False)
+        return
+    Modifications := True
     return
 
 Gui_Browse:
@@ -146,6 +157,18 @@ Gui_RevealPassword7:
 Gui_RevealPassword8:
     RevealPassword("InputPassword8")
     return
+Gui_RevealPassword9:
+    RevealPassword("InputPassword9")
+    return
+Gui_RevealPassword10:
+    RevealPassword("InputPassword10")
+    return
+Gui_RevealPassword11:
+    RevealPassword("InputPassword11")
+    return
+Gui_RevealPassword12:
+    RevealPassword("InputPassword12")
+    return
 
 ;MoveAccountUp
 Gui_MoveAccountUp1:
@@ -172,6 +195,19 @@ Gui_MoveAccountUp7:
 Gui_MoveAccountUp8:
     MoveAccountOrder(8, 0)
     return
+Gui_MoveAccountUp9:
+    MoveAccountOrder(9, 0)
+    return
+Gui_MoveAccountUp10:
+    MoveAccountOrder(10, 0)
+    return
+Gui_MoveAccountUp11:
+    MoveAccountOrder(11, 0)
+    return
+Gui_MoveAccountUp12:
+    MoveAccountOrder(12, 0)
+    return
+
 
 ;MoveAccountDown
 Gui_MoveAccountDown1:
@@ -196,5 +232,18 @@ Gui_MoveAccountDown7:
     MoveAccountOrder(7, 1)
     return
 Gui_MoveAccountDown8:
-    ;MoveAccountOrder(8, 1)
+    MoveAccountOrder(8, 1)
     return
+Gui_MoveAccountDown9:
+    MoveAccountOrder(9, 1)
+    return
+Gui_MoveAccountDown10:
+    MoveAccountOrder(10, 1)
+    return
+Gui_MoveAccountDown11:
+    MoveAccountOrder(11, 1)
+    return
+Gui_MoveAccountDown12:
+    ;MoveAccountOrder(12, 1)
+    return
+

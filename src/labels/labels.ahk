@@ -123,4 +123,5 @@ SaveProfile:
     If (CheckDefaultProfile = 1)
         IniWrite, %SelectProfile%, %IniPath%, Program, DefaultProfile
     file.Close()
+    Modifications := False
     return

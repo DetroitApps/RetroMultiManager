@@ -35,6 +35,8 @@ Global Logger
 Global Settings
 Global MasterPassword := ""
 Global ArrayAccounts := []
+Global HasStarted := False
+Global Modifications := False
 
 ; Settings
 If FileExist("settings.ini")
@@ -109,6 +111,8 @@ If (!Settings.FirstStart && Settings.DefaultProfile)
 }
 
 API := New API()
+
+HasStarted := True
 
 Return
 
