@@ -17,11 +17,12 @@ Main:
         return
     }
     i := 1
-    Loop, % API.GetTotalAccounts() {
+    Loop, % API.GetNbAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
         {
             API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
+            i++
             Continue
         }
         If (Settings.WaitForAnkamaShield = True)
@@ -46,8 +47,7 @@ Main:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
-
+        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }

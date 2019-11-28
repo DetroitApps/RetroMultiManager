@@ -7,7 +7,7 @@ Main:
     API.GuiUpdateProgressText("Opening Dofus instances...")
 
     API.ClearWindowList()
-    nbAccounts := API.GetTotalAccounts()
+    nbAccounts := API.GetNbAccounts()
 
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
@@ -22,7 +22,7 @@ Main:
         this_window.SetTitle(ArrayAccounts[A_Index])
     }
 
-    API.LogWrite("Successfully opened " . API.GetNbWindows() " windows.")
+    API.LogWrite("Successfully opened " . API.GetNbActiveAccounts() " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return

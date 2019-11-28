@@ -7,7 +7,7 @@ Main:
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
     i := 1
-    Loop, % API.GetTotalAccounts() {
+    Loop, % API.GetNbAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
         {
@@ -52,7 +52,7 @@ Main:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
+        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
         Sleep 1500
     }

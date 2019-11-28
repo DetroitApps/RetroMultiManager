@@ -56,7 +56,7 @@ Class API {
     }
 
     ClearWindowList(){
-        Loop, GetTotalAccounts() {
+        Loop, GetNbAccounts() {
             this.getWindow(A_Index) := {}
         }
         
@@ -74,13 +74,23 @@ Class API {
     }
 
     ;Simple getters
-    GetTotalAccounts() {
+    GetNbActiveAccounts() {
+        count := 0
+        Loop, % this.GetNbAccounts() {
+            If ArrayAccounts[A_Index].IsActive
+                count++
+        }
+        return count
+    }
+
+    GetNbAccounts() {
         return ArrayAccounts.MaxIndex()
     }
 
     SaveWindow(hwnd, id){
         ArrayAccounts[id].Window := New this.Window(this, hwnd, id)
         Logger.Write("Saving window #" id " with hwnd '" this.getWindow(id).hwnd "' for account '" this.GetUsername(id) "'.")
+        this.CurrentWindow := id
         return ArrayAccounts[id].Window
     }
 

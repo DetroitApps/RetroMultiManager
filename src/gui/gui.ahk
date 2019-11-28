@@ -217,7 +217,7 @@ Gui, Tab
 
 Gui, Font,              Bold s10
 Gui, Add, Button,       gGui_1Click2Play w100 h30, % Translate("Play")
-Gui, Add, Button,       x+10 w100 h30, % Translate("Organize")
+Gui, Add, Button,       gGui_OrganizeAccounts x+10 w100 h30, % Translate("Organize")
 Gui, Add, Button,       x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
 

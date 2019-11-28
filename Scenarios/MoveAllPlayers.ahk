@@ -6,7 +6,7 @@
 Main:
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY
-    nbWindow := API.GetTotalAccounts()
+    nbWindow := API.GetNbAccounts()
     Loop, % nbWindow {
         window := API.GetWindow(A_Index)
         API.GuiUpdateProgressText("Moving player " A_Index ".")

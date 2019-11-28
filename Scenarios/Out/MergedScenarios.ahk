@@ -16,9 +16,9 @@ CloseDofusInstances:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)
 
-    Loop % API.GetTotalAccounts()
+    Loop % API.GetNbAccounts()
         API.CloseWindow(A_Index)
-    API.LogWrite("Successfully closed " . API.GetTotalAccounts() . " windows.")    
+    API.LogWrite("Successfully closed " . API.GetNbAccounts() . " windows.")    
     API.ClearWindowList()
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
@@ -39,7 +39,7 @@ ConnectPlayersOnServer:
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
     i := 1
-    Loop, % API.GetTotalAccounts() {
+    Loop, % API.GetNbAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
         {
@@ -84,7 +84,7 @@ ConnectPlayersOnServer:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
+        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
         Sleep 1500
     }
@@ -119,10 +119,26 @@ return
 
 GetDestinationWindow(ascend)
 {
-    If ascend 
-        destWin := (API.CurrentWindow = API.GetTotalAccounts()) ? 1 : API.CurrentWindow + 1
+    If ascend
+    {
+        ;destWin := (API.CurrentWindow = API.GetNbActiveAccounts()) ? 1 : API.CurrentWindow + 1
+        i := API.CurrentWindow + 1
+        Loop, % API.GetNbAccounts()
+        {
+            If (i > API.GetNbAccounts())
+                i := 1
+            If ArrayAccounts[i].IsActive
+            {
+                ;msgbox, returning %i%
+                return i
+            }
+            i++
+        }
+        ;If (API.GetWindow[API.CurrentWindow + 1].hwnd = "")
+        ;    msgbox, empty
+    }
     Else
-        destWin := (API.CurrentWindow = 1) ? API.GetTotalAccounts() : API.CurrentWindow - 1
+        destWin := (API.CurrentWindow = 1) ? API.GetNbActiveAccounts() : API.CurrentWindow - 1
     return destWin
 }
 
@@ -151,11 +167,12 @@ LoginAccounts:
         return
     }
     i := 1
-    Loop, % API.GetTotalAccounts() {
+    Loop, % API.GetNbAccounts() {
         ;Skip unactive accounts
         If !ArrayAccounts[A_Index].IsActive
         {
             API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
+            i++
             Continue
         }
         If (Settings.WaitForAnkamaShield = True)
@@ -180,8 +197,7 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
-
+        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
@@ -202,7 +218,7 @@ MoveAllPlayers:
 
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY
-    nbWindow := API.GetTotalAccounts()
+    nbWindow := API.GetNbAccounts()
     Loop, % nbWindow {
         window := API.GetWindow(A_Index)
         API.GuiUpdateProgressText("Moving player " A_Index ".")
@@ -239,7 +255,7 @@ OpenDofusInstances:
     API.GuiUpdateProgressText("Opening Dofus instances...")
 
     API.ClearWindowList()
-    nbAccounts := API.GetTotalAccounts()
+    nbAccounts := API.GetNbAccounts()
 
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
@@ -254,7 +270,7 @@ OpenDofusInstances:
         this_window.SetTitle(ArrayAccounts[A_Index])
     }
 
-    API.LogWrite("Successfully opened " . API.GetNbWindows() " windows.")
+    API.LogWrite("Successfully opened " . API.GetNbActiveAccounts() " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return
@@ -274,6 +290,7 @@ Organize:
     orderedAccounts := []
     accountsToRemove := []
     
+    ;Look for closed windows
     Loop % tempAccounts.Length() {
         API.LogWrite("tempAccounts[" A_Index "].Window.hwnd : " tempAccounts[A_Index].Window.hwnd)
         If Not WinExist("ahk_id " . tempAccounts[A_Index].Window.hwnd) {
@@ -281,13 +298,14 @@ Organize:
         }
     }
 
+    ;Supress closed account
     Loop % accountsToRemove.Length() {
         index := accountsToRemove[A_Index]
         API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenètre")
         tempAccounts.RemoveAt(index)
     }
 
-
+    ;Selection sort by initiative
     While (tempAccounts.Length() != 0) {
         maxInitiativeIndex := -1
         Loop % tempAccounts.Length() {

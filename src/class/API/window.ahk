@@ -23,7 +23,9 @@ Class Window {
             Logger.Write("HWND not found : '" this.hwnd "'", 2)
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
+        this.parent.CurrentWindow := this.id
     }
+
     WaitActive(){
         Logger.Write("Waiting for window #" this.id " to activate (hwnd '" this.hwnd "').")
         WinWaitActive, % "ahk_id " this.hwnd

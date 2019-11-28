@@ -18,9 +18,19 @@ return
 
 GetDestinationWindow(ascend)
 {
-    If ascend 
-        destWin := (API.CurrentWindow = API.GetTotalAccounts()) ? 1 : API.CurrentWindow + 1
+    If ascend
+    {
+        i := API.CurrentWindow + 1
+        Loop, % API.GetNbAccounts()
+        {
+            If (i > API.GetNbAccounts())
+                i := 1
+            If ArrayAccounts[i].IsActive
+                return i
+            i++
+        }
+    }
     Else
-        destWin := (API.CurrentWindow = 1) ? API.GetTotalAccounts() : API.CurrentWindow - 1
+        destWin := (API.CurrentWindow = 1) ? API.GetNbActiveAccounts() : API.CurrentWindow - 1
     return destWin
 }
