@@ -21,14 +21,15 @@ Gui_1Click2Play:
     return
 
 Gui_ClearAccountData:
-    GuiControl,,CheckEncryption, 0
-    GuiControl,,CheckDefaultProfile, 0
-    Loop 8 {
+    Loop 12 {
         GuiControl,,CheckActive%A_Index%, 1
         GuiControl,,InputUsername%A_Index%
         GuiControl,,InputPassword%A_Index%
         GuiControl,,InputNickname%A_Index%
+        GuiControl,,InputInitiative%A_Index%
         GuiControl, Choose, SelectClass%A_Index%, 0
+        GuiControl, Choose, SelectServerSlot%A_Index%, 1
+        GuiControl, Choose, SelectPlayerSlot%A_Index%, 1
     }
     return
 
