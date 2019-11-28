@@ -16,10 +16,10 @@ CloseDofusInstances:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)
 
-    Loop % API.GetNbWindows()
+    Loop % API.GetTotalAccounts()
         API.CloseWindow(A_Index)
-    API.LogWrite("Successfully closed " . API.GetNbWindows() . " windows.")    
-    API.WindowList := []
+    API.LogWrite("Successfully closed " . API.GetTotalAccounts() . " windows.")    
+    API.ClearWindowList()
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
 return
@@ -84,7 +84,7 @@ ConnectPlayersOnServer:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
         i++
         Sleep 1500
     }
@@ -111,15 +111,18 @@ CycleWindows:
     Else
         destWin := GetDestinationWindow(true)
     window := API.GetWindow(destWin)
+
+    API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")
     window.Activate()
+    API.CurrentWindow := destWin
 return
 
 GetDestinationWindow(ascend)
 {
     If ascend 
-        destWin := (API.CurrentWindow = API.GetNbWindows()) ? 1 : API.CurrentWindow + 1
+        destWin := (API.CurrentWindow = API.GetTotalAccounts()) ? 1 : API.CurrentWindow + 1
     Else
-        destWin := (API.CurrentWindow = 1) ? API.GetNbWindows() : API.CurrentWindow - 1
+        destWin := (API.CurrentWindow = 1) ? API.GetTotalAccounts() : API.CurrentWindow - 1
     return destWin
 }
 
@@ -177,7 +180,8 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
+
         i++
         SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
     }
@@ -198,7 +202,7 @@ MoveAllPlayers:
 
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY
-    nbWindow := API.GetNbWindows()
+    nbWindow := API.GetTotalAccounts()
     Loop, % nbWindow {
         window := API.GetWindow(A_Index)
         API.GuiUpdateProgressText("Moving player " A_Index ".")
@@ -231,8 +235,8 @@ OpenDofusInstances:
 	currentScenario := Scenario
 	;End Header
 
+    API.GuiUpdateProgressBar(0, 3)
     API.GuiUpdateProgressText("Opening Dofus instances...")
-    API.GuiUpdateProgressBar(0)
 
     API.ClearWindowList()
     nbAccounts := API.GetTotalAccounts()
@@ -245,7 +249,7 @@ OpenDofusInstances:
         SleepHandler(0)
         sleep, 200 * Settings.Speed
         WinGet, window, ID, Dofus
-        this_window := API.NewWindow(window)
+        this_window := API.SaveWindow(window, A_Index)
         this_window.WaitOpen()
         this_window.SetTitle(ArrayAccounts[A_Index])
     }
@@ -254,4 +258,55 @@ OpenDofusInstances:
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return
+
+;Scenario merged from: Scenarios\Organize.ahk
+/*
+    Scenario: Reorganize windows according to initiative 
+*/
+
+Organize:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(7,"Organize")
+	currentScenario := Scenario
+	;End Header
+
+    tempAccounts := ArrayAccounts.Clone()
+    orderedAccounts := []
+    accountsToRemove := []
+    
+    Loop % tempAccounts.Length() {
+        API.LogWrite("tempAccounts[" A_Index "].Window.hwnd : " tempAccounts[A_Index].Window.hwnd)
+        If Not WinExist("ahk_id " . tempAccounts[A_Index].Window.hwnd) {
+            accountsToRemove.Push(A_Index)
+        }
+    }
+
+    Loop % accountsToRemove.Length() {
+        index := accountsToRemove[A_Index]
+        API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenètre")
+        tempAccounts.RemoveAt(index)
+    }
+
+
+    While (tempAccounts.Length() != 0) {
+        maxInitiativeIndex := -1
+        Loop % tempAccounts.Length() {
+            If (tempAccounts[A_Index].Initiative > tempAccounts[maxInitiativeIndex].Initiative) {
+                maxInitiativeIndex := A_Index
+            }
+        }
+        API.LogWrite("L'initiative la plus haute est celle du compte #" maxInitiativeIndex " :" tempAccounts[maxInitiativeIndex].Nickname)
+        orderedAccounts.Push(tempAccounts[maxInitiativeIndex])
+        tempAccounts.RemoveAt(maxInitiativeIndex)
+    }
+    
+    ; Set new windows Title + debug
+    API.LogWrite("L'initiative dans l'ordre :")
+    Loop % orderedAccounts.Length() {
+        API.LogWrite(A_Index ": " orderedAccounts[A_Index].Nickname)
+        orderedAccounts[A_Index].Window.id := A_Index
+        orderedAccounts[A_Index].Window.setTitle(orderedAccounts[A_Index], A_Index)
+    }
+    ArrayAccounts := orderedAccounts
+return
 

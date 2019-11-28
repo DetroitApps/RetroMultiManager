@@ -52,7 +52,7 @@ Main:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(i, API.GetTotalAccounts())
         i++
         Sleep 1500
     }
