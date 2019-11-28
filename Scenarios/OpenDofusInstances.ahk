@@ -20,7 +20,7 @@ Main:
     API.GuiUpdateProgressText("Waiting for all window(s)...")
     maxTry := 10
     i := 0
-    WinGet, windows, List, Dofus 1.30.0
+    WinGet, windows, List, Dofus
 
     ;Wait for all account to be ready to login
     While, windows != nbAccounts And i <= maxTry {
@@ -43,7 +43,7 @@ Main:
     ;Save all Dofus instances
     Loop % windows {
         API.SaveWindow(windows%A_Index%, A_Index)
-        ;window.SetTitle(ArrayAccounts[A_Index])
+        API.getWindow(A_Index).SetTitle(ArrayAccounts[A_Index], A_Index)
         API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
     }
 

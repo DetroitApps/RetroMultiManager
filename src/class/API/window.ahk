@@ -3,6 +3,7 @@ Class Window {
         this.hwnd := hwnd
         this.fullTitle := ""
         this.parent := parent
+        this.id := -1
     }
 
     /*
@@ -34,11 +35,12 @@ Class Window {
         WinMaximize, % "ahk_id " this.hwnd
     }
 
-    SetTitle(Byref Account){
+    SetTitle(Byref Account, id){
+        this.id := id
         Logger.Write("Setting title for window # " this.id " (hwnd '" this.hwnd "').")
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
-        title := "[" . this.id . "]"
+        title := "[" . this.id . "]" 
         If (Account.CharacterClass && Account.CharacterClass != "")
             title = % title . A_Space . Account.CharacterClass
         If (Account.Nickname && Account.Nickname != "")

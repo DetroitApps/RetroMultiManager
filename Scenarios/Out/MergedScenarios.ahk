@@ -245,7 +245,7 @@ OpenDofusInstances:
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
-        Run, % Settings.DofusPath,,,
+        Run, % Settings.DofusPath
         SleepHandler(0)
     }
     
@@ -253,11 +253,11 @@ OpenDofusInstances:
     API.GuiUpdateProgressText("Waiting for all window(s)...")
     maxTry := 10
     i := 0
-    WinGet, windows, List, Dofus 1.30.0
+    WinGet, windows, List, Dofus
 
     ;Wait for all account to be ready to login
     While, windows != nbAccounts And i <= maxTry {
-        WinGet, windows, List, Dofus 1.30.0
+        WinGet, windows, List, Dofus
         API.LogWrite("Wait for all account to be ready to login (" i "/" maxTry ")")
         i := i + 1
         SleepHandler(0)
@@ -276,11 +276,68 @@ OpenDofusInstances:
     ;Save all Dofus instances
     Loop % windows {
         API.SaveWindow(windows%A_Index%, A_Index)
-        ;window.SetTitle(ArrayAccounts[A_Index])
+        API.getWindow(A_Index).SetTitle(ArrayAccounts[A_Index], A_Index)
         API.LogWrite("Successfully opened '" . API.getUsername(A_Index) "' windows.")
     }
 
     API.GuiUpdateProgressBar(3, 3)
     API.GuiUpdateProgressText("Done.")
     return
+
+;Scenario merged from: Scenarios\Organize.ahk
+/*
+    Scenario: Reorganize windows according to initiative 
+*/
+
+Organize:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(7,"Organize")
+	currentScenario := Scenario
+	;End Header
+
+    tempAccounts := ArrayAccounts.Clone()
+    orderedAccounts := []
+    While (tempAccounts.Length() != 0) {
+        maxInitiativeIndex := -1
+        Loop % tempAccounts.Length() {
+            If (tempAccounts[A_Index].Initiative > tempAccounts[maxInitiativeIndex].Initiative) {
+                maxInitiativeIndex := A_Index
+            }
+        }
+        API.LogWrite("L'initiative la plus haute est celle du compte #" maxInitiativeIndex " :" tempAccounts[maxInitiativeIndex].Nickname)
+        orderedAccounts.Push(tempAccounts[maxInitiativeIndex])
+        tempAccounts.RemoveAt(maxInitiativeIndex)
+    }
+    
+    ; Set new windows Title + debug
+    API.LogWrite("L'initiative dans l'ordre :")
+    Loop % orderedAccounts.Length() {
+        API.LogWrite(A_Index ": " orderedAccounts[A_Index].Nickname)
+        orderedAccounts[A_Index].Window.setTitle(orderedAccounts[A_Index], A_Index)
+    }
+    ArrayAccounts := orderedAccounts
+/*    
+    tempAccounts := ArrayAccounts
+    orderedAccounts := []
+    Loop % API.GetTotalAccounts() {
+        API.LogWrite("Loop #" A_Index " :" tempAccounts%A_Index%.Username)
+
+        ;Get max Initiative
+        maxInitiative := -1
+        index := %A_Index%
+        Loop % tempAccounts.Length() {
+            If (tempAccounts%A_Index%.Intiative > maxInitiative)
+                index = A_Index
+        }
+        API.LogWrite("L'initiative la plus haute est celle du compte :" API.getUsername(index))
+
+        ;Keep only alive account
+        If WinExist("ahk_id " . API.getWindow(index).hwnd) {
+            orderedAccounts.Insert(tempAccounts[index].Clone()) 
+        }
+        tempAccounts.Remove(index)
+    }
+    ArrayAccounts :=orderedAccounts.Clone()
+*/
+return
 
