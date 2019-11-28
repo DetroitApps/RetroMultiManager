@@ -43,13 +43,11 @@ LoadProfile:
         return
     }
     Else 
-    {   
-        IniRead, Encrypt, %profileIniPath%, Security, Encrypt
+    {
         ArrayAccounts := []
         If Settings.GuiStatus
         {
             GoSub, Gui_ClearAccountData
-            GuiControl,, CheckEncryption, %Encrypt%
             GuiControl, Choose, SelectProfile, %SelectProfile%
             GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = SelectProfile ? 1 : 0
             SB_SetText(Translate("ActiveProfile") ": " SelectProfile, 3)
@@ -57,19 +55,16 @@ LoadProfile:
         Loop 8 {
             IniRead, username, %profileIniPath%, Accounts, Username%A_Index%
             IniRead, password, %profileIniPath%, Accounts, Password%A_Index%
-            IniRead, nickname, %profileIniPath%, Accounts, Nickname%A_Index%
-            IniRead, initiative, %profileIniPath%, Accounts, Initiative%A_Index%
-            IniRead, characterClass, %profileIniPath%, Accounts, Class%A_Index%
             IniRead, playerSlot, %profileIniPath%, Accounts, PlayerSlot%A_Index%
             IniRead, serverSlot, %profileIniPath%, Accounts, ServerSlot%A_Index%
+            IniRead, nickname, %profileIniPath%, Accounts, Nickname%A_Index%
+            IniRead, characterClass, %profileIniPath%, Accounts, Class%A_Index%
+            IniRead, initiative, %profileIniPath%, Accounts, Initiative%A_Index%
             IniRead, isActive, %profileIniPath%, Accounts, IsActive%A_Index%
             If (username = "ERROR" || password = "ERROR")
                 break
-            If (Encrypt = 1)
-            {
-                username := XOR_String_Minus(username, MasterPassword)
-                password := XOR_String_Minus(password, MasterPassword)
-            }
+            username := XOR_String_Minus(username, MasterPassword)
+            password := XOR_String_Minus(password, MasterPassword)
             ArrayAccounts[A_Index] := New Account(username, password, nickname, initiative, characterClass, isActive, serverSlot, playerSlot)
             Logger.WriteAccount(ArrayAccounts[A_Index])
             If Settings.GuiStatus
@@ -103,26 +98,21 @@ SaveProfile:
             break
 
         username := InputUsername%A_Index%
-        If (CheckEncryption = 1)
-            username := XOR_String_Plus(username, MasterPassword)
+        username := XOR_String_Plus(username, MasterPassword)
         file.WriteLine("Username" . A_Index . "=" . username)
         password := InputPassword%A_Index%
-        If (CheckEncryption = 1)
-            password := XOR_String_Plus(password, MasterPassword)
+        password := XOR_String_Plus(password, MasterPassword)
         file.WriteLine("Password" . A_Index . "=" . password)
-        file.WriteLine("Nickname" . A_Index . "=" . InputNickname%A_Index%)
-        file.WriteLine("Initiative" . A_Index . "=" . InputInitiative%A_Index%)
-        file.WriteLine("Class" . A_Index . "=" . SelectClass%A_Index%)
         file.WriteLine("PlayerSlot" . A_Index . "=" . SelectPlayerSlot%A_Index%)
         file.WriteLine("ServerSlot" . A_Index . "=" . SelectServerSlot%A_Index%)
+        file.WriteLine("Nickname" . A_Index . "=" . InputNickname%A_Index%)
+        file.WriteLine("Class" . A_Index . "=" . SelectClass%A_Index%)
+        file.WriteLine("Initiative" . A_Index . "=" . InputInitiative%A_Index%)
         IsActive := CheckActive%A_Index% = 1 ? 1 : 0
         file.WriteLine("IsActive" . A_Index . "=" . IsActive)
         ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, InputInitiative%A_Index%, SelectClass%A_Index%, IsActive, SelectServerSlot%A_Index%, SelectPlayerSlot%A_Index%)
         Logger.WriteAccount(ArrayAccounts[A_Index])
     }
-    file.WriteLine("`n[Security]")
-    Encrypt := CheckEncryption = 1 ? 1 : 0
-    file.WriteLine("Encrypt=" . Encrypt)
     If (CheckDefaultProfile = 1)
         IniWrite, %SelectProfile%, %IniPath%, Program, DefaultProfile
     file.Close()

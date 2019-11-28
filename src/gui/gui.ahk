@@ -55,13 +55,13 @@ Gui, Font,              s8
 Gui, Add, Text,         w%guiWidth% y+1 center, % Translate("For") " Dofus Retro 1.30.9"
 
 Gui, Font,              s12
-Gui, Add, Tab3,         h450 w750, % Translate("Home") "|" Translate("Profiles") "|" Translate("Groups") "|" Translate("Settings") "|" Translate("Hotkey")
+Gui, Add, Tab3,         w750, % Translate("Profiles") "|" Translate("Groups") "|" Translate("Settings")
 Gui, Font,              Normal s8
 
 ;=============================================
 ; Home
 ;=============================================
-
+/*
 Gui, Font,              Bold
 Gui, Add, Text,         x40 y+10, % Translate("OtherHotkeys")
 Gui, Font,              Normal s10
@@ -71,7 +71,7 @@ Gui, Add, Text,         x40 y+10, % "> :`t`t" Translate("Cycle")
 Gui, Add, Text,         x40 y+10, % "Shitft+> :`t" Translate("CycleBackwards")
 
 Gui, Font,              s8
-
+*/
 /*
 Gui, Add, Text,         ys+80 xs+10 h20 0x200, % Translate("AllScenarios")
 Gui, Add, DropDownList, ys+100 xs+10 0x200 vSelectScenario
@@ -83,7 +83,7 @@ Gui, Add, Button,       x+5 gGui_LoadScenarios, % Translate("Reload")
 ; Profiles
 ;=============================================
 
-Gui, Tab, 2
+Gui, Tab, 1
 
 Gui, Font,              Bold
 ;Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, % Translate("Accounts")
@@ -93,16 +93,19 @@ Gui, Font,              Normal
 Gui, Add, Text,         h20 0x200, % Translate("Profile")
 Gui, Add, DropDownList, x+10 vSelectProfile w50, 1||2|3|4|5|6|7|8|9
 Gui, Add, Button,       x+10 gGui_LoadProfile, % Translate("Load")
+Gui, Add, Button,       x+10 gGui_ClearAccountData, % Translate("ClearAll")
 
 ;Input fields
 Gui, Font,              Bold s9
 Gui, Add, Text,         x92 y+10 h20 0x200 w100, % Translate("Username")
 Gui, Add, Text,         x+10 h20 0x200 w100, % Translate("Password")
-Gui, Add, Text,         x+30 h20 0x200 w100, % Translate("Nickname")
-Gui, Add, Text,         x+12 h20 0x200 w50, % Translate("Initiative")
-Gui, Add, Text,         x+10 h20 0x200 w70, % Translate("Class")
-Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Server")
+Gui, Add, Text,         x+25 h20 0x200 w50, % Translate("Server")
 Gui, Add, Text,         x+5 h20 0x200 w50, % Translate("Player")
+Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Nickname")
+Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Class")
+Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Initiative")
+
+
 Gui, Font,              Normal s8
 
 Loop 12 {
@@ -119,39 +122,40 @@ Loop 12 {
     ;Password
     Gui, Add, Edit,     Password hp r1 x+10 w100 vInputPassword%A_Index% gGui_ToggleModifications
     Gui, Add, Button,   gGui_RevealPassword%A_Index% x+1 w5, 👁
+
+    ;Slots
+    Gui, Add, DropDownList, x+5 w50 vSelectServerSlot%A_Index% gGui_ToggleModifications, 1||2|3|4|5
+    Gui, Add, DropDownList, x+5 w50 vSelectPlayerSlot%A_Index% gGui_ToggleModifications, 1||2|3|4|5
+
     ;Nickname
-    Gui, Add, Edit,     hp r1 x+10 w100 vInputNickname%A_Index% gGui_ToggleModifications
-    
-    ;Initiative
-    Gui, Add, Edit,     hp r1 x+10 w50 vInputInitiative%A_Index% gGui_ToggleModifications
+    Gui, Add, Edit,     hp r1 x+10 w80 vInputNickname%A_Index% gGui_ToggleModifications
 
     ;Class
     Gui, Add, DropDownList, x+10 w80 vSelectClass%A_Index% gGui_ToggleModifications, Cra|Ecaflip|Eniripsa|Enutrof|Feca|Iop|Osamodas|Pandawa|Sacrieur|Sadida|Sram|Xelor
-    
-    ;Slots
-    Gui, Add, DropDownList, x+1 w50 vSelectServerSlot%A_Index% gGui_ToggleModifications, 1||2|3|4|5
-    Gui, Add, DropDownList, x+5 w50 vSelectPlayerSlot%A_Index% gGui_ToggleModifications, 1||2|3|4|5
 
+    ;Initiative
+    Gui, Add, Edit,     hp r1 x+10 w50 vInputInitiative%A_Index% gGui_ToggleModifications
+    
     ;Order
     Gui, Add, Button,   gGui_MoveAccountUp%A_Index% x+5, ↑
     Gui, Add, Button,   gGui_MoveAccountDown%A_Index% x+1, ↓
 
     ;Actions
-    Gui, Add, Button,   x+5, ❤️
-    Gui, Add, Button,   x+5, 💔
+    ;Gui, Add, Button,   x+5, ❤️
+    ;Gui, Add, Button,   x+5, 💔
 }
 
 Gui, Font,              Bold s10
 Gui, Add, Button,       y+10 x40 w100 gGui_SaveProfile, % Translate("Save")
 Gui, Font,              Normal s8
 ; Gui, Add, CheckBox,     x+10 vCheckEncryption h20 0x200 Checked 1, % Translate("EncryptAccounts")
-Gui, Add, CheckBox,     x+10 CheckDefaultProfile h25 0x200, % Translate("DefaultProfile")
+Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h25 0x200, % Translate("DefaultProfile")
 
 ;=============================================
 ; Groups
 ;=============================================
 
-Gui, Tab, 3
+Gui, Tab, 2
 
 Gui, Add, Text,         , To Do
 
@@ -159,7 +163,7 @@ Gui, Add, Text,         , To Do
 ; Settings
 ;=============================================
 
-Gui, Tab, 4
+Gui, Tab, 3
 
 Gui, Font,              Bold s10
 Gui, Add, Text,         , Programme
@@ -180,15 +184,20 @@ Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Updates")
 Gui, Add, Button,       x+10 gGui_CheckForUpdates, % Translate("CheckForUpdates")
 Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnStart h20 0x200, % Translate("CheckOnStart")
 
+;Modes
+Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Modes")
+Gui, Add, CheckBox,     x+10 h20 0x200, Debug
+Gui, Add, CheckBox,     x+10 h20 0x200, Developer
+
 ;=============================================
 ; Hotkeys
 ;=============================================
 
-Gui, Tab, 5
-
 Gui, Font,              Bold s10
 Gui, Add, Text,         x40 y+10 , Raccourcis
 Gui, Font,              Normal s8
+
+Gui, Add, Checkbox,     x40y y+10, Activer les raccourcis F1 à F12 pour afficher les fenêtres 1 à 12
 
 Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Naviguer entre les fenêtres
 Gui, Add, Hotkey,       x+10 vHotkeyCycleWindows, SC056
@@ -199,30 +208,6 @@ Gui, Add, Hotkey,       x+10 vHotkeyCycleWindowsBackwards, +SC056
 Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Déplacer les personnages
 Gui, Add, Hotkey,       x+10 vHotkeyMoveAllPlayers, ^SC056
 
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #1
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow1, F1
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #2
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow2, F2
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #3
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow3, F3
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #4
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow4, F4
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #5
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow5, F5
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #6
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow6, F6
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #7
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow7, F7
-
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Activer la fenêtre #8
-Gui, Add, Hotkey,       x+10 vHotkeySetWindow8, F8
-
 
 ;=============================================
 ; Action Bar
@@ -231,8 +216,8 @@ Gui, Add, Hotkey,       x+10 vHotkeySetWindow8, F8
 Gui, Tab
 
 Gui, Font,              Bold s10
-Gui, Add, Button,       y+70 gGui_1Click2Play w100 h30, % Translate("Play")
-Gui, Add, Button,       x+10 gGui_OrganizeAccounts w100 h30, % Translate("Organize")
+Gui, Add, Button,       gGui_1Click2Play w100 h30, % Translate("Play")
+Gui, Add, Button,       x+10 w100 h30, % Translate("Organize")
 Gui, Add, Button,       x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
 
