@@ -2,7 +2,7 @@
     Scenario: MoveAllPlayers
 */
 
-^SC029::
+^SC056::
 Main:
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY

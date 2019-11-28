@@ -2,8 +2,8 @@
     Scenario: OpenDofusInstances
 */
 
-CapsLock::
-+CapsLock::
+SC056::
++SC056::
 Main:
     If GetKeyState("LShift")
         destWin := GetDestinationWindow(false)
