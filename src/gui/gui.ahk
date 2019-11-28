@@ -99,6 +99,7 @@ Gui, Font,              Bold s9
 Gui, Add, Text,         x92 y+10 h20 0x200 w100, % Translate("Username")
 Gui, Add, Text,         x+10 h20 0x200 w100, % Translate("Password")
 Gui, Add, Text,         x+30 h20 0x200 w100, % Translate("Nickname")
+Gui, Add, Text,         x+12 h20 0x200 w50, % Translate("Initiative")
 Gui, Add, Text,         x+10 h20 0x200 w70, % Translate("Class")
 Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Server")
 Gui, Add, Text,         x+5 h20 0x200 w50, % Translate("Player")
@@ -120,6 +121,10 @@ Loop 12 {
     Gui, Add, Button,   gGui_RevealPassword%A_Index% x+1 w5, 👁
     ;Nickname
     Gui, Add, Edit,     hp r1 x+10 w100 vInputNickname%A_Index% gGui_ToggleModifications
+    
+    ;Initiative
+    Gui, Add, Edit,     hp r1 x+10 w50 vInputInitiative%A_Index% gGui_ToggleModifications
+
     ;Class
     Gui, Add, DropDownList, x+10 w80 vSelectClass%A_Index% gGui_ToggleModifications, Cra|Ecaflip|Eniripsa|Enutrof|Feca|Iop|Osamodas|Pandawa|Sacrieur|Sadida|Sram|Xelor
     
@@ -227,7 +232,7 @@ Gui, Tab
 
 Gui, Font,              Bold s10
 Gui, Add, Button,       y+70 gGui_1Click2Play w100 h30, % Translate("Play")
-Gui, Add, Button,       x+10 w100 h30, % Translate("Organize")
+Gui, Add, Button,       x+10 gGui_OrganizeAccounts w100 h30, % Translate("Organize")
 Gui, Add, Button,       x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
 

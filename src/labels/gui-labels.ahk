@@ -125,6 +125,10 @@ Gui_ConnectPlayersOnServer:
     Gosub, ConnectPlayersOnServer
     return
 
+Gui_OrganizeAccounts:
+    Gosub, Organize
+    return
+
 Gui_SetLanguageFR:
     Settings.SetLanguage("fr-FR")
 return

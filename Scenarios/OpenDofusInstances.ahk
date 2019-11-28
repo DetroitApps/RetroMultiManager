@@ -3,8 +3,8 @@
 */
 
 Main:
+    API.GuiUpdateProgressBar(0, 3)
     API.GuiUpdateProgressText("Opening Dofus instances...")
-    API.GuiUpdateProgressBar(0)
 
     API.ClearWindowList()
     nbAccounts := API.GetTotalAccounts()
@@ -17,7 +17,7 @@ Main:
         SleepHandler(0)
         sleep, 200 * Settings.Speed
         WinGet, window, ID, Dofus
-        this_window := API.NewWindow(window)
+        this_window := API.SaveWindow(window, A_Index)
         this_window.WaitOpen()
         this_window.SetTitle(ArrayAccounts[A_Index])
     }

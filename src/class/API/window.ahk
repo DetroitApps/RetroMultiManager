@@ -1,31 +1,34 @@
 Class Window {
-    __New(parent, index, hwnd){
+    __New(parent, hwnd, index){
         this.hwnd := hwnd
         this.id := index
         this.fullTitle := ""
         this.parent := parent
     }
 
+    /*
     WaitOpen(){
         Logger.Write("Waiting for window #" this.id " to open (id '" this.hwnd "').")
         WinWait, % "ahk_id " this.hwnd
         If this.hwnd Is Not digit
             Logger.Write("Window hwnd is not a valid number : ' " this.hwnd " '", 2)
     }
+    */
 
     Activate(){
-        Logger.Write("Activating window #" this.id " (id '" this.hwnd "').")
-        WinActivate, % "ahk_id " this.hwnd
-        this.parent.CurrentWindow := this.id
-        If this.hwnd Is Not digit
-            Logger.Write("Window hwnd is not a valid number : ' " this.hwnd " '", 2)
+        Logger.Write("Activating window #" this.id " (hwnd '" this.hwnd "').")
+        If WinExist("ahk_id " . this.hwnd)
+            WinActivate
+        Else
+            Logger.Write("HWND not found : '" this.hwnd "'", 2)
+        If (this.hwnd = "")
+            Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
     }
-
     WaitActive(){
         Logger.Write("Waiting for window #" this.id " to activate (hwnd '" this.hwnd "').")
         WinWaitActive, % "ahk_id " this.hwnd
-        If this.hwnd Is Not digit
-            Logger.Write("Window hwnd is not a valid number : ' " this.hwnd " '", 2)
+        If (this.hwnd = "")
+            Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
     }
 
     Maximize(){
@@ -33,10 +36,10 @@ Class Window {
     }
 
     SetTitle(Byref Account){
-        Logger.Write("Setting title for window # " this.hwnd " (id '" this.hwnd "').")
-        If this.hwnd Is Not digit
-            Logger.Write("Window hwnd is not a valid number : ' " this.hwnd " '", 2)
-        title := "[" . this.id . "]"
+        Logger.Write("Setting title for window # " this.id " (hwnd '" this.hwnd "').")
+        If (this.hwnd = "")
+            Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
+        title := "[" . this.id . "]" 
         If (Account.CharacterClass && Account.CharacterClass != "")
             title = % title . A_Space . Account.CharacterClass
         If (Account.Nickname && Account.Nickname != "")
