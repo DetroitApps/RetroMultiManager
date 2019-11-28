@@ -135,8 +135,8 @@ Gui, Add, Text,         ys+60 xs+10, % Translate("OtherHotkeys")
 Gui, Font,              Normal s10
 
 Gui, Add, Text,         ys+80 xs+10, % "F1-F8 :`t`t" Translate("GoOnWindows")
-Gui, Add, Text,         ys+100 xs+10, % Translate("CapsLock") " :`t" Translate("Cycle")
-Gui, Add, Text,         ys+120 xs+10, % "Shitft+" Translate("CapsLock") " :`t" Translate("CycleBackwards")
+Gui, Add, Text,         ys+100 xs+10, % "> :`t`t" Translate("Cycle")
+Gui, Add, Text,         ys+120 xs+10, % "Shitft+> :`t" Translate("CycleBackwards")
 
 Gui, Font,              s8
 
