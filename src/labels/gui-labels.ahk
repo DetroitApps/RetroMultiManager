@@ -39,6 +39,15 @@ Gui_ToggleModifications:
     Modifications := True
     return
 
+Gui_ListViewWindows:
+    if (A_GuiEvent = "Normal")
+    {
+        LV_GetText(RowText, A_EventInfo, 4)  ; Get the text from the row's first field.
+        ;ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
+        MsgBox You clicked row number %A_EventInfo%. Hwnd "%RowText%"
+    }
+    return
+
 Gui_Browse:
     Gui, Submit, NoHide
     FileSelectFile, newDofusPath, 3, , Open a file, Dofus.exe (Dofus.exe)

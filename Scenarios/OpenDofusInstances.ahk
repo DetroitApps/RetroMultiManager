@@ -9,6 +9,7 @@ Main:
     API.ClearWindowList()
     nbAccounts := API.GetNbAccounts()
 
+    i := 1
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
@@ -17,12 +18,14 @@ Main:
         SleepHandler(0)
         sleep, 200 * Settings.Speed
         WinGet, window, ID, Dofus
-        this_window := API.SaveWindow(window, A_Index)
+        this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
         this_window.SetTitle(ArrayAccounts[A_Index])
+        API.AddWindowToListView(i)
+        i++
     }
 
-    API.LogWrite("Successfully opened " . API.GetNbActiveAccounts() " windows.")
+    API.LogWrite("Successfully opened " i " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return

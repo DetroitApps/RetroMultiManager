@@ -10,6 +10,7 @@ Class API {
 
     Debug := False
     CurrentWindow := 1
+    WindowList := []
 
     __New(){
         this.LoadScenarios()
@@ -56,10 +57,12 @@ Class API {
     }
 
     ClearWindowList(){
+        WindowList := []
+        /*
         Loop, GetNbAccounts() {
             this.getWindow(A_Index) := {}
         }
-        
+        */
     }
 
     CloseWindow(id)
@@ -87,17 +90,37 @@ Class API {
         return ArrayAccounts.MaxIndex()
     }
 
-    SaveWindow(hwnd, id){
+    GetNbWindows() {
+        return this.WindowList.MaxIndex()
+    }
+
+    NewWindow(hwnd, account) {
+        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
+        window := New this.Window(this, hwnd, account, index)
+        this.WindowList[index] := window
+        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
+        return window
+    }
+
+    /*SaveWindow(hwnd, id){
         ArrayAccounts[id].Window := New this.Window(this, hwnd, id)
         Logger.Write("Saving window #" id " with hwnd '" this.getWindow(id).hwnd "' for account '" this.GetUsername(id) "'.")
         this.CurrentWindow := id
         return ArrayAccounts[id].Window
     }
+    */
 
-    GetWindow(id){
-        return ArrayAccounts[id].Window
+    AddWindowToListView(id){
+        window := this.WindowList[id]
+        LV_Add("", window.account.username, window.title, id, window.hwnd)
+        LV_ModifyCol()
     }
 
+    GetWindow(id){
+        return this.WindowList[id]
+    }
+
+/*
     GetUsername(hwnd) {
         return ArrayAccounts[hwnd].Username
     }
@@ -105,4 +128,5 @@ Class API {
     GetPassword(hwnd) {
         return ArrayAccounts[hwnd].Password
     }
+*/
 }

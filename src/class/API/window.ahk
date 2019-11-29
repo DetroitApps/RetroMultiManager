@@ -1,8 +1,9 @@
 Class Window {
-    __New(parent, hwnd, index){
+    __New(parent, hwnd, account, index){
         this.hwnd := hwnd
         this.id := index
-        this.fullTitle := ""
+        this.title := ""
+        this.account := account
         this.parent := parent
     }
 
@@ -48,6 +49,6 @@ Class Window {
             title = % title . A_Space . "(" . Account.Nickname . ")"
         
         WinSetTitle, % "ahk_id " this.hwnd,, %title%
-        this.fullTitle := title
+        this.title := title
     }
 }

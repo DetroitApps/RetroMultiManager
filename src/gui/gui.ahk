@@ -55,12 +55,25 @@ Gui, Font,              s8
 Gui, Add, Text,         w%guiWidth% y+1 center, % Translate("For") " Dofus Retro 1.30.9"
 
 Gui, Font,              s12
-Gui, Add, Tab3,         w750, % Translate("Profiles") "|" Translate("Groups") "|" Translate("Settings")
+Gui, Add, Tab3,         w750, % Translate("Windows") "|" Translate("Profiles") "|" Translate("Groups") "|" Translate("Settings")
 Gui, Font,              Normal s8
 
 ;=============================================
-; Home
+; Windows
 ;=============================================
+
+Gui, Tab, 1
+
+Gui, Font,              Bold s10
+Gui, Add, Text,         , % Translate("Windows")
+Gui, Font,              Normal s8
+
+Gui, Add, ListView,     gGui_ListViewWindows r12 w600 AltSubmit, Account|Name|id|hwnd
+;LV_Add("", "timmy", "[1] Main (Enutrof)", 1, 5496)
+;LV_Add("", "timmy2", "[2] Puppets (Sadida)", 2, 87438)
+LV_ModifyCol()
+LV_ModifyCol(3, "Integer")
+
 /*
 Gui, Font,              Bold
 Gui, Add, Text,         x40 y+10, % Translate("OtherHotkeys")
@@ -83,7 +96,7 @@ Gui, Add, Button,       x+5 gGui_LoadScenarios, % Translate("Reload")
 ; Profiles
 ;=============================================
 
-Gui, Tab, 1
+Gui, Tab, 2
 
 Gui, Font,              Bold
 ;Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, % Translate("Accounts")
@@ -155,7 +168,11 @@ Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h25 0x200, % Translate("Defaul
 ; Groups
 ;=============================================
 
-Gui, Tab, 2
+Gui, Tab, 3
+
+Gui, Font,              Bold s10
+Gui, Add, Text,         , % Translate("Groups")
+Gui, Font,              Normal s8
 
 Gui, Add, Text,         , To Do
 
@@ -163,7 +180,7 @@ Gui, Add, Text,         , To Do
 ; Settings
 ;=============================================
 
-Gui, Tab, 3
+Gui, Tab, 4
 
 Gui, Font,              Bold s10
 Gui, Add, Text,         , Programme

@@ -121,21 +121,15 @@ GetDestinationWindow(ascend)
 {
     If ascend
     {
-        ;destWin := (API.CurrentWindow = API.GetNbActiveAccounts()) ? 1 : API.CurrentWindow + 1
         i := API.CurrentWindow + 1
         Loop, % API.GetNbAccounts()
         {
             If (i > API.GetNbAccounts())
                 i := 1
             If ArrayAccounts[i].IsActive
-            {
-                ;msgbox, returning %i%
                 return i
-            }
             i++
         }
-        ;If (API.GetWindow[API.CurrentWindow + 1].hwnd = "")
-        ;    msgbox, empty
     }
     Else
         destWin := (API.CurrentWindow = 1) ? API.GetNbActiveAccounts() : API.CurrentWindow - 1
@@ -166,19 +160,19 @@ LoginAccounts:
         MsgBox, 16, Error, Couldn't load account input position from INI, stopping current scenario.
         return
     }
-    i := 1
-    Loop, % API.GetNbAccounts() {
+    Loop, % API.GetNbWindows() {
         ;Skip unactive accounts
-        If !ArrayAccounts[A_Index].IsActive
+        /*If !ArrayAccounts[A_Index].IsActive
         {
             API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
             i++
             Continue
         }
+        */
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
         API.LogWrite("Trying to connect account #" A_Index ".")
-        window := API.GetWindow(i)
+        window := API.GetWindow(A_Index)
         window.Activate()
         window.WaitActive()
         window.Maximize()
@@ -188,11 +182,11 @@ LoginAccounts:
         Sleep, 50 * Settings.Speed
         Send, ^a
         Sleep, 50 * Settings.Speed
-        SendRaw, % API.GetUsername(A_Index)
+        SendRaw, % window.account.username
         Sleep, 50 * Settings.Speed
         Send, {Tab}
         Sleep, 50 * Settings.Speed
-        SendRaw, % API.GetPassword(A_Index)
+        SendRaw, % window.account.password
         Sleep, 50 * Settings.Speed
         Send, {Tab}
         Sleep, 50 * Settings.Speed
@@ -257,6 +251,7 @@ OpenDofusInstances:
     API.ClearWindowList()
     nbAccounts := API.GetNbAccounts()
 
+    i := 1
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
@@ -265,12 +260,14 @@ OpenDofusInstances:
         SleepHandler(0)
         sleep, 200 * Settings.Speed
         WinGet, window, ID, Dofus
-        this_window := API.SaveWindow(window, A_Index)
+        this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
         this_window.SetTitle(ArrayAccounts[A_Index])
+        API.AddWindowToListView(i)
+        i++
     }
 
-    API.LogWrite("Successfully opened " . API.GetNbActiveAccounts() " windows.")
+    API.LogWrite("Successfully opened " i " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return
@@ -301,7 +298,7 @@ Organize:
     ;Supress closed account
     Loop % accountsToRemove.Length() {
         index := accountsToRemove[A_Index]
-        API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenètre")
+        API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenêtre")
         tempAccounts.RemoveAt(index)
     }
 
