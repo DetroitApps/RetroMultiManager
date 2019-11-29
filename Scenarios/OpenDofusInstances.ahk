@@ -25,6 +25,9 @@ Main:
         i++
     }
 
+    If (Settings.AlwaysOrganize = True)
+        GoSub, Organize
+
     API.LogWrite("Successfully opened " i " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
