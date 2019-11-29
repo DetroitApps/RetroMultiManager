@@ -245,7 +245,7 @@ OpenDofusInstances:
         WinGet, window, ID, Dofus
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
-        this_window.SetTitle(ArrayAccounts[A_Index])
+        this_window.SetTitle()
         API.AddWindowToListView(i)
         i++
     }
@@ -260,13 +260,65 @@ OpenDofusInstances:
     Scenario: Reorganize windows according to initiative 
 */
 
+OrderWindowList() {
+    tempWindowList := API.WindowList.Clone()
+    orderedWindowList := {}
+
+    While (tempWindowList.Length() != 0) 
+    {
+        maxInitiativeIndex := -1
+        Loop, % tempWindowList.Length() 
+        {
+            If (tempWindowList[A_Index].account.initiative > tempWindowList[maxInitiativeIndex].account.initiative) 
+                maxInitiativeIndex := A_Index
+        }
+        API.LogWrite("Maximum initiative is " tempWindowList[maxInitiativeIndex].title " with " tempWindowList[maxInitiativeIndex].account.initiative "initiative.")
+        orderedWindowList.Push(tempWindowList[maxInitiativeIndex])
+        tempWindowList.RemoveAt(maxInitiativeIndex)
+    }
+    return orderedWindowList
+}
+
+OrganizeTaskbar() {
+    Loop % API.GetNbWindows()
+    {
+        window := API.WindowList[A_Index]
+        window.SetTitle()
+        WinHide, % "ahk_id " window.hwnd
+        Sleep 50
+    }
+    Loop % API.GetNbWindows()
+    {
+        window := API.WindowList[A_Index]
+        WinShow, % "ahk_id " window.hwnd
+        Sleep 50
+    }
+}
+
 Organize:
 	;Header (auto-generated)
 	Scenario := New API.Scenario(7,"Organize")
 	currentScenario := Scenario
 	;End Header
 
-    tempAccounts := ArrayAccounts.Clone()
+    index := 1
+    Loop, % API.GetNbWindows()
+    {
+        window := API.GetWindow(index)
+        If Not WinExist("ahk_id " window.hwnd)
+        {
+            API.LogWrite("Windows " window.hwnd " has been closed, deleting from list.")
+            API.DeleteWindow(index)
+            index--
+        }
+        index++
+    }
+
+    orderedWindowList := OrderWindowList()
+    API.UpdateWindowList(orderedWindowList)
+    OrganizeTaskbar()
+
+    /*tempAccounts := ArrayAccounts.Clone()
     orderedAccounts := []
     accountsToRemove := []
     
@@ -306,5 +358,6 @@ Organize:
         orderedAccounts[A_Index].Window.setTitle(orderedAccounts[A_Index], A_Index)
     }
     ArrayAccounts := orderedAccounts
+    */
 return
 

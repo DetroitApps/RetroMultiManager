@@ -102,6 +102,18 @@ Class API {
         return window
     }
 
+    DeleteWindow(id) {
+        this.WindowList.RemoveAt(id)
+        this.CurrentWindow := 1
+    }
+
+    UpdateWindowList(newList){
+        this.WindowList := newList
+        Loop, % this.GetNbWindows() {
+            this.WindowList[A_Index].id := A_Index
+        }
+    }
+
     /*SaveWindow(hwnd, id){
         ArrayAccounts[id].Window := New this.Window(this, hwnd, id)
         Logger.Write("Saving window #" id " with hwnd '" this.getWindow(id).hwnd "' for account '" this.GetUsername(id) "'.")
@@ -114,6 +126,10 @@ Class API {
         window := this.WindowList[id]
         LV_Add("", window.account.username, window.title, id, window.hwnd)
         LV_ModifyCol()
+    }
+    
+    RemoveWindowFromListView(id){
+
     }
 
     GetWindow(id){

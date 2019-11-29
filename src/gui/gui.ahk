@@ -71,26 +71,8 @@ Gui, Font,              Normal s8
 Gui, Add, ListView,     gGui_ListViewWindows r12 w600 AltSubmit, Account|Name|id|hwnd
 ;LV_Add("", "timmy", "[1] Main (Enutrof)", 1, 5496)
 ;LV_Add("", "timmy2", "[2] Puppets (Sadida)", 2, 87438)
-LV_ModifyCol()
+;LV_ModifyCol()
 LV_ModifyCol(3, "Integer")
-
-/*
-Gui, Font,              Bold
-Gui, Add, Text,         x40 y+10, % Translate("OtherHotkeys")
-Gui, Font,              Normal s10
-
-Gui, Add, Text,         x40 y+10, % "F1-F8 :`t`t" Translate("GoOnWindows")
-Gui, Add, Text,         x40 y+10, % "> :`t`t" Translate("Cycle")
-Gui, Add, Text,         x40 y+10, % "Shitft+> :`t" Translate("CycleBackwards")
-
-Gui, Font,              s8
-*/
-/*
-Gui, Add, Text,         ys+80 xs+10 h20 0x200, % Translate("AllScenarios")
-Gui, Add, DropDownList, ys+100 xs+10 0x200 vSelectScenario
-Gui, Add, Button,       x+10 gGui_RunScenario, % Translate("Run")
-Gui, Add, Button,       x+5 gGui_LoadScenarios, % Translate("Reload")
-*/
 
 ;=============================================
 ; Profiles
@@ -161,7 +143,6 @@ Loop 12 {
 Gui, Font,              Bold s10
 Gui, Add, Button,       y+10 x40 w100 gGui_SaveProfile, % Translate("Save")
 Gui, Font,              Normal s8
-; Gui, Add, CheckBox,     x+10 vCheckEncryption h20 0x200 Checked 1, % Translate("EncryptAccounts")
 Gui, Add, CheckBox,     x+10 vCheckDefaultProfile h25 0x200, % Translate("DefaultProfile")
 
 ;=============================================
@@ -184,7 +165,6 @@ Gui, Tab, 4
 
 Gui, Font,              Bold s10
 Gui, Add, Text,         , Programme
-;Gui, Add, GroupBox,     xm ym+10 y+10 Section w%groupboxWidth% h120, % Translate("Settings")
 Gui, Font,              Normal s8
 ;Dofus path
 Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Dofus.exe

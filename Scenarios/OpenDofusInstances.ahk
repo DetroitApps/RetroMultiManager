@@ -20,7 +20,7 @@ Main:
         WinGet, window, ID, Dofus
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
-        this_window.SetTitle(ArrayAccounts[A_Index])
+        this_window.SetTitle()
         API.AddWindowToListView(i)
         i++
     }
