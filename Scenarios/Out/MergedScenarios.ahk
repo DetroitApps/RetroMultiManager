@@ -119,18 +119,8 @@ return
 
 GetDestinationWindow(ascend)
 {
-    If ascend
-    {
-        i := API.CurrentWindow + 1
-        Loop, % API.GetNbAccounts()
-        {
-            If (i > API.GetNbAccounts())
-                i := 1
-            If ArrayAccounts[i].IsActive
-                return i
-            i++
-        }
-    }
+    If ascend 
+        destWin := (API.CurrentWindow = API.GetNbActiveAccounts()) ? 1 : API.CurrentWindow + 1
     Else
         destWin := (API.CurrentWindow = 1) ? API.GetNbActiveAccounts() : API.CurrentWindow - 1
     return destWin
@@ -147,10 +137,10 @@ LoginAccounts:
 	currentScenario := Scenario
 	;End Header
 
-    inputX := 0
-    inputY := 0
     API.GuiUpdateProgressBar(0)
 
+    inputX := 0
+    inputY := 0
     section := A_ScreenWidth . "x" . A_ScreenHeight
     inputX := Scenario.GetValueFromIni(section, "x")
     inputY := Scenario.GetValueFromIni(section, "y")
@@ -160,15 +150,8 @@ LoginAccounts:
         MsgBox, 16, Error, Couldn't load account input position from INI, stopping current scenario.
         return
     }
+
     Loop, % API.GetNbWindows() {
-        ;Skip unactive accounts
-        /*If !ArrayAccounts[A_Index].IsActive
-        {
-            API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
-            i++
-            Continue
-        }
-        */
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
         API.LogWrite("Trying to connect account #" A_Index ".")
@@ -193,7 +176,7 @@ LoginAccounts:
         Send {Enter}
         API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
-        SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
+        SleepHandler(0)
     }
     API.GuiUpdateProgressBar(100)
     return
@@ -298,7 +281,7 @@ Organize:
     ;Supress closed account
     Loop % accountsToRemove.Length() {
         index := accountsToRemove[A_Index]
-        API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenêtre")
+        API.LogWrite("Le fenetre du compte '" tempAccounts[index].Nickname "' a disparu, suppression dans la gestion de fenètre")
         tempAccounts.RemoveAt(index)
     }
 

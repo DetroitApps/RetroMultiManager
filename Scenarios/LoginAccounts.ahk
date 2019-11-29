@@ -3,10 +3,10 @@
 */
 
 Main:
-    inputX := 0
-    inputY := 0
     API.GuiUpdateProgressBar(0)
 
+    inputX := 0
+    inputY := 0
     section := A_ScreenWidth . "x" . A_ScreenHeight
     inputX := Scenario.GetValueFromIni(section, "x")
     inputY := Scenario.GetValueFromIni(section, "y")
@@ -16,15 +16,8 @@ Main:
         MsgBox, 16, Error, Couldn't load account input position from INI, stopping current scenario.
         return
     }
+
     Loop, % API.GetNbWindows() {
-        ;Skip unactive accounts
-        /*If !ArrayAccounts[A_Index].IsActive
-        {
-            API.LogWrite("Skipping account #" A_Index ", marked as inactive.")
-            i++
-            Continue
-        }
-        */
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
         API.LogWrite("Trying to connect account #" A_Index ".")
@@ -49,7 +42,7 @@ Main:
         Send {Enter}
         API.GuiUpdateProgressBar(i, API.GetNbAccounts())
         i++
-        SleepHandler(0) ;handle sleep based on speed settings (parameter is for added sleep)
+        SleepHandler(0)
     }
     API.GuiUpdateProgressBar(100)
     return
