@@ -5,6 +5,7 @@ Class Window {
         this.title := ""
         this.account := account
         this.parent := parent
+        this.isAttached := True
     }
 
     Activate(){

@@ -66,13 +66,11 @@ Gui, Tab, 1
 
 Gui, Font,              Bold s10
 Gui, Add, Text,         , % Translate("Windows")
-Gui, Font,              Normal s8
+Gui, Font,              Normal s9
 
-Gui, Add, ListView,     gGui_ListViewWindows r12 w600 AltSubmit, Account|Name|id|hwnd
-;LV_Add("", "timmy", "[1] Main (Enutrof)", 1, 5496)
-;LV_Add("", "timmy2", "[2] Puppets (Sadida)", 2, 87438)
-;LV_ModifyCol()
-LV_ModifyCol(3, "Integer")
+Gui, Add, ListView,     gGui_ListViewWindows r12 w600 AltSubmit -Multi, Id|Account|Title|🔗
+LV_ModifyCol(1, "Integer")
+Gui, Font,              s8
 
 ;=============================================
 ; Profiles
@@ -83,7 +81,6 @@ Gui, Tab, 2
 Gui, Font,              Bold
 ;Gui, Add, GroupBox,     xm ym+10 y+20 Section w%groupboxWidth% h320, % Translate("Accounts")
 Gui, Font,              Normal
-
 
 Gui, Add, Text,         h20 0x200, % Translate("Profile")
 Gui, Add, DropDownList, x+10 vSelectProfile w50, 1||2|3|4|5|6|7|8|9
@@ -99,7 +96,6 @@ Gui, Add, Text,         x+5 h20 0x200 w50, % Translate("Player")
 Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Nickname")
 Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Class")
 Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Initiative")
-
 
 Gui, Font,              Normal s8
 
@@ -186,9 +182,9 @@ Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Organizer
 Gui, Add, CheckBox,     x+10 gCheckAlwaysOrganize_Listener vCheckAlwaysOrganize h20 0x200, % Translate("StartWithOrganizer")
 
 ;Modes
-Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Modes")
-Gui, Add, CheckBox,     x+10 h20 0x200, Debug
-Gui, Add, CheckBox,     x+10 h20 0x200, Developer
+;Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Modes")
+;Gui, Add, CheckBox,     x+10 h20 0x200, Debug
+;Gui, Add, CheckBox,     x+10 h20 0x200, Developer
 
 ;=============================================
 ; Hotkeys

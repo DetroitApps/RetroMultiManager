@@ -54,4 +54,5 @@ Main:
     orderedWindowList := OrderWindowList()
     API.UpdateWindowList(orderedWindowList)
     OrganizeTaskbar()
+    API.RefreshWindowsListView()
 return

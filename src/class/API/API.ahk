@@ -16,6 +16,92 @@ Class API {
         this.LoadScenarios()
     }
 
+    ;========================
+    ; Window methods
+    ;========================
+
+    NewWindow(hwnd, account) {
+        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
+        window := New this.Window(this, hwnd, account, index)
+        this.WindowList[index] := window
+        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
+        return window
+    }
+
+    CloseWindow(id)
+    {
+        windowHwnd := this.getWindow(id).hwnd
+        WinClose, ahk_id %windowHwnd%
+    }
+
+    DeleteWindow(id) {
+        this.WindowList.RemoveAt(id)
+        this.CurrentWindow := 1
+    }
+
+    UpdateWindowList(newList){
+        this.WindowList := newList
+        Loop, % this.GetNbWindows() {
+            this.WindowList[A_Index].id := A_Index
+        }
+    }
+
+    ClearWindowList(){
+        WindowList := []
+    }
+
+    ;========================
+    ; Windows ListView
+    ;========================
+
+    RefreshWindowsListView(){
+        LV_Delete()
+        Loop, % this.GetNbWindows() {
+            window := this.WindowList[A_Index]
+            LV_Add("", window.id, window.account.username, window.title, (window.isAttached = True) ? Translate("Yes") : Translate("No"))
+        }
+        LV_ModifyCol()
+    }
+
+    AddWindowToListView(id){
+        window := this.WindowList[id]
+        LV_Add("", id, window.account.username, window.title, (window.isAttached = True) ? Translate("Yes") : Translate("No"))
+        LV_ModifyCol()
+    }
+    
+    RemoveWindowFromListView(id){
+
+    }
+
+    ;========================
+    ; Simple getters
+    ;========================
+
+    GetNbActiveAccounts() {
+        count := 0
+        Loop, % this.GetNbAccounts() {
+            If ArrayAccounts[A_Index].IsActive
+                count++
+        }
+        return count
+    }
+
+    GetNbAccounts() {
+        return ArrayAccounts.MaxIndex()
+    }
+
+    GetNbWindows() {
+        return this.WindowList.MaxIndex()
+    }
+
+    GetWindow(id){
+        return this.WindowList[id]
+    }
+
+    ;========================
+    ; Misc
+    ;========================
+
     LoadScenarios(){
         directory := A_ScriptDir . "\Scenarios\"
         GuiControl, , SelectScenario, |
@@ -27,8 +113,6 @@ Class API {
             Menu, ScenariosMenu, Add,   %scenarioName%, %scenarioName%
             Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
             Gui, Menu,                  MyMenuBar
-            ;Scenario select
-            GuiControl, , SelectScenario, %scenarioName%
         }
     }
 
@@ -56,93 +140,8 @@ Class API {
         this.Debug := (mode = True) ? True : False
     }
 
-    ClearWindowList(){
-        WindowList := []
-        /*
-        Loop, GetNbAccounts() {
-            this.getWindow(A_Index) := {}
-        }
-        */
-    }
-
-    CloseWindow(id)
-    {
-        windowHwnd := this.getWindow(id).hwnd
-        WinClose, ahk_id %windowHwnd%
-    }
-
     LogWrite(ByRef content, ByRef type := 0)
     {
         Logger.Write(content, type, CurrentScenario.Title)
     }
-
-    ;Simple getters
-    GetNbActiveAccounts() {
-        count := 0
-        Loop, % this.GetNbAccounts() {
-            If ArrayAccounts[A_Index].IsActive
-                count++
-        }
-        return count
-    }
-
-    GetNbAccounts() {
-        return ArrayAccounts.MaxIndex()
-    }
-
-    GetNbWindows() {
-        return this.WindowList.MaxIndex()
-    }
-
-    NewWindow(hwnd, account) {
-        index := (this.WindowList.MaxIndex() > 0) ? this.WindowList.MaxIndex() + 1 : 1
-        window := New this.Window(this, hwnd, account, index)
-        this.WindowList[index] := window
-        Logger.Write("Creating window #" index " with hwnd '" hwnd "'.")
-        return window
-    }
-
-    DeleteWindow(id) {
-        this.WindowList.RemoveAt(id)
-        this.CurrentWindow := 1
-    }
-
-    UpdateWindowList(newList){
-        this.WindowList := newList
-        Loop, % this.GetNbWindows() {
-            this.WindowList[A_Index].id := A_Index
-        }
-    }
-
-    /*SaveWindow(hwnd, id){
-        ArrayAccounts[id].Window := New this.Window(this, hwnd, id)
-        Logger.Write("Saving window #" id " with hwnd '" this.getWindow(id).hwnd "' for account '" this.GetUsername(id) "'.")
-        this.CurrentWindow := id
-        return ArrayAccounts[id].Window
-    }
-    */
-
-    AddWindowToListView(id){
-        window := this.WindowList[id]
-        LV_Add("", window.account.username, window.title, id, window.hwnd)
-        LV_ModifyCol()
-    }
-    
-    RemoveWindowFromListView(id){
-
-    }
-
-    GetWindow(id){
-        return this.WindowList[id]
-    }
-
-/*
-    GetUsername(hwnd) {
-        return ArrayAccounts[hwnd].Username
-    }
-
-    GetPassword(hwnd) {
-        return ArrayAccounts[hwnd].Password
-    }
-*/
 }

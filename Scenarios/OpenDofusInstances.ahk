@@ -13,15 +13,19 @@ Main:
     Loop % nbAccounts {
         If !ArrayAccounts[A_Index].IsActive
             Continue
+
         Run, % Settings.DofusPath
-        API.GuiUpdateProgressBar(A_Index, nbAccounts)
-        SleepHandler(0)
-        sleep, 200 * Settings.Speed
+
+        SleepHandler(150)
+
         WinGet, window, ID, Dofus
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
         this_window.SetTitle()
+
         API.AddWindowToListView(i)
+        API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
+        
         i++
     }
 
