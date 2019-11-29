@@ -14,6 +14,7 @@ Class Settings {
     FirstStart := False
     Debug := False
     Dev := False
+    Hotkeys := []
 
     __New(IniPath){
         this.TitleApp := "Retro Multi Manager"
@@ -53,12 +54,30 @@ Class Settings {
         this.FirstStart := FirstStart = "True" ? True : False
         this.DefaultProfile := DefaultProfile
 
+        ;Organizer
+        IniRead, AlwaysOrganize, %IniPath%, Organizer, AlwaysOrganize
+
+        this.AlwaysOrganize := AlwaysOrganize = "True" ? True : False
+
         ; Mode
         IniRead, Debug, %IniPath%, Mode, Debug
         IniRead, Dev, %IniPath%, Mode, Dev
 
         this.Debug := Debug = "True" ? True : False
         this.Dev := Dev = "True" ? True : False
+
+        ;Shortcuts
+        IniRead, FunctionHotkeys, %IniPath%, Hotkeys, FunctionHotkeys
+        IniRead, CycleWindows, %IniPath%, Hotkeys, CycleWindows
+        IniRead, CycleWindowsBackwards, %IniPath%, Hotkeys, CycleWindowsBackwards
+        IniRead, MoveAllPlayers, %IniPath%, Hotkeys, MoveAllPlayers
+
+        this.FunctionHotkeys := FunctionHotkeys = "True" ? True : False
+        this.Hotkeys["CycleWindows"] := CycleWindows
+        this.Hotkeys["CycleWindowsBackwards"] := CycleWindowsBackwards
+        this.Hotkeys["MoveAllPlayers"] := MoveAllPlayers
+
+        this.InitHotkeys()
 
         ;Try to get Dofus with default path
         If (this.DofusPath = "")
@@ -85,26 +104,25 @@ Class Settings {
         Reload
     }
 
-    InitHotkeys(IniPath){
-        arrayHotkeys := []
+    DisableHotkey(hotkeyName)
+    {
+        Hotkey, % this.Hotkeys[hotkeyName],, UseErrorLevel
+        If ErrorLevel in 5,6
+            return
+        Else
+            Hotkey, % this.Hotkeys[hotkeyName], Off
+    }
 
-        Loop 12 {
-            targetKey := "F" . A_Index
-            IniRead, shortcut, %IniPath%, Hotkeys, %targetKey%
-            arrayHotkeys[A_Index] := shortcut
-        }
-        this.Hotkeys := Object(   "F1", arrayHotkeys[1]
-                                    ,"F2", arrayHotkeys[2]
-                                    ,"F3", arrayHotkeys[3]
-                                    ,"F4", arrayHotkeys[4]
-                                    ,"F5", arrayHotkeys[5]
-                                    ,"F6", arrayHotkeys[6]
-                                    ,"F7", arrayHotkeys[7]
-                                    ,"F8", arrayHotkeys[8]
-                                    ,"F9", arrayHotkeys[9]
-                                    ,"F10", arrayHotkeys[10]
-                                    ,"F11", arrayHotkeys[11]
-                                    ,"F12", arrayHotkeys[12])
-        
+    UpdateHotkey(hotkeyName, key)
+    {
+        this.DisableHotkey(hotkeyName)
+        this.Hotkeys[hotkeyName] := key
+        Hotkey, % this.Hotkeys[hotkeyName], %hotkeyName%
+    }
+
+    InitHotkeys(){
+        Hotkey, % this.Hotkeys["CycleWindows"], CycleWindows
+        Hotkey, % this.Hotkeys["CycleWindowsBackwards"], CycleWindows
+        Hotkey, % this.Hotkeys["MoveAllPlayers"], MoveAllPlayers
     }
 }

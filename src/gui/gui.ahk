@@ -181,6 +181,10 @@ Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Updates")
 Gui, Add, Button,       x+10 gGui_CheckForUpdates, % Translate("CheckForUpdates")
 Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnStart h20 0x200, % Translate("CheckOnStart")
 
+;
+Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Organizer
+Gui, Add, CheckBox,     x+10 gCheckAlwaysOrganize_Listener vCheckAlwaysOrganize h20 0x200, % Translate("StartWithOrganizer")
+
 ;Modes
 Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Modes")
 Gui, Add, CheckBox,     x+10 h20 0x200, Debug
@@ -191,19 +195,19 @@ Gui, Add, CheckBox,     x+10 h20 0x200, Developer
 ;=============================================
 
 Gui, Font,              Bold s10
-Gui, Add, Text,         x40 y+10 , Raccourcis
+Gui, Add, Text,         x40 y+10, % Translate("Hotkeys")
 Gui, Font,              Normal s8
 
-Gui, Add, Checkbox,     x40y y+10, Activer les raccourcis F1 à F12 pour afficher les fenêtres 1 à 12
+Gui, Add, Checkbox,     x40y y+10 gCheckFunctionHotkeys_Listener vCheckFunctionHotkeys, % Translate("FunctionHotkeysText")
 
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Naviguer entre les fenêtres
-Gui, Add, Hotkey,       x+10 vHotkeyCycleWindows, SC056
+Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, % Translate("CycleWindows")
+Gui, Add, Hotkey,       x+10 gHotkeyCycleWindows_Listener vHotkeyCycleWindows, SC056
 
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Naviguer entre les fenêtres (à l'envers)
-Gui, Add, Hotkey,       x+10 vHotkeyCycleWindowsBackwards, +SC056
+Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, % Translate("CycleWindowsBackwards")
+Gui, Add, Hotkey,       x+10 gHotkeyCycleWindowsBackwards_Listener vHotkeyCycleWindowsBackwards, +SC056
 
-Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, Déplacer les personnages
-Gui, Add, Hotkey,       x+10 vHotkeyMoveAllPlayers, ^SC056
+Gui, Add, Text,         x40 y+10 %guiLabelOptions% w200, % Translate("MoveAllPlayers")
+Gui, Add, Hotkey,       x+10 gHotkeyMoveAllPlayers_Listener vHotkeyMoveAllPlayers, ^SC056
 
 
 ;=============================================
@@ -215,7 +219,7 @@ Gui, Tab
 Gui, Font,              Bold s10
 Gui, Add, Button,       gGui_1Click2Play w100 h30, % Translate("Play")
 Gui, Add, Button,       gGui_OrganizeAccounts x+10 w100 h30, % Translate("Organize")
-Gui, Add, Button,       x+10 w100 h30, % Translate("Close")
+Gui, Add, Button,       gGui_CloseDofus x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
 
 /*

@@ -2,6 +2,34 @@
     Gui labels
 */
 
+HotkeyCycleWindows_Listener:
+    Gui, Submit, NoHide
+    Settings.UpdateHotkey("CycleWindows", HotkeyCycleWindows)
+    IniWrite, %HotkeyCycleWindows%, %IniPath%, Hotkeys, CycleWindows
+    return
+HotkeyCycleWindowsBackwards_Listener:
+    Gui, Submit, NoHide
+    Settings.UpdateHotkey("CycleWindowsBackwards", HotkeyCycleWindowsBackwards)
+    IniWrite, %HotkeyCycleWindowsBackwards%, %IniPath%, Hotkeys, CycleWindowsBackwards
+    return
+HotkeyMoveAllPlayers_Listener:
+    Gui, Submit, NoHide
+    Settings.UpdateHotkey("MoveAllPlayers", HotkeyMoveAllPlayers)
+    IniWrite, %HotkeyMoveAllPlayers%, %IniPath%, Hotkeys, MoveAllPlayers
+    return
+    
+CheckFunctionHotkeys_Listener:
+    Gui, Submit, NoHide
+    IniWrite, % CheckFunctionHotkeys = 1 ? "True" : "False", %IniPath%, Hotkeys, FunctionHotkeys
+    Settings.FunctionHotkeys := CheckFunctionHotkeys = 1 ? True : False
+    return
+
+CheckAlwaysOrganize_Listener:
+    Gui, Submit, NoHide
+    IniWrite, % CheckAlwaysOrganize = 1 ? "True" : "False", %IniPath%, Organizer, AlwaysOrganize
+    Settings.AlwaysOrganize := CheckAlwaysOrganize = 1 ? True : False
+    return
+
 GuiClose:
     ExitApp
     return

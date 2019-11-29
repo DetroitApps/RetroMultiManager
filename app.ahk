@@ -88,7 +88,7 @@ Else
         MasterPassword := "dev"
 }
 
-Settings.InitHotkeys(IniPath)
+;Settings.InitHotkeys(IniPath)
 
 ;Gui init
 If (Settings.GuiStatus = True) {
@@ -100,6 +100,14 @@ If (Settings.GuiStatus = True) {
         GuiControl, , CheckCheckUpdateOnStart, 1
     If (Settings.WaitForAnkamaShield = True)
         GuiControl, , CheckWaitForAnkamaShield, 1
+    
+    ;Hotkeys
+    If (Settings.FunctionHotkeys = True)
+        GuiControl, , CheckFunctionHotkeys, 1
+    GuiControl,, HotkeyCycleWindows, % Settings.Hotkeys["CycleWindows"]
+    GuiControl,, HotkeyCycleWindowsBackwards, % Settings.Hotkeys["CycleWindowsBackwards"]
+    GuiControl,, HotkeyMoveAllPlayers, % Settings.Hotkeys["MoveAllPlayers"]
+    
     Gui, Submit, NoHide
 }
 
