@@ -100,6 +100,8 @@ If (Settings.GuiStatus = True) {
         GuiControl, , CheckCheckUpdateOnStart, 1
     If (Settings.WaitForAnkamaShield = True)
         GuiControl, , CheckWaitForAnkamaShield, 1
+    If (Settings.AlwaysOrganize = True)
+        GuiControl, , CheckAlwaysOrganize, 1
     
     ;Hotkeys
     If (Settings.FunctionHotkeys = True)

@@ -9,8 +9,9 @@ Class API {
     #Include src\class\API\window.ahk
 
     Debug := False
-    CurrentWindow := 1
     WindowList := []
+    CurrentWindow := 1 ;Focused windows
+    SelectedWindow := 0 ;Selected window in list view
 
     __New(){
         this.LoadScenarios()
@@ -30,7 +31,7 @@ Class API {
 
     CloseWindow(id)
     {
-        windowHwnd := this.getWindow(id).hwnd
+        windowHwnd := this.GetWindow(id).hwnd
         WinClose, ahk_id %windowHwnd%
     }
 
