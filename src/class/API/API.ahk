@@ -33,18 +33,61 @@ Class API {
     {
         windowHwnd := this.GetWindow(id).hwnd
         WinClose, ahk_id %windowHwnd%
+        this.DeleteWindow(id)
     }
 
     DeleteWindow(id) {
         this.WindowList.RemoveAt(id)
+        this.RefreshWindowsIndex()
         this.CurrentWindow := 1
+    }
+
+    DeleteClosedWindows() {
+        index := 1
+        Loop, % this.GetNbWindows()
+        {
+            window := this.GetWindow(index)
+            If Not WinExist("ahk_id " window.hwnd)
+            {
+                this.LogWrite("Windows " window.hwnd " has been closed, deleting from list.")
+                this.DeleteWindow(index)
+                index--
+            }
+            index++
+        }
+    }
+
+    OrganizeTaskbar() {
+        Loop, % this.GetNbWindows()
+        {
+            window := this.WindowList[A_Index]
+            window.SetTitle()
+            WinHide, % "ahk_id " window.hwnd
+            Sleep 50
+        }
+        Loop, % API.GetNbWindows()
+        {
+            window := this.WindowList[A_Index]
+            WinShow, % "ahk_id " window.hwnd
+            Sleep 50
+        }
+    }
+
+    RefreshWindows() {
+        this.DeleteClosedWindows()
+        this.OrganizeTaskbar()
+        this.RefreshWindowsListView()
+    }
+
+    RefreshWindowsIndex(){
+        Loop, % this.GetNbWindows() {
+            this.WindowList[A_Index].id := A_Index
+        }
     }
 
     UpdateWindowList(newList){
         this.WindowList := newList
-        Loop, % this.GetNbWindows() {
-            this.WindowList[A_Index].id := A_Index
-        }
+        this.RefreshWindowsIndex()
     }
 
     ClearWindowList(){
@@ -59,14 +102,14 @@ Class API {
         LV_Delete()
         Loop, % this.GetNbWindows() {
             window := this.WindowList[A_Index]
-            LV_Add("", window.id, window.account.username, window.title, (window.isAttached = True) ? Translate("Yes") : Translate("No"))
+            LV_Add("", window.id, window.account.username, window.title, (window.isLinked = True) ? Translate("Yes") : Translate("No"))
         }
         LV_ModifyCol()
     }
 
     AddWindowToListView(id){
         window := this.WindowList[id]
-        LV_Add("", id, window.account.username, window.title, (window.isAttached = True) ? Translate("Yes") : Translate("No"))
+        LV_Add("", id, window.account.username, window.title, (window.isLinked = True) ? Translate("Yes") : Translate("No"))
         LV_ModifyCol()
     }
     

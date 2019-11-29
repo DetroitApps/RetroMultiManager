@@ -2,6 +2,10 @@
     Gui labels
 */
 
+;=============================================
+; Listeners
+;=============================================
+
 HotkeyCycleWindows_Listener:
     Gui, Submit, NoHide
     Settings.UpdateHotkey("CycleWindows", HotkeyCycleWindows)
@@ -29,6 +33,33 @@ CheckAlwaysOrganize_Listener:
     IniWrite, % CheckAlwaysOrganize = 1 ? "True" : "False", %IniPath%, Organizer, AlwaysOrganize
     Settings.AlwaysOrganize := CheckAlwaysOrganize = 1 ? True : False
     return
+
+ListViewWindows_Listener:
+    If (A_GuiEvent = "Normal")
+    {
+        LV_GetText(RowText, A_EventInfo)
+        API.SelectedWindow := RowText
+    }
+    return
+
+;Windows tab
+ButtonDisplayWindow_Listener:
+    window := API.GetWindow(API.SelectedWindow)
+    window.Activate()
+    return
+ButtonCloseWindow_Listener:
+    API.CloseWindow(API.SelectedWindow)
+    API.RefreshWindows()
+    return
+ButtonUnlinkWindow_Listener:
+    API.GetWindow(API.SelectedWindow).isLinked = False
+    API.RefreshWindows()
+    return
+
+
+;=============================================
+;
+;=============================================
 
 GuiClose:
     ExitApp
@@ -67,14 +98,7 @@ Gui_ToggleModifications:
     Modifications := True
     return
 
-Gui_ListViewWindows:
-    if (A_GuiEvent = "Normal")
-    {
-        LV_GetText(RowText, A_EventInfo, 4)  ; Get the text from the row's first field.
-        ;ToolTip You double-clicked row number %A_EventInfo%. Text: "%RowText%"
-        MsgBox You clicked row number %A_EventInfo%. Hwnd "%RowText%"
-    }
-    return
+
 
 Gui_Browse:
     Gui, Submit, NoHide

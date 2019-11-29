@@ -5,10 +5,10 @@
 Gui, Tab, 2
 
 Gui, Font,              Bold s10
-Gui, Add, Text,         ,% Translate("Profiles")
+Gui, Add, Text,         , % Translate("Profiles")
 Gui, Font,              Normal s8
 
-Gui, Add, Text,         h20 0x200, % Translate("Profile")
+Gui, Add, Text,         y+10 h20 0x200, % Translate("Profile")
 Gui, Add, DropDownList, x+10 vSelectProfile w50, 1||2|3|4|5|6|7|8|9
 Gui, Add, Button,       x+10 gGui_LoadProfile, % Translate("Load")
 Gui, Add, Button,       x+10 gGui_ClearAccountData, % Translate("ClearAll")
@@ -22,7 +22,6 @@ Gui, Add, Text,         x+5 h20 0x200 w50, % Translate("Player")
 Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Nickname")
 Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Class")
 Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Initiative")
-
 Gui, Font,              Normal s8
 
 Loop 12 {

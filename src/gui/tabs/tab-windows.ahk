@@ -13,7 +13,7 @@ LV_ModifyCol(1, "Integer")
 
 Gui, Font,              Bold s14
 Gui, Add, Button,       Section y+10 x40 w50 gButtonDisplayWindow_Listener, 👁
-Gui, Add, Button,       ys x+5 w50, 🔗
+Gui, Add, Button,       ys x+5 w50 gButtonUnlinkWindow_Listener, 🔗
 Gui, Add, Button,       ys x+5 w50, ✏️
 Gui, Add, Button,       ys x+5 w50 gButtonCloseWindow_Listener, ❌
 
