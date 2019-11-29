@@ -8,4 +8,4 @@ Gui, Font,              Bold s10
 Gui, Add, Text,         , % Translate("Groups")
 Gui, Font,              Normal s8
 
-Gui, Add, Text,         , To Do
+Gui, Add, Text,         , Coming soon

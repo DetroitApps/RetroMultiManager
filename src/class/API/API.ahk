@@ -90,6 +90,19 @@ Class API {
         this.RefreshWindowsIndex()
     }
 
+    CheckCurrentWindow(){
+        If WinActive("ahk_id " this.GetWindow(this.CurrentWindow).hwnd)
+            return
+        Loop, % this.GetNbWindows() {
+            If WinActive("ahk_id " this.GetWindow(A_Index).hwnd)
+            {
+                this.CurrentWindow := A_Index
+                return
+            }
+        }
+        this.CurrentWindow := 1
+    }
+
     LinkWindow(id) {
         window := this.GetWindow(id)
         window.isLinked := !window.isLinked
@@ -111,6 +124,7 @@ Class API {
 
     ClearWindowList(){
         WindowList := []
+        LV_Delete()
     }
 
     ;========================

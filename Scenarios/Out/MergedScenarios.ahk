@@ -109,6 +109,7 @@ CycleWindows:
 	currentScenario := Scenario
 	;End Header
 
+    API.CheckCurrentWindow()
     destWin := (API.CurrentWindow = API.GetNbLinkedWindows()) ? 1 : API.CurrentWindow + 1
     window := API.GetWindow(destWin)
     API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")
@@ -127,6 +128,7 @@ CycleWindowsBackwards:
 	currentScenario := Scenario
 	;End Header
 
+    API.CheckCurrentWindow()
     destWin := (API.CurrentWindow = 1) ? API.GetNbLinkedWindows() : API.CurrentWindow - 1
     window := API.GetWindow(destWin)
     API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")

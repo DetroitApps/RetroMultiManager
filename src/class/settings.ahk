@@ -122,7 +122,7 @@ Class Settings {
 
     InitHotkeys(){
         Hotkey, % this.Hotkeys["CycleWindows"], CycleWindows
-        Hotkey, % this.Hotkeys["CycleWindowsBackwards"], CycleWindows
+        Hotkey, % this.Hotkeys["CycleWindowsBackwards"], CycleWindowsBackwards
         Hotkey, % this.Hotkeys["MoveAllPlayers"], MoveAllPlayers
     }
 }
