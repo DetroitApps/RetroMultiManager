@@ -16,9 +16,14 @@ CloseDofusInstances:
     API.GuiUpdateProgressText("Closing Dofus instances...")
     API.GuiUpdateProgressBar(0)
 
-    Loop % API.GetNbAccounts()
-        API.CloseWindow(A_Index)
-    API.LogWrite("Successfully closed " . API.GetNbAccounts() . " windows.")    
+    i := 0
+    Loop % API.GetNbWindows()
+    {
+        API.CloseWindow(1)
+        SleepHandler(0)
+        i++
+    }
+    API.LogWrite("Successfully closed " i " windows.")    
     API.ClearWindowList()
     API.GuiUpdateProgressText("Done.")
     API.GuiUpdateProgressBar(100)
@@ -104,7 +109,7 @@ CycleWindows:
 	currentScenario := Scenario
 	;End Header
 
-    destWin := (API.CurrentWindow = API.GetNbActiveAccounts()) ? 1 : API.CurrentWindow + 1
+    destWin := (API.CurrentWindow = API.GetNbLinkedWindows()) ? 1 : API.CurrentWindow + 1
     window := API.GetWindow(destWin)
     API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")
     window.Activate()
@@ -122,7 +127,7 @@ CycleWindowsBackwards:
 	currentScenario := Scenario
 	;End Header
 
-    destWin := (API.CurrentWindow = 1) ? API.GetNbActiveAccounts() : API.CurrentWindow - 1
+    destWin := (API.CurrentWindow = 1) ? API.GetNbLinkedWindows() : API.CurrentWindow - 1
     window := API.GetWindow(destWin)
     API.LogWrite("Dest window is number #" destWin " (hwnd " window.hwnd ")")
     window.Activate()
@@ -260,7 +265,7 @@ OpenDofusInstances:
     If (Settings.AlwaysOrganize = True)
         GoSub, Organize
 
-    API.LogWrite("Successfully opened " i " windows.")
+    API.LogWrite("Successfully opened " i - 1 " windows.")
     API.GuiUpdateProgressBar(100)
     API.GuiUpdateProgressText("Done.")
     return
@@ -271,7 +276,7 @@ OpenDofusInstances:
 */
 
 OrderWindowListWithInitiative() {
-    tempWindowList := API.WindowList.Clone()
+    tempWindowList := API.GetLinkedWindowList()
     orderedWindowList := {}
 
     While (tempWindowList.Length() != 0) 
@@ -286,6 +291,10 @@ OrderWindowListWithInitiative() {
         orderedWindowList.Push(tempWindowList[maxInitiativeIndex])
         tempWindowList.RemoveAt(maxInitiativeIndex)
     }
+
+    unlinkedList := API.GetUnlinkedWindowList()
+    Loop, % unlinkedList.MaxIndex()
+        orderedWindowList.Push(unlinkedList[A_Index])
     return orderedWindowList
 }
 
@@ -297,7 +306,7 @@ Organize:
 
     API.DeleteClosedWindows()
     orderedWindowList := OrderWindowListWithInitiative()
-    API.UpdateWindowList(orderedWindowList)
+    API.SetWindowList(orderedWindowList)
     API.OrganizeTaskbar()
     API.RefreshWindowsListView()
 return

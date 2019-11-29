@@ -51,11 +51,9 @@ ButtonCloseWindow_Listener:
     API.CloseWindow(API.SelectedWindow)
     API.RefreshWindows()
     return
-ButtonUnlinkWindow_Listener:
-    API.GetWindow(API.SelectedWindow).isLinked = False
-    API.RefreshWindows()
+ButtonLinkWindow_Listener:
+    API.LinkWindow(API.SelectedWindow)
     return
-
 
 ;=============================================
 ;
@@ -97,8 +95,6 @@ Gui_ToggleModifications:
         return
     Modifications := True
     return
-
-
 
 Gui_Browse:
     Gui, Submit, NoHide

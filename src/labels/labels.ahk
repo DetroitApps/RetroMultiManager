@@ -66,7 +66,7 @@ LoadProfile:
             username := XOR_String_Minus(username, MasterPassword)
             password := XOR_String_Minus(password, MasterPassword)
             ArrayAccounts[A_Index] := New Account(username, password, nickname, initiative, characterClass, isActive, serverSlot, playerSlot)
-            Logger.WriteAccount(ArrayAccounts[A_Index])
+            ;Logger.WriteAccount(ArrayAccounts[A_Index])
             If Settings.GuiStatus
             {
                 GuiControl, Text, InputUsername%A_Index%, %username%
@@ -111,7 +111,7 @@ SaveProfile:
         IsActive := CheckActive%A_Index% = 1 ? 1 : 0
         file.WriteLine("IsActive" . A_Index . "=" . IsActive)
         ArrayAccounts[A_Index] := New Account(InputUsername%A_Index%, InputPassword%A_Index%, InputNickname%A_Index%, InputInitiative%A_Index%, SelectClass%A_Index%, IsActive, SelectServerSlot%A_Index%, SelectPlayerSlot%A_Index%)
-        Logger.WriteAccount(ArrayAccounts[A_Index])
+        ;Logger.WriteAccount(ArrayAccounts[A_Index])
     }
     If (CheckDefaultProfile = 1)
         IniWrite, %SelectProfile%, %IniPath%, Program, DefaultProfile

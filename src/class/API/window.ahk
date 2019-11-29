@@ -33,9 +33,11 @@ Class Window {
     SetTitle(){
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)
-        title := "[" . this.id . "]" 
+        title := ""
+        If (this.isLinked = True)
+        title := title "[" this.id . "]" A_Space
         If (this.account.CharacterClass && this.account.CharacterClass != "")
-            title = % title . A_Space . this.account.CharacterClass
+            title = % title . this.account.CharacterClass
         If (this.account.Nickname && this.account.Nickname != "")
             title = % title . A_Space . "(" . this.account.Nickname . ")"
         Logger.Write("Setting title '" title "'for window # " this.id " (hwnd '" this.hwnd "').")

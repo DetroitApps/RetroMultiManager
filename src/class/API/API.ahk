@@ -85,9 +85,28 @@ Class API {
         }
     }
 
-    UpdateWindowList(newList){
+    SetWindowList(newList){
         this.WindowList := newList
         this.RefreshWindowsIndex()
+    }
+
+    LinkWindow(id) {
+        window := this.GetWindow(id)
+        window.isLinked := !window.isLinked
+        
+        tempList := []
+        tempListUnlinked := []
+        Loop, % this.GetNbWindows()
+        {
+            If (this.WindowList[A_Index].isLinked = True)
+                tempList.Push(this.WindowList[A_Index])
+            Else
+                tempListUnlinked.Push(this.WindowList[A_Index])
+        }
+        Loop, % tempListUnlinked.MaxIndex()
+            tempList.Push(tempListUnlinked[A_Index])
+        this.SetWindowList(tempList)
+        this.RefreshWindows()
     }
 
     ClearWindowList(){
@@ -121,6 +140,10 @@ Class API {
     ; Simple getters
     ;========================
 
+    GetNbAccounts() {
+        return ArrayAccounts.MaxIndex()
+    }
+
     GetNbActiveAccounts() {
         count := 0
         Loop, % this.GetNbAccounts() {
@@ -130,16 +153,43 @@ Class API {
         return count
     }
 
-    GetNbAccounts() {
-        return ArrayAccounts.MaxIndex()
+    GetWindow(id){
+        return this.WindowList[id]
+    }
+
+    GetLinkedWindowList(){
+        tempList := {}
+        Loop, % this.GetNbWindows()
+        {
+            window := this.GetWindow(A_Index)
+            If (window.isLinked = True)
+                tempList.Push(this.WindowList[A_Index])
+        }
+        return tempList
+    }
+
+    GetUnlinkedWindowList(){
+        tempList := {}
+        Loop, % this.GetNbWindows()
+        {
+            window := this.GetWindow(A_Index)
+            If (window.isLinked = False)
+                tempList.Push(this.WindowList[A_Index])
+        }
+        return tempList
     }
 
     GetNbWindows() {
         return this.WindowList.MaxIndex()
     }
 
-    GetWindow(id){
-        return this.WindowList[id]
+    GetNbLinkedWindows() {
+        count := 0
+        Loop, % this.GetNbWindows() {
+            If (this.WindowList[A_Index].IsLinked = True)
+                count++
+        }
+        return count
     }
 
     ;========================

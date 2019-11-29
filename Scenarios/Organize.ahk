@@ -3,7 +3,7 @@
 */
 
 OrderWindowListWithInitiative() {
-    tempWindowList := API.WindowList.Clone()
+    tempWindowList := API.GetLinkedWindowList()
     orderedWindowList := {}
 
     While (tempWindowList.Length() != 0) 
@@ -18,13 +18,17 @@ OrderWindowListWithInitiative() {
         orderedWindowList.Push(tempWindowList[maxInitiativeIndex])
         tempWindowList.RemoveAt(maxInitiativeIndex)
     }
+
+    unlinkedList := API.GetUnlinkedWindowList()
+    Loop, % unlinkedList.MaxIndex()
+        orderedWindowList.Push(unlinkedList[A_Index])
     return orderedWindowList
 }
 
 Main:
     API.DeleteClosedWindows()
     orderedWindowList := OrderWindowListWithInitiative()
-    API.UpdateWindowList(orderedWindowList)
+    API.SetWindowList(orderedWindowList)
     API.OrganizeTaskbar()
     API.RefreshWindowsListView()
 return
