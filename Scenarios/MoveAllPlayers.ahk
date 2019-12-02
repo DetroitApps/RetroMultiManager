@@ -6,7 +6,8 @@
 Main:
     API.GuiUpdateProgressBar(0)
     MouseGetPos, outputX, outputY
-    nbWindow := API.GetNbAccounts()
+    nbWindow := API.GetNbLinkedWindows()
+
     Loop, % nbWindow {
         window := API.GetWindow(A_Index)
         API.GuiUpdateProgressText("Moving player " A_Index ".")
@@ -20,6 +21,7 @@ Main:
         Sleep 250
     }
     
+    ;Reset on windows 1
     window := API.GetWindow(1)
     window.Activate()
     window.WaitActive()

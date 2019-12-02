@@ -81,6 +81,7 @@ Gui, Add, Button,       x+10 gGui_LoginAccounts, % "[" GetHotkeyForScenario("Log
 Gui, Add, Button,       x+10 gGui_ConnectPlayersOnServer, % "[" GetHotkeyForScenario("ConnectPlayersOnServer") "] " Translate("ConnectPlayersOnServer")
 Gui, Add, Button,       x+10 gGui_CloseDofus, % "[" GetHotkeyForScenario("CloseDofusInstances") "] " Translate("CloseDofusInstances")
 */
+
 ;=============================================
 ; Status Bar
 ;=============================================
