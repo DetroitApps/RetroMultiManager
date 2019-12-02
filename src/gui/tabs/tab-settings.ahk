@@ -2,11 +2,12 @@
 ; Settings
 ;=============================================
 
-Gui, Tab, 4
+Gui, Tab, 3
 
 Gui, Font,              Bold s10
 Gui, Add, Text,         , Programme
 Gui, Font,              Normal s8
+
 ;Dofus path
 Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Dofus.exe
 Gui, Add, Edit,         hp r1 x+10 w500 vInputDofusPath
@@ -26,10 +27,6 @@ Gui, Add, CheckBox,     x+10 vCheckCheckUpdateOnStart gGui_ToggleCheckUpdateOnSt
 Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Organizer
 Gui, Add, CheckBox,     x+10 gCheckAlwaysOrganize_Listener vCheckAlwaysOrganize h20 0x200, % Translate("StartWithOrganizer")
 
-;Modes
-;Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Modes")
-;Gui, Add, CheckBox,     x+10 h20 0x200, Debug
-;Gui, Add, CheckBox,     x+10 h20 0x200, Developer
 
 ;=============================================
 ; Hotkeys

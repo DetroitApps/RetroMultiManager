@@ -55,10 +55,6 @@ Loop 12 {
     ;Order
     Gui, Add, Button,   gGui_MoveAccountUp%A_Index% x+5, ↑
     Gui, Add, Button,   gGui_MoveAccountDown%A_Index% x+1, ↓
-
-    ;Actions
-    ;Gui, Add, Button,   x+5, ❤️
-    ;Gui, Add, Button,   x+5, 💔
 }
 
 Gui, Font,              Bold s10
