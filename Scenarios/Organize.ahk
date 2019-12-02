@@ -2,6 +2,14 @@
     Scenario: Reorganize windows according to initiative 
 */
 
+Main:
+    API.DeleteClosedWindows()
+    orderedWindowList := OrderWindowListWithInitiative()
+    API.SetWindowList(orderedWindowList)
+    API.OrganizeTaskbar()
+    API.RefreshWindowsListView()
+return
+
 OrderWindowListWithInitiative() {
     tempWindowList := API.GetLinkedWindowList()
     orderedWindowList := {}
@@ -24,11 +32,3 @@ OrderWindowListWithInitiative() {
         orderedWindowList.Push(unlinkedList[A_Index])
     return orderedWindowList
 }
-
-Main:
-    API.DeleteClosedWindows()
-    orderedWindowList := OrderWindowListWithInitiative()
-    API.SetWindowList(orderedWindowList)
-    API.OrganizeTaskbar()
-    API.RefreshWindowsListView()
-return
