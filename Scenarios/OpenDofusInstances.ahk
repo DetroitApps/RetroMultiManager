@@ -16,7 +16,7 @@ Main:
 
         Run, % Settings.DofusPath
 
-        SleepHandler(150)
+        WinWait, Dofus
 
         WinGet, window, ID, Dofus
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
