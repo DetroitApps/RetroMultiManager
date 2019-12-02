@@ -120,9 +120,23 @@ Class Settings {
         Hotkey, % this.Hotkeys[hotkeyName], %hotkeyName%
     }
 
+    ToggleFunctionHotkeys(activate := True)
+    {
+        params := ""
+        If (activate = False)
+            params := "Off"
+        Loop 12 {
+            keyName := "F" A_Index
+            Hotkey, %keyName%, ActivateWindow%A_Index%, %params%
+        }
+    }
+
     InitHotkeys(){
         Hotkey, % this.Hotkeys["CycleWindows"], CycleWindows
         Hotkey, % this.Hotkeys["CycleWindowsBackwards"], CycleWindowsBackwards
         Hotkey, % this.Hotkeys["MoveAllPlayers"], MoveAllPlayers
+
+        If (this.FunctionHotkeys = True)
+            this.ToggleFunctionHotkeys()
     }
 }

@@ -98,3 +98,15 @@ return
 ActivateWindow8:
     API.GetWindow(8).Activate()
 return
+ActivateWindow9:
+    API.GetWindow(9).Activate()
+return
+ActivateWindow10:
+    API.GetWindow(10).Activate()
+return
+ActivateWindow11:
+    API.GetWindow(11).Activate()
+return
+ActivateWindow12:
+    API.GetWindow(12).Activate()
+return

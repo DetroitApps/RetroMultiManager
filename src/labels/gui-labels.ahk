@@ -26,6 +26,7 @@ CheckFunctionHotkeys_Listener:
     Gui, Submit, NoHide
     IniWrite, % CheckFunctionHotkeys = 1 ? "True" : "False", %IniPath%, Hotkeys, FunctionHotkeys
     Settings.FunctionHotkeys := CheckFunctionHotkeys = 1 ? True : False
+    Settings.ToggleFunctionHotkeys(Settings.FunctionHotkeys)
     return
 
 CheckAlwaysOrganize_Listener:
