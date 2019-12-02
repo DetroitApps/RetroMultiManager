@@ -122,6 +122,23 @@ Class API {
         this.RefreshWindows()
     }
 
+    ;Update linked accounts on windows
+    UpdateWindowsAccount() {
+        Logger.Write("Starting an update of windows linked accounts.")
+        Loop, % this.GetNbWindows() {
+            window := this.GetWindow(A_Index)
+            Loop, % this.GetNbAccounts() {
+                If (window.account.username <> ArrayAccounts[A_Index].username)
+                    Continue
+                Else {
+                    Logger.Write("- Found a match with window " window.id " and account " A_Index)
+                    window.account := ArrayAccounts[A_Index]
+                    Break
+                }
+            } 
+        }
+    }
+
     ClearWindowList(){
         WindowList := []
         LV_Delete()

@@ -6,7 +6,6 @@
     Scenario: Close Dofus Instances
 */
 
-F12::
 CloseDofusInstances:
 	;Header (auto-generated)
 	Scenario := New API.Scenario(1,"CloseDofusInstances")
@@ -196,7 +195,6 @@ LoginAccounts:
     Scenario: MoveAllPlayers
 */
 
-^SC056::
 MoveAllPlayers:
 	;Header (auto-generated)
 	Scenario := New API.Scenario(6,"MoveAllPlayers")
@@ -279,6 +277,19 @@ OpenDofusInstances:
     Scenario: Reorganize windows according to initiative 
 */
 
+Organize:
+	;Header (auto-generated)
+	Scenario := New API.Scenario(8,"Organize")
+	currentScenario := Scenario
+	;End Header
+
+    API.DeleteClosedWindows()
+    orderedWindowList := OrderWindowListWithInitiative()
+    API.SetWindowList(orderedWindowList)
+    API.OrganizeTaskbar()
+    API.RefreshWindowsListView()
+return
+
 OrderWindowListWithInitiative() {
     tempWindowList := API.GetLinkedWindowList()
     orderedWindowList := {}
@@ -301,17 +312,4 @@ OrderWindowListWithInitiative() {
         orderedWindowList.Push(unlinkedList[A_Index])
     return orderedWindowList
 }
-
-Organize:
-	;Header (auto-generated)
-	Scenario := New API.Scenario(8,"Organize")
-	currentScenario := Scenario
-	;End Header
-
-    API.DeleteClosedWindows()
-    orderedWindowList := OrderWindowListWithInitiative()
-    API.SetWindowList(orderedWindowList)
-    API.OrganizeTaskbar()
-    API.RefreshWindowsListView()
-return
 

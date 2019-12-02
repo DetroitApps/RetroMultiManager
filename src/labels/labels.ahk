@@ -115,6 +115,7 @@ SaveProfile:
     }
     If (CheckDefaultProfile = 1)
         IniWrite, %SelectProfile%, %IniPath%, Program, DefaultProfile
+    API.UpdateWindowsAccount()
     file.Close()
     Modifications := False
     return
