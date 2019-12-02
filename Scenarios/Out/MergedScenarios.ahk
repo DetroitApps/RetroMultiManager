@@ -251,9 +251,13 @@ OpenDofusInstances:
 
         Run, % Settings.DofusPath
 
-        ;SleepHandler(150)
-
         WinWait, Dofus
+        if ErrorLevel
+        {
+            MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
+            API.LogWrite("Game window couldn't be detected (Timeout).")
+            return
+        }
 
         WinGet, window, ID, Dofus
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
