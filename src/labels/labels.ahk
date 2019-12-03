@@ -63,7 +63,7 @@ LoadProfile:
             IniRead, serverSlot, %profileIniPath%, Accounts, ServerSlot%A_Index%
             IniRead, nickname, %profileIniPath%, Accounts, Nickname%A_Index%
             IniRead, characterClass, %profileIniPath%, Accounts, Class%A_Index%
-            IniRead, initiative, %profileIniPath%, Accounts, Initiative%A_Index%
+            IniRead, initiative, %profileIniPath%, Accounts, Initiative%A_Index%, 0
             IniRead, isActive, %profileIniPath%, Accounts, IsActive%A_Index%
             If (username = "ERROR" || password = "ERROR")
                 break

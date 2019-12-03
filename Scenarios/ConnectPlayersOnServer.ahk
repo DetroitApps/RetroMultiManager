@@ -55,9 +55,10 @@ Main:
 
         window.isConnected := True
 
-        API.GuiUpdateProgressBar(i, API.GetNbWindows())
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
         i++
         SleepHandler(0)
     }
 
+    API.GuiUpdateProgressBar(100)
 return

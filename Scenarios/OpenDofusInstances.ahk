@@ -6,7 +6,6 @@ Main:
     API.GuiUpdateProgressBar(0, 3)
     API.GuiUpdateProgressText("Opening Dofus instances...")
 
-    ;API.ClearWindowList()
     nbAccounts := API.GetNbAccounts()
 
     i := 1
@@ -37,7 +36,7 @@ Main:
         this_window.WaitOpen()
         this_window.SetTitle()
 
-        API.AddWindowToListView(i)
+        API.AddWindowToListView(this_window.id)
         API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
         
         i++
