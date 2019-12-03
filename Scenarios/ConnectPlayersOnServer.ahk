@@ -7,17 +7,17 @@ Main:
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
     i := 1
-    Loop, % API.GetNbAccounts() {
-        ;Skip unactive accounts
-        If !ArrayAccounts[A_Index].IsActive
-        {
-            API.LogWrite("Skipping character #" A_Index ", marked as inactive.")
+    Loop, % API.GetNbWindows()
+    {
+        window := API.GetWindow(A_Index)
+
+        ;Skip if already connected
+        If (window.isConnected = True)
             Continue
-        }
-        API.LogWrite("Trying to connect character #" A_Index " on server slot " ArrayAccounts[A_Index].ServerSlot " and player slot " ArrayAccounts[A_Index].PlayerSlot ".")        
-        ;Get value for server slot
-        inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].ServerSlot)
-        inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].ServerSlot)
+        
+        ;Get server slot position
+        inputX := Scenario.GetValueFromIni(section, "x" window.account.ServerSlot)
+        inputY := Scenario.GetValueFromIni(section, "y" window.account.ServerSlot)
         If (!inputX || !inputY)
         {
             API.LogWrite("Couldn't load server slot position from INI, stopping current scenario.", 2)
@@ -25,7 +25,6 @@ Main:
             return
         }
 
-        window := API.GetWindow(i)
         window.Activate()
         window.WaitActive()
 
@@ -33,13 +32,14 @@ Main:
         Sleep 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
-        Sleep 1500
 
-        ;Get value for player slot
-        If (ArrayAccounts[A_Index].ServerSlot != ArrayAccounts[A_Index].PlayerSlot)
+        Sleep 1500 ;Static sleep
+
+        ;Get player slot position
+        If (window.account.ServerSlot != window.account.PlayerSlot) ; this avoid useless reads from INI if the slots are the same
         {
-            inputX := Scenario.GetValueFromIni(section, "x" ArrayAccounts[A_Index].PlayerSlot)
-            inputY := Scenario.GetValueFromIni(section, "y" ArrayAccounts[A_Index].PlayerSlot)
+            inputX := Scenario.GetValueFromIni(section, "x" window.account.PlayerSlot)
+            inputY := Scenario.GetValueFromIni(section, "y" window.account.PlayerSlot)
             If (inputX = -1 || inputY = -1)
             {
                 API.LogWrite("Couldn't load player slot position from INI, stopping current scenario.", 2)
@@ -52,11 +52,12 @@ Main:
         ;Connect player
         Sleep 50 * Settings.Speed
         Click, 2
-        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
+
+        window.isConnected := True
+
+        API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++
-        Sleep 1500
+        SleepHandler(0)
     }
 
-    API.LogWrite("Successfully connected " i - 1 " characters.")
-    API.GuiUpdateProgressBar(100)
 return
