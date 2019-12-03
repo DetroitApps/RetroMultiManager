@@ -24,7 +24,7 @@ Gui, Add, Text,         x+10 h20 0x200 w80, % Translate("Class")
 Gui, Add, Text,         x+10 h20 0x200 w50, % Translate("Initiative")
 Gui, Font,              Normal s8
 
-Loop 12 {
+Loop, %NbAccountPerProfile% {
     ;ID
     Gui, Font,          Bold
     Gui, Add, Text,     x40 y+5 h20 w20 0x200, [%A_Index%]

@@ -125,7 +125,7 @@ Class Settings {
         params := ""
         If (activate = False)
             params := "Off"
-        Loop 12 {
+        Loop, %NbAccountPerProfile% {
             keyName := "F" A_Index
             Hotkey, %keyName%, ActivateWindow%A_Index%, %params%
         }

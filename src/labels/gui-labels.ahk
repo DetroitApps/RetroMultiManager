@@ -79,7 +79,7 @@ Gui_1Click2Play:
     return
 
 Gui_ClearAccountData:
-    Loop 12 {
+    Loop, %NbAccountPerProfile% {
         GuiControl,,CheckActive%A_Index%, 1
         GuiControl,,InputUsername%A_Index%
         GuiControl,,InputPassword%A_Index%

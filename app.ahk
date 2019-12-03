@@ -37,6 +37,7 @@ Global MasterPassword := ""
 Global ArrayAccounts := []
 Global HasStarted := False
 Global Modifications := False
+Global NbAccountPerProfile := 12
 
 ; Settings
 If FileExist("settings.ini")

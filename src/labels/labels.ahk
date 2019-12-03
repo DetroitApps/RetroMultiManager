@@ -52,7 +52,7 @@ LoadProfile:
             GuiControl,, CheckDefaultProfile, % Settings.DefaultProfile = SelectProfile ? 1 : 0
             SB_SetText(Translate("ActiveProfile") ": " SelectProfile, 3)
         }
-        Loop 8 {
+        Loop, %NbAccountPerProfile% {
             IniRead, username, %profileIniPath%, Accounts, Username%A_Index%
             IniRead, password, %profileIniPath%, Accounts, Password%A_Index%
             IniRead, playerSlot, %profileIniPath%, Accounts, PlayerSlot%A_Index%
@@ -93,7 +93,7 @@ SaveProfile:
         return
     }
     file.WriteLine("[Accounts]")
-    Loop 8 {
+    Loop, %NbAccountPerProfile% {
         If (InputUsername%A_Index% = "" || InputPassword%A_Index% = "")
             break
 
