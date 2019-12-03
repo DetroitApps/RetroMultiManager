@@ -18,13 +18,23 @@ Main:
     }
 
     Loop, % API.GetNbWindows() {
+        API.LogWrite("Trying to connect account #" A_Index ".")
+
+        window := API.GetWindow(A_Index)
+        If (window.isConnected = True)
+        {
+            API.LogWrite("Skipping window #" A_Index ", already connected.")
+            Continue
+        }
+        
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
-        API.LogWrite("Trying to connect account #" A_Index ".")
-        window := API.GetWindow(A_Index)
+
         window.Activate()
         window.WaitActive()
         window.Maximize()
+
+        ;Username
         Sleep, 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
@@ -33,6 +43,8 @@ Main:
         Sleep, 50 * Settings.Speed
         SendRaw, % window.account.username
         Sleep, 50 * Settings.Speed
+
+        ;Password
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         SendRaw, % window.account.password
@@ -40,7 +52,7 @@ Main:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
+        API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++
         SleepHandler(0)
     }

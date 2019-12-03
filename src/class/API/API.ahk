@@ -144,6 +144,15 @@ Class API {
         LV_Delete()
     }
 
+    ;If a window exists for an account, return the corresponding window index, otherwise -1
+    WindowExists(ByRef account)
+    {
+        Loop, % this.GetNbWindows() 
+            If (this.GetWindow(A_Index).account.username = account.username)
+                return A_Index
+        return -1
+    }
+
     ;========================
     ; Windows ListView
     ;========================

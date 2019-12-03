@@ -56,15 +56,7 @@ ButtonLinkWindow_Listener:
     API.LinkWindow(API.SelectedWindow)
     return
 
-;=============================================
-;
-;=============================================
-
-GuiClose:
-    ExitApp
-    return
-
-Gui_1Click2Play:
+ButtonPlay_Listener:
     If (Modifications = True)
     {
         MsgBox, 49, % Translate("ModificationsTitle"), % Translate("ModificationsMsg")
@@ -76,6 +68,14 @@ Gui_1Click2Play:
     Gosub, LoginAccounts
     SleepHandler(2000)
     Gosub, ConnectPlayersOnServer
+    return
+
+;=============================================
+;
+;=============================================
+
+GuiClose:
+    ExitApp
     return
 
 Gui_ClearAccountData:

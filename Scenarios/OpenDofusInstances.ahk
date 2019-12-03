@@ -6,14 +6,22 @@ Main:
     API.GuiUpdateProgressBar(0, 3)
     API.GuiUpdateProgressText("Opening Dofus instances...")
 
-    API.ClearWindowList()
+    ;API.ClearWindowList()
     nbAccounts := API.GetNbAccounts()
 
     i := 1
     Loop % nbAccounts {
+        ;Skip if account is set as inactive
         If !ArrayAccounts[A_Index].IsActive
             Continue
-
+        
+        ;Skip if window already exists for the same account
+        If (API.WindowExists(ArrayAccounts[A_Index]) <> -1)
+        {
+            API.LogWrite("Skipping account #" A_Index ", window with same account already opened.")
+            Continue
+        }
+        
         Run, % Settings.DofusPath
 
         WinWait, Dofus

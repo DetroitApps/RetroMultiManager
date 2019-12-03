@@ -162,13 +162,23 @@ LoginAccounts:
     }
 
     Loop, % API.GetNbWindows() {
+        API.LogWrite("Trying to connect account #" A_Index ".")
+
+        window := API.GetWindow(A_Index)
+        If (window.isConnected = True)
+        {
+            API.LogWrite("Skipping window #" A_Index ", already connected.")
+            Continue
+        }
+        
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
-        API.LogWrite("Trying to connect account #" A_Index ".")
-        window := API.GetWindow(A_Index)
+
         window.Activate()
         window.WaitActive()
         window.Maximize()
+
+        ;Username
         Sleep, 50 * Settings.Speed
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click
@@ -177,6 +187,8 @@ LoginAccounts:
         Sleep, 50 * Settings.Speed
         SendRaw, % window.account.username
         Sleep, 50 * Settings.Speed
+
+        ;Password
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         SendRaw, % window.account.password
@@ -184,7 +196,7 @@ LoginAccounts:
         Send, {Tab}
         Sleep, 50 * Settings.Speed
         Send {Enter}
-        API.GuiUpdateProgressBar(i, API.GetNbAccounts())
+        API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++
         SleepHandler(0)
     }
@@ -242,14 +254,22 @@ OpenDofusInstances:
     API.GuiUpdateProgressBar(0, 3)
     API.GuiUpdateProgressText("Opening Dofus instances...")
 
-    API.ClearWindowList()
+    ;API.ClearWindowList()
     nbAccounts := API.GetNbAccounts()
 
     i := 1
     Loop % nbAccounts {
+        ;Skip if account is set as inactive
         If !ArrayAccounts[A_Index].IsActive
             Continue
-
+        
+        ;Skip if window already exists for the same account
+        If (API.WindowExists(ArrayAccounts[A_Index]) <> -1)
+        {
+            API.LogWrite("Skipping account #" A_Index ", window with same account already opened.")
+            Continue
+        }
+        
         Run, % Settings.DofusPath
 
         WinWait, Dofus

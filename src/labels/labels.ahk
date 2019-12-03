@@ -21,6 +21,10 @@ VisitGithub:
     Run, https://github.com/DetroitApps/RetroMultiManager
     return
 
+VisitDonations:
+    Run, https://fr.tipeee.com/detroit-applications/
+    return
+
 ExitGracefully:
     Logger.Write("Program exited gracefully with " . Logger.TotalWarning . " warning and " . Logger.TotalErrors . " errors.")
     Logger.CloseLogFiles()

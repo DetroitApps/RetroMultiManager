@@ -38,6 +38,7 @@ Menu, MyMenuBar, Add,       % Translate("Settings"), :SettingsMenu
 
 ;About
 Menu, AboutMenu, Add,       % Translate("VisitGithub"), VisitGithub
+Menu, AboutMenu, Add,       % Translate("VisitDonations"), VisitDonations
 Menu, MyMenuBar, Add,       ?, :AboutMenu
 Gui, Menu,                  MyMenuBar
 
@@ -66,7 +67,7 @@ Gui, Font,              Normal s8
 Gui, Tab
 
 Gui, Font,              Bold s10
-Gui, Add, Button,       gGui_1Click2Play w100 h30, % Translate("Play")
+Gui, Add, Button,       gButtonPlay_Listener w100 h30, % Translate("Play")
 Gui, Add, Button,       gGui_OrganizeAccounts x+10 w100 h30, % Translate("Organize")
 Gui, Add, Button,       gGui_CloseDofus x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
