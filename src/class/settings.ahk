@@ -122,12 +122,20 @@ Class Settings {
 
     ToggleFunctionHotkeys(activate := True)
     {
-        params := ""
-        If (activate = False)
-            params := "Off"
+        options := ""
+        If (activate = True)
+        {
+            options := "On"
+            Logger.Write("Toggling function hotkeys on.")
+        }
+        Else
+        {
+            options := "Off"
+            Logger.Write("Toggling function hotkeys off.")
+        }
         Loop, %NbAccountPerProfile% {
             keyName := "F" A_Index
-            Hotkey, %keyName%, ActivateWindow%A_Index%, %params%
+            Hotkey, %keyName%, ActivateWindow%A_Index%, %options%
         }
     }
 

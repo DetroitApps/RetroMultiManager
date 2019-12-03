@@ -14,7 +14,7 @@
 ;File
 Menu, FileMenu, Add,        % Translate("CloseGui") "`t" Translate("Escape"), Gui_CloseGui
 Menu, FileMenu, Add,        % Translate("ReloadScript") "`tCtrl+R", Gui_ReloadScript
-Menu, FileMenu, Add,        % Translate("Quit") "`tShift+F12", TestMsg
+Menu, FileMenu, Add,        % Translate("Quit") "`tShift+F12", ExitGracefully
 Menu, MyMenuBar, Add,       % Translate("File"), :FileMenu
 
 ;Scenarios

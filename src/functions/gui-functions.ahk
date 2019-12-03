@@ -12,15 +12,6 @@ SB_UpdateBar(value){
     SB_SetProgress(value, barPartId)
 }
 
-GetHotkeyForScenario(labelName){
-    global
-
-    For Key, Value in Settings.Hotkeys {
-        If (Value = labelName)
-            return Key
-    }
-}
-
 RevealPassword(inputId){
     static PasswordRevealToggler := []
     
