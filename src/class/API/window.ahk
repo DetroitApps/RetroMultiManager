@@ -6,6 +6,7 @@ Class Window {
         this.account := account
         this.parent := parent
         this.isLinked := True
+        this.isConnected := False
     }
 
     Activate(){

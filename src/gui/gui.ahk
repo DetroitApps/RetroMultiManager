@@ -18,9 +18,12 @@ Menu, FileMenu, Add,        % Translate("Quit") "`tShift+F12", ExitGracefully
 Menu, MyMenuBar, Add,       % Translate("File"), :FileMenu
 
 ;Scenarios
-Menu, ScenariosMenu, Add,   % Translate("MergeAndReload"), MergeScenarios
-Menu, ScenariosMenu, Add
-Menu, MyMenuBar, Add,       % Translate("Scenarios"), :ScenariosMenu
+If (Settings.Dev)
+{    
+    Menu, ScenariosMenu, Add,   % Translate("MergeAndReload"), MergeScenarios
+    Menu, ScenariosMenu, Add
+    Menu, MyMenuBar, Add,       % Translate("Scenarios"), :ScenariosMenu
+}
 
 ;Language
 Menu, LanguageMenu, Add,    en-US, Gui_SetLanguageEN

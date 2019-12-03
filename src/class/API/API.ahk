@@ -235,9 +235,12 @@ Class API {
             scenarioName := StrSplit(A_LoopFileName, ".")[1]
             Logger.Write("I'm alive!",,scenarioName)
             ;Menu bar
-            Menu, ScenariosMenu, Add,   %scenarioName%, %scenarioName%
-            Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
-            Gui, Menu,                  MyMenuBar
+            If (Settings.Dev)
+            {
+                Menu, ScenariosMenu, Add,   %scenarioName%, %scenarioName%
+                Menu, MyMenuBar, Add,       Scenarios, :ScenariosMenu
+                Gui, Menu,                  MyMenuBar
+            }
         }
     }
 
