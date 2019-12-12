@@ -14,8 +14,10 @@ Main:
 
         window.Activate()
         window.WaitActive()
-
-        Click, outputX, outputY
+        
+        MouseMove, outputX+1, outputY+1 ; Force focus on window
+        ;Click, outputX, outputY
+        Send +{Click, outputX, outputY}
 
         Sleep 250
     }
