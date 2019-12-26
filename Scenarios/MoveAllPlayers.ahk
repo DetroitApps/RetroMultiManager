@@ -4,7 +4,6 @@
 
 Main:
     API.GuiUpdateProgressBar(0)
-    MouseGetPos, outputX, outputY
     nbWindow := API.GetNbLinkedWindows()
 
     Loop, % nbWindow {
@@ -14,8 +13,12 @@ Main:
 
         window.Activate()
         window.WaitActive()
-
-        Click, outputX, outputY
+        
+        MouseGetPos, outputX, outputY
+        MouseMove, outputX+1, outputY+1 ; Force focus on window
+        MouseMove, outputX, outputY ; Force focus on window
+        ;Click, outputX, outputY
+        Send +{Click, outputX, outputY}
 
         Sleep 250
     }
