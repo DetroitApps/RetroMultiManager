@@ -6,7 +6,6 @@ Main:
     API.GuiUpdateProgressBar(0)
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
-    i := 1
     Loop, % API.GetNbWindows()
     {
         window := API.GetWindow(A_Index)
@@ -14,6 +13,9 @@ Main:
         ;Skip if already connected
         If (window.isConnected = True)
             Continue
+
+        window.Activate()
+        window.WaitActive()
         
         ;Get server slot position
         inputX := Scenario.GetValueFromIni(section, "x" window.account.ServerSlot)
@@ -25,39 +27,46 @@ Main:
             return
         }
 
-        window.Activate()
-        window.WaitActive()
-
         ;Connect on server
-        Sleep 50 * Settings.Speed
+        SleepHandler(0)
+
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
 
-        Sleep 1500 ;Static sleep
+        Sleep 500 ;Static sleep
+
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows()*2)
+    }
+
+    ;-----------------------------------------------------------------
+    Loop, % API.GetNbWindows()
+    {
+        window := API.GetWindow(A_Index)
+
+        ;Skip if already connected
+        If (window.isConnected = True)
+            Continue
+
+        window.Activate()
+        window.WaitActive()
 
         ;Get player slot position
-        If (window.account.ServerSlot != window.account.PlayerSlot) ; this avoid useless reads from INI if the slots are the same
+        inputX := Scenario.GetValueFromIni(section, "x" window.account.PlayerSlot)
+        inputY := Scenario.GetValueFromIni(section, "y" window.account.PlayerSlot)
+        If (inputX = -1 || inputY = -1)
         {
-            inputX := Scenario.GetValueFromIni(section, "x" window.account.PlayerSlot)
-            inputY := Scenario.GetValueFromIni(section, "y" window.account.PlayerSlot)
-            If (inputX = -1 || inputY = -1)
-            {
-                API.LogWrite("Couldn't load player slot position from INI, stopping current scenario.", 2)
-                MsgBox, 16, Error, Couldn't load player slot position from INI, stopping current scenario.
-                return
-            }
-            MouseMove, inputX, inputY, 5 * Settings.Speed
+            API.LogWrite("Couldn't load player slot position from INI, stopping current scenario.", 2)
+            MsgBox, 16, Error, Couldn't load player slot position from INI, stopping current scenario.
+            return
         }
 
         ;Connect player
-        Sleep 50 * Settings.Speed
+        SleepHandler(0)
+
+        MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
 
-        window.isConnected := True
-
-        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows())
-        i++
-        SleepHandler(0)
+        API.GuiUpdateProgressBar(A_Index+ API.GetNbWindows(), API.GetNbWindows()*2)
     }
 
     API.GuiUpdateProgressBar(100)

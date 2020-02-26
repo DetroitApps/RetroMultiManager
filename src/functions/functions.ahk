@@ -31,7 +31,7 @@ SetMasterPassword() {
 SleepHandler(addedSleep){
     global
 
-    local step := 500 ;each speed mode will add or decrease initial value based on step
+    local step := 750 ;each speed mode will add or decrease initial value based on step
     local defaultSleep := 50
     speed := addedSleep + defaultSleep + ((Settings.Speed - 1) * step)
     Sleep speed
