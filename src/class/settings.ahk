@@ -5,6 +5,7 @@
 Class Settings {
     ;Default values
     DofusPath := ""
+    DofusWindowName := ""
     Speed := 0
     Language := ""
     DefaultProfile := 1
@@ -31,9 +32,11 @@ Class Settings {
 
         ; Game
         IniRead, DofusPath, %IniPath%, Game, Path
+        IniRead, DofusWindowName, %IniPath%, Game, WindowName
         IniRead, Speed, %IniPath%, Game, Speed
 
         this.DofusPath := DofusPath
+        this.DofusWindowName := DofusWindowName
         this.Speed := Speed
 
         ; Program

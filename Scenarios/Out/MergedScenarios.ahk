@@ -284,7 +284,7 @@ OpenDofusInstances:
         
         Run, % Settings.DofusPath
 
-        WinWait, Dofus
+        WinWait, % Settings.DofusWindowName
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
@@ -292,7 +292,7 @@ OpenDofusInstances:
             return
         }
 
-        WinGet, window, ID, Dofus
+        WinGet, window, ID, % Settings.DofusWindowName
         this_window := API.NewWindow(window, ArrayAccounts[A_Index])
         this_window.WaitOpen()
         this_window.SetTitle()

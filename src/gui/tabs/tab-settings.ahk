@@ -9,9 +9,13 @@ Gui, Add, Text,         , Programme
 Gui, Font,              Normal s8
 
 ;Dofus path
-Gui, Add, Text,         x40 y+10 %guiLabelOptions%, Dofus.exe
-Gui, Add, Edit,         hp r1 x+10 w500 vInputDofusPath
+Gui, Add, Text,         x40 y+10 %guiLabelOptions% , Dofus.exe
+Gui, Add, Edit,         hp r1 x+10 w500 ReadOnly vInputDofusPath
 Gui, Add, Button,       x+10 w80 gGui_Browse, % Translate("Browse")
+
+;Dofus window's name
+Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("WindowName")
+Gui, Add, Edit,         hp r1 x+10 w200 gGui_DofusWindowName vInputDofusWindowName
 
 ;Speed
 Gui, Add, Text,         x40 y+10 %guiLabelOptions%, % Translate("Speed")

@@ -95,6 +95,7 @@ Else
 If (Settings.GuiStatus = True) {
     #Include src\gui\gui.ahk
 
+    GuiControl,,InputDofusWindowName, % Settings.DofusWindowName
     GuiControl,,InputDofusPath, % Settings.DofusPath
     GuiControl, Choose, SelectSpeed, % Settings.Speed
     If (Settings.CheckForUpdates = True)

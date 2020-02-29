@@ -89,6 +89,13 @@ Gui_ClearAccountData:
         GuiControl, Choose, SelectServerSlot%A_Index%, 1
         GuiControl, Choose, SelectPlayerSlot%A_Index%, 1
     }
+    return    
+
+Gui_DofusWindowName:
+    Gui, Submit, NoHide
+    Settings.DofusWindowName := InputDofusWindowName
+    IniWrite, % Settings.DofusWindowName, %IniPath%, Game, WindowName ;move to class
+    SB_UpdateText("Window's name successfully update (" . InputDofusWindowName . ").")
     return
 
 Gui_ToggleModifications:

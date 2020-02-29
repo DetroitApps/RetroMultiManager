@@ -11,7 +11,7 @@ guiWidth := 800
 guiHeight := 650
 guiMargin := 10
 groupboxWidth := guiWidth / 1.05
-guiLabelOptions = h20 0x200 w80
+guiLabelOptions = h20 0x200 w90
 
 ;Gui Settings
 Gui, -dpiscale
