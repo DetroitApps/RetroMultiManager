@@ -23,7 +23,7 @@ Main:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName
+        WinWait, % Settings.DofusWindowName, , 4
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
