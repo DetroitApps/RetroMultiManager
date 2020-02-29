@@ -284,7 +284,7 @@ OpenDofusInstances:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName, , 3
+        WinWait, % Settings.DofusWindowName, , 4
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")

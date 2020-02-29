@@ -36,7 +36,7 @@ Class Settings {
         IniRead, Speed, %IniPath%, Game, Speed
 
         this.DofusPath := DofusPath
-        this.DofusWindowName := DofusWindowName
+        this.DofusWindowName := DofusWindowName = "ERROR" ? "Dofus" : DofusWindowName
         this.Speed := Speed
 
         ; Program
@@ -85,7 +85,7 @@ Class Settings {
         ;Try to get Dofus with default path
         If (this.DofusPath = "")
         {
-            defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\Resources\app.asar.unpacked\retroclient\Dofus.exe"
+            defaultPath := StrReplace(A_AppData, "Roaming") . "Local\Ankama\zaap\retro\Resources\app\retroclient\Dofus.exe"
             If FileExist(defaultPath)
             {
                 this.DofusPath := defaultPath
