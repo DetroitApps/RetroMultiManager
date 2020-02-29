@@ -23,7 +23,7 @@ Main:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName, , 4
+        WinWait, % Settings.DofusWindowName, , 10
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
@@ -40,6 +40,7 @@ Main:
         API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
         
         i++
+        Sleep 250
     }
 
     If (Settings.AlwaysOrganize = True)

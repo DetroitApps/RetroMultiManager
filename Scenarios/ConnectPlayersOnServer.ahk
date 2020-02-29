@@ -28,12 +28,10 @@ Main:
         }
 
         ;Connect on server
-        SleepHandler(0)
-
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
 
-        Sleep 500 ;Static sleep
+        SleepHandler(-100)
 
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows()*2)
     }
@@ -61,10 +59,10 @@ Main:
         }
 
         ;Connect player
-        SleepHandler(0)
-
         MouseMove, inputX, inputY, 5 * Settings.Speed
-        Click, 2
+        Click, 3
+
+        SleepHandler(-100)
 
         API.GuiUpdateProgressBar(A_Index+ API.GetNbWindows(), API.GetNbWindows()*2)
     }

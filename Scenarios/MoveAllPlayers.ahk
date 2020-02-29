@@ -3,6 +3,7 @@
 */
 
 Main:
+    SetControlDelay, -1
     API.GuiUpdateProgressBar(0)
     nbWindow := API.GetNbLinkedWindows()
 
@@ -11,22 +12,9 @@ Main:
         API.GuiUpdateProgressText("Moving player " A_Index ".")
         API.GuiUpdateProgressBar(A_Index, nbWindow)
 
-        window.Activate()
-        window.WaitActive()
-        
-        MouseGetPos, outputX, outputY
-        MouseMove, outputX+1, outputY+1 ; Force focus on window
-        MouseMove, outputX, outputY ; Force focus on window
-        ;Click, outputX, outputY
-        Send +{Click, outputX, outputY}
-
-        Sleep 250
+        MouseGetPos, outputX, outputY        
+        ControlClick, % " x"outputX " y"outputY, % "ahk_id "window.hwnd,, left, 2
     }
-    
-    ;Reset on windows 1
-    window := API.GetWindow(1)
-    window.Activate()
-    window.WaitActive()
     
     API.LogWrite("Successfully moved " nbWindow " characters.")
     API.GuiUpdateProgressBar(100)

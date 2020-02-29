@@ -64,12 +64,10 @@ ConnectPlayersOnServer:
         }
 
         ;Connect on server
-        SleepHandler(0)
-
         MouseMove, inputX, inputY, 5 * Settings.Speed
         Click, 2
 
-        Sleep 500 ;Static sleep
+        SleepHandler(-100)
 
         API.GuiUpdateProgressBar(A_Index, API.GetNbWindows()*2)
     }
@@ -97,10 +95,10 @@ ConnectPlayersOnServer:
         }
 
         ;Connect player
-        SleepHandler(0)
-
         MouseMove, inputX, inputY, 5 * Settings.Speed
-        Click, 2
+        Click, 3
+
+        SleepHandler(-100)
 
         API.GuiUpdateProgressBar(A_Index+ API.GetNbWindows(), API.GetNbWindows()*2)
     }
@@ -224,6 +222,7 @@ MoveAllPlayers:
 	currentScenario := Scenario
 	;End Header
 
+    SetControlDelay, -1
     API.GuiUpdateProgressBar(0)
     nbWindow := API.GetNbLinkedWindows()
 
@@ -232,22 +231,9 @@ MoveAllPlayers:
         API.GuiUpdateProgressText("Moving player " A_Index ".")
         API.GuiUpdateProgressBar(A_Index, nbWindow)
 
-        window.Activate()
-        window.WaitActive()
-        
-        MouseGetPos, outputX, outputY
-        MouseMove, outputX+1, outputY+1 ; Force focus on window
-        MouseMove, outputX, outputY ; Force focus on window
-        ;Click, outputX, outputY
-        Send +{Click, outputX, outputY}
-
-        Sleep 250
+        MouseGetPos, outputX, outputY        
+        ControlClick, % " x"outputX " y"outputY, % "ahk_id "window.hwnd,, left, 2
     }
-    
-    ;Reset on windows 1
-    window := API.GetWindow(1)
-    window.Activate()
-    window.WaitActive()
     
     API.LogWrite("Successfully moved " nbWindow " characters.")
     API.GuiUpdateProgressBar(100)
@@ -284,7 +270,7 @@ OpenDofusInstances:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName, , 4
+        WinWait, % Settings.DofusWindowName, , 10
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
@@ -301,6 +287,7 @@ OpenDofusInstances:
         API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
         
         i++
+        Sleep 250
     }
 
     If (Settings.AlwaysOrganize = True)

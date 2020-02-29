@@ -106,7 +106,7 @@ Gui_ToggleModifications:
 
 Gui_Browse:
     Gui, Submit, NoHide
-    FileSelectFile, newDofusPath, 3, , Open a file, Dofus.exe (Dofus.exe)
+    FileSelectFile, newDofusPath, 3, , Open a file, Dofus executable (*.exe)
     Settings.DofusPath := newDofusPath
     GuiControl,,InputDofusPath, % Settings.DofusPath
     IniWrite, % Settings.DofusPath, %IniPath%, Game, Path
