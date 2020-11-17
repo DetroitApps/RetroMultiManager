@@ -2,6 +2,8 @@
 *.code-workspace
 *.log
 
+!GetPos.exe
+
 settings.ini
 
 logs/*
