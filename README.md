@@ -13,13 +13,14 @@
   * [Installation](#installation)
 - [Features](#features)
 - [Roadmap](#roadmap)
+- [Discord](#discord)
 - [Licenses](#licenses)
 
 <!-- tocstop -->
 
 ## About
 
-RMM is an open-source light-weight program to manage your accounts on **Dofus Retro 1.30**.
+RMM is an open-source light-weight program to manage your accounts on **Dofus Retro 1.33.6**.
 
 Initially based on a simple 100 lines file, it has now more than a couple thousand of it, adding features like a **GUI**, an **account profile** system, a **customizable scenario system**, and many more... (see list of features below for an expanded list).
 
@@ -37,7 +38,15 @@ Because it uses predefined position to perform actions, RMM is currently only av
 - 2560x1440
 - 1366x768
 
-If you have another resolution, please raise an issue and we will work on adding yours to the list.
+If you have another resolution, you will have to gather cursor position from Dofus menu, please do as follow :
+1. Download our tool [GetPos.exe](https://github.com/DetroitApps/RetroMultiManager/tree/master/Tools/GetPos "Tool GetPos") and save it on your desktop.
+2. Execute it.
+3. Open your Dofus instance and maximise the window.
+4. Place your mouse cursor on the exact middle of the login input, then press "Print Screen" key (keyboard).
+5. Reapeat the same actions for every server's slot (after login page).
+6. Press "Echap" to exit the application.
+7. In "resources" folder, fill "ConnectPlayersOnServer.ini" and "LoginAccounts.ini" with gathered mouse position (see generated logs from GetPos.exe).
+8. Contact us to add the resolution natively in RMM.
 
 ## Getting started
 
@@ -72,8 +81,11 @@ If you have another resolution, please raise an issue and we will work on adding
     - Autologin
     - Connect players on server
     - Toggle between your Dofus instances
+    - Character initiative management
+    - Change character's initiative during the game session
+    - Move all characters at once
     - Close all Dofus instances
-  - Develop scenarios with the API (early alpha)
+  - Develop scenarios with the API
     - Endless possibilities
 - Multiple languages, for now:
   - French
@@ -85,6 +97,10 @@ If you have another resolution, please raise an issue and we will work on adding
 [Trello](https://trello.com/b/NcZHByWN/retro-multi-manager-dev)
 
 If you have an account on Trello, you are allowed to comment cards.
+
+## Discord
+
+If you have any question, feel free to join us on our [discord server](https://discord.gg/7esKrb77TP) !
 
 ## License
 
