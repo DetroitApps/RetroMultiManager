@@ -70,6 +70,16 @@ ButtonPlay_Listener:
     Gosub, ConnectPlayersOnServer
     return
 
+ButtonAttach_Listener:
+    If (Modifications = True)
+    {
+        MsgBox, 49, % Translate("ModificationsTitle"), % Translate("ModificationsMsg")
+        IfMsgBox, Cancel
+            return
+    }
+    Gosub, AttachDofusInstances
+    return
+
 ;=============================================
 ;
 ;=============================================
