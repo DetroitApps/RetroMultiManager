@@ -6,7 +6,7 @@ Class Settings {
     ;Default values
     DofusPath := ""
     DofusWindowName := ""
-    Speed := 0
+    SpeedConnection := 0
     Language := ""
     DefaultProfile := 1
     GuiStatus := False
@@ -33,11 +33,15 @@ Class Settings {
         ; Game
         IniRead, DofusPath, %IniPath%, Game, Path
         IniRead, DofusWindowName, %IniPath%, Game, WindowName
-        IniRead, Speed, %IniPath%, Game, Speed
+        IniRead, SpeedConnection, %IniPath%, Game, SpeedConnection
+        IniRead, DelayMoveSpeedBegin, %IniPath%, Game, DelayMoveSpeedBegin
+        IniRead, DelayMoveSpeedEnd, %IniPath%, Game, DelayMoveSpeedEnd
 
         this.DofusPath := DofusPath
         this.DofusWindowName := DofusWindowName = "ERROR" ? "Dofus" : DofusWindowName
-        this.Speed := Speed
+        this.SpeedConnection := SpeedConnection
+        this.DelayMoveSpeedBegin := DelayMoveSpeedBegin
+        this.DelayMoveSpeedEnd := DelayMoveSpeedEnd
 
         ; Program
         IniRead, Language, %IniPath%, Program, Language, %A_Space%

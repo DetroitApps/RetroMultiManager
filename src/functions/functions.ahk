@@ -33,7 +33,7 @@ SleepHandler(addedSleep){
 
     local step := 750 ;each speed mode will add or decrease initial value based on step
     local defaultSleep := 50
-    speed := addedSleep + defaultSleep + ((Settings.Speed - 1) * step)
+    speed := addedSleep + defaultSleep + ((Settings.SpeedConnection - 1) * step)
     Sleep speed
 }
 

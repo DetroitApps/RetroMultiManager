@@ -98,7 +98,7 @@ CloseDofusInstances:
     Loop % API.GetNbWindows()
     {
         API.CloseWindow(1)
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         i++
     }
     API.LogWrite("Successfully closed " i " windows.")    
@@ -143,7 +143,7 @@ ConnectPlayersOnServer:
         }
 
         ;Connect on server
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click, 2
 
         SleepHandler(-100)
@@ -174,7 +174,7 @@ ConnectPlayersOnServer:
         }
 
         ;Connect player
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click, 3
 
         SleepHandler(-100)
@@ -266,22 +266,22 @@ LoginAccounts:
         window.Maximize()
 
         ;Username
-        Sleep, 50 * Settings.Speed
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send, ^a
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         SendRaw, % window.account.username
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
 
         ;Password
         Send, {Tab}
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         SendRaw, % window.account.password
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send, {Tab}
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send {Enter}
         API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++

@@ -28,7 +28,7 @@ Main:
         }
 
         ;Connect on server
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click, 2
 
         SleepHandler(-100)
@@ -59,7 +59,7 @@ Main:
         }
 
         ;Connect player
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click, 3
 
         SleepHandler(-100)

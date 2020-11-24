@@ -35,22 +35,22 @@ Main:
         window.Maximize()
 
         ;Username
-        Sleep, 50 * Settings.Speed
-        MouseMove, inputX, inputY, 5 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
+        MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send, ^a
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         SendRaw, % window.account.username
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
 
         ;Password
         Send, {Tab}
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         SendRaw, % window.account.password
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send, {Tab}
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         Send {Enter}
         API.GuiUpdateProgressBar(i, API.GetNbWindows())
         i++

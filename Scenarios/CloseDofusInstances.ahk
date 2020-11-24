@@ -10,7 +10,7 @@ Main:
     Loop % API.GetNbWindows()
     {
         API.CloseWindow(1)
-        Sleep, 50 * Settings.Speed
+        Sleep, 50 * Settings.SpeedConnection
         i++
     }
     API.LogWrite("Successfully closed " i " windows.")    

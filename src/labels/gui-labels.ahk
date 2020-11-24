@@ -136,11 +136,25 @@ Gui_SetDebugMode:
     GoSub, AskReload
     return
 
-Gui_ChangeSpeed:
+Gui_ChangeSpeedConnection:
     Gui, Submit, NoHide
-    Settings.Speed := SelectSpeed
-    IniWrite, % Settings.Speed, %IniPath%, Game, Speed ;move to class
-    SB_UpdateText("Script speed successfully modified (" . SelectSpeed . ").")
+    Settings.SpeedConnection := SelectSpeedConnection
+    IniWrite, % Settings.SpeedConnection, %IniPath%, Game, SpeedConnection ;move to class
+    SB_UpdateText("Script speed successfully modified (" . SelectSpeedConnection . ").")
+    return
+
+Gui_ChangeDelayMoveSpeedBegin:
+    Gui, Submit, NoHide
+    Settings.DelayMoveSpeedBegin := SelectDelayMoveSpeedBegin
+    IniWrite, % Settings.DelayMoveSpeedBegin, %IniPath%, Game, DelayMoveSpeedBegin ;move to class
+    SB_UpdateText("Script speed successfully modified (" . SelectDelayMoveSpeedBegin . ").")
+    return
+
+Gui_ChangeDelayMoveSpeedEnd:
+    Gui, Submit, NoHide
+    Settings.DelayMoveSpeedEnd := SelectDelayMoveSpeedEnd
+    IniWrite, % Settings.DelayMoveSpeedEnd, %IniPath%, Game, DelayMoveSpeedEnd ;move to class
+    SB_UpdateText("Script speed successfully modified (" . SelectDelayMoveSpeedEnd . ").")
     return
 
 Gui_CheckForUpdates:

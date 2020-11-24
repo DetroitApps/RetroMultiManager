@@ -97,7 +97,9 @@ If (Settings.GuiStatus = True) {
 
     GuiControl,,InputDofusWindowName, % Settings.DofusWindowName
     GuiControl,,InputDofusPath, % Settings.DofusPath
-    GuiControl, Choose, SelectSpeed, % Settings.Speed
+    GuiControl, Choose, SelectSpeedConnection, % Settings.SpeedConnection
+    GuiControl,, SelectDelayMoveSpeedBegin, % Settings.DelayMoveSpeedBegin
+    GuiControl,, SelectDelayMoveSpeedEnd, % Settings.DelayMoveSpeedEnd
     If (Settings.CheckForUpdates = True)
         GuiControl, , CheckCheckUpdateOnStart, 1
     If (Settings.WaitForAnkamaShield = True)
