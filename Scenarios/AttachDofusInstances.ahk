@@ -8,47 +8,65 @@ Main:
     WinGet,WinList,List,,,Program Manager
 
     API.GuiUpdateProgressBar(0, WinList)
+    API.GuiUpdateProgressText("Check for all open windows.")
+
+    API.LogWrite("Start AttachDofusInstance Scenario.")
+    API.LogWrite("Searching all windows containing keyword '" InputDofusWindowName "'.")
+
+    i := 1
 
     nbAttachedAccount := 0
 
     Loop % WinList {
-        Current := WinList%A_Index%
-        WinGetTitle,WinTitle,ahk_id %Current%
+
+        ;Break if no account need to be attach
+        If API.GetNbAccounts() = API.GetNbWindows()
+            Break
+
+        CurrentAhkId := WinList%i%
+        WinGetTitle,CurrentWinTitle,ahk_id %CurrentAhkId%
 
         Cont=1
         loop,parse,TempPID,`n
         Cont:=(A_LoopField=PID) ? 0 : Cont
 
-        If WinTitle && Cont {
-            i := 1
+        ; Check if CurrentWindows have "InputDofusWindowName" in its title
+        If (InStr(CurrentWinTitle, InputDofusWindowName) && Cont) {
+            API.LogWrite("This windows has been found : '" CurrentWinTitle "'")
+
             Loop % nbAccounts {
 
-                ;Skip if window already exists for the same account
+                ;Skip if window already exists for this account
                 If (API.WindowExists(ArrayAccounts[A_Index]) <> -1)
                 {
-                    API.LogWrite("Skipping account #" A_Index ", window with same account already opened.")
+                    API.LogWrite("\___> Skipping account #" A_Index " (" ArrayAccounts[A_Index].Nickname "), window with this account already opened.")
                     Continue
                 }
 
-                If WinTitle contains % ArrayAccounts[i].Nickname " - Dofus Retro"
+                ; Check if CurrentWindows have "Nickname" in its title
+                If InStr(CurrentWinTitle, ArrayAccounts[A_Index].Nickname)
                 {
-                    this_window := API.NewWindow(Current, ArrayAccounts[A_Index])
+                    API.LogWrite("\___> Matches with account #" A_Index " (" ArrayAccounts[A_Index].Nickname ")")
+
+                    this_window := API.NewWindow(CurrentAhkId, ArrayAccounts[A_Index])
                     this_window.SetTitle()
                     API.AddWindowToListView(this_window.id)
 
                     nbAttachedAccount++
+                    Break
                 }
-                i++
             }
         }
         
-        API.GuiUpdateProgressBar(A_Index, WinList)
+        API.GuiUpdateProgressBar(i, WinList)
+        i++
     }
 
     If (Settings.AlwaysOrganize = True)
         GoSub, Organize
 
-    API.LogWrite("Successfully opened " i - 1 " windows.")
-    ; API.GuiUpdateProgressBar(100)
-    ; API.GuiUpdateProgressText("Done.")
+    API.LogWrite("Linked to " nbAttachedAccount " windows.")
+    API.GuiUpdateProgressBar(WinList, WinList)
+    API.GuiUpdateProgressText("Linked to " nbAttachedAccount " windows.")
+
     return

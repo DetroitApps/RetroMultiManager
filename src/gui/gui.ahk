@@ -67,8 +67,8 @@ Gui, Font,              Normal s8
 Gui, Tab
 
 Gui, Font,              Bold s10
-Gui, Add, Button,       gButtonAttach_Listener w100 h30, % Translate("Attach")
-Gui, Add, Button,       gButtonPlay_Listener x+10 w100 h30, % Translate("Play")
+Gui, Add, Button,       gButtonPlay_Listener w100 h30, % Translate("Play")
+Gui, Add, Button,       gButtonAttach_Listener x+10 w100 h30, % Translate("Attach")
 Gui, Add, Button,       gGui_OrganizeAccounts x+10 w100 h30, % Translate("Organize")
 Gui, Add, Button,       gGui_CloseDofus x+10 w100 h30, % Translate("Close")
 Gui, Font,              Normal s8
