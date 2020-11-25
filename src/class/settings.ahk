@@ -7,6 +7,8 @@ Class Settings {
     DofusPath := ""
     DofusWindowName := ""
     SpeedConnection := 0
+    DelayMoveSpeedBegin := 0
+    DelayMoveSpeedEnd := 0
     Language := ""
     DefaultProfile := 1
     GuiStatus := False
