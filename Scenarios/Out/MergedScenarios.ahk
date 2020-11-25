@@ -313,10 +313,10 @@ MoveAllPlayers:
         MouseGetPos, outputX, outputY        
         ControlClick, % " x"outputX " y"outputY, % "ahk_id "window.hwnd,, left, 2
 
+        ; Prevent to add sleep after last account
         If (A_Index <> nbWindow)
         {
             Random, rand, % Settings.DelayMoveSpeedBegin, % Settings.DelayMoveSpeedEnd
-            API.GuiUpdateProgressText("Rand : " rand)
             Sleep, % rand
         }
     }

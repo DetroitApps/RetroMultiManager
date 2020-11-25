@@ -50,7 +50,7 @@ Gui, Font,              cBlack s16
 Sleep, 500
 Gui, Add, Text,         w%guiWidth% y10 center, % Settings.TitleApp . A_Space . "v" Settings.version
 Gui, Font,              s8
-Gui, Add, Text,         w%guiWidth% y+1 center, % Translate("For") " Dofus Retro 1.31"
+Gui, Add, Text,         w%guiWidth% y+1 center, % Translate("For") " Dofus Retro 1.33.6"
 
 Gui, Font,              s12
 Gui, Add, Tab3,         w750, % Translate("Windows") "|" Translate("Profiles") "|" Translate("Settings")
