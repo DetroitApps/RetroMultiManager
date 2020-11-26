@@ -31,6 +31,10 @@ Class Window {
         WinMaximize, % "ahk_id " this.hwnd
     }
 
+    Minimize(){
+        WinMinimize, % "ahk_id " this.hwnd
+    }
+
     SetTitle(){
         If (this.hwnd = "")
             Logger.Write("Window HWND is not a valid ID : '" this.hwnd "'", 2)

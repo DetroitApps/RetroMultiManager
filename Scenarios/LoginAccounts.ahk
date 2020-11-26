@@ -20,8 +20,8 @@ Main:
     Loop, % API.GetNbWindows() {
         API.LogWrite("Trying to connect account #" A_Index ".")
 
-        window := API.GetWindow(A_Index)
-        If (window.isConnected = True)
+        DofusInstanceWindow := API.GetWindow(A_Index)
+        If (DofusInstanceWindow.isConnected = True)
         {
             API.LogWrite("Skipping window #" A_Index ", already connected.")
             Continue
@@ -30,24 +30,24 @@ Main:
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
 
-        window.Activate()
-        window.WaitActive()
-        window.Maximize()
+        DofusInstanceWindow.Activate()
+        DofusInstanceWindow.WaitActive()
+        DofusInstanceWindow.Maximize()
 
         ;Username
-        Sleep, 50 * Settings.SpeedConnection
+        Sleep, 100 * Settings.SpeedConnection
         MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click
         Sleep, 50 * Settings.SpeedConnection
         Send, ^a
         Sleep, 50 * Settings.SpeedConnection
-        SendRaw, % window.account.username
+        SendRaw, % DofusInstanceWindow.account.username
         Sleep, 50 * Settings.SpeedConnection
 
         ;Password
         Send, {Tab}
         Sleep, 50 * Settings.SpeedConnection
-        SendRaw, % window.account.password
+        SendRaw, % DofusInstanceWindow.account.password
         Sleep, 50 * Settings.SpeedConnection
         Send, {Tab}
         Sleep, 50 * Settings.SpeedConnection

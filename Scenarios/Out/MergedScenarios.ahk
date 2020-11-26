@@ -121,20 +121,24 @@ ConnectPlayersOnServer:
     API.GuiUpdateProgressBar(0)
 
     section := A_ScreenWidth . "x" . A_ScreenHeight
+
+    ; -------------
+    ; Select server
+    ; -------------
     Loop, % API.GetNbWindows()
     {
-        window := API.GetWindow(A_Index)
+        DofusInstanceWindow := API.GetWindow(A_Index)
 
         ;Skip if already connected
-        If (window.isConnected = True)
+        If (DofusInstanceWindow.isConnected = True)
             Continue
 
-        window.Activate()
-        window.WaitActive()
+        DofusInstanceWindow.Activate()
+        DofusInstanceWindow.WaitActive()
         
         ;Get server slot position
-        inputX := Scenario.GetValueFromIni(section, "x" window.account.ServerSlot)
-        inputY := Scenario.GetValueFromIni(section, "y" window.account.ServerSlot)
+        inputX := Scenario.GetValueFromIni(section, "x" DofusInstanceWindow.account.ServerSlot)
+        inputY := Scenario.GetValueFromIni(section, "y" DofusInstanceWindow.account.ServerSlot)
         If (!inputX || !inputY)
         {
             API.LogWrite("Couldn't load server slot position from INI, stopping current scenario.", 2)
@@ -148,24 +152,26 @@ ConnectPlayersOnServer:
 
         SleepHandler(-100)
 
-        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows()*2)
+        API.GuiUpdateProgressBar(A_Index, API.GetNbWindows()*3)
     }
 
-    ;-----------------------------------------------------------------
+    ; -------------
+    ; Select player
+    ; -------------
     Loop, % API.GetNbWindows()
     {
-        window := API.GetWindow(A_Index)
+        DofusInstanceWindow := API.GetWindow(A_Index)
 
         ;Skip if already connected
-        If (window.isConnected = True)
+        If (DofusInstanceWindow.isConnected = True)
             Continue
 
-        window.Activate()
-        window.WaitActive()
+        DofusInstanceWindow.Activate()
+        DofusInstanceWindow.WaitActive()
 
         ;Get player slot position
-        inputX := Scenario.GetValueFromIni(section, "x" window.account.PlayerSlot)
-        inputY := Scenario.GetValueFromIni(section, "y" window.account.PlayerSlot)
+        inputX := Scenario.GetValueFromIni(section, "x" DofusInstanceWindow.account.PlayerSlot)
+        inputY := Scenario.GetValueFromIni(section, "y" DofusInstanceWindow.account.PlayerSlot)
         If (inputX = -1 || inputY = -1)
         {
             API.LogWrite("Couldn't load player slot position from INI, stopping current scenario.", 2)
@@ -179,7 +185,22 @@ ConnectPlayersOnServer:
 
         SleepHandler(-100)
 
-        API.GuiUpdateProgressBar(A_Index+ API.GetNbWindows(), API.GetNbWindows()*2)
+        API.GuiUpdateProgressBar(A_Index+ API.GetNbWindows(), API.GetNbWindows()*3)
+    }
+
+    
+    ; -------------
+    ; Update window
+    ; -------------
+    Loop, % API.GetNbWindows()
+    {
+        DofusInstanceWindow := API.GetWindow(A_Index)
+        DofusInstanceWindow.SetTitle()
+        DofusInstanceWindow.isConnected := True
+
+        SleepHandler(-100)
+        
+        API.GuiUpdateProgressBar(A_Index + (API.GetNbWindows()*2), API.GetNbWindows()*3)
     }
 
     API.GuiUpdateProgressBar(100)
@@ -251,8 +272,8 @@ LoginAccounts:
     Loop, % API.GetNbWindows() {
         API.LogWrite("Trying to connect account #" A_Index ".")
 
-        window := API.GetWindow(A_Index)
-        If (window.isConnected = True)
+        DofusInstanceWindow := API.GetWindow(A_Index)
+        If (DofusInstanceWindow.isConnected = True)
         {
             API.LogWrite("Skipping window #" A_Index ", already connected.")
             Continue
@@ -261,24 +282,24 @@ LoginAccounts:
         If (Settings.WaitForAnkamaShield = True)
             MsgBox, % Translate("UnlockShield", API.GetUsername(A_Index))
 
-        window.Activate()
-        window.WaitActive()
-        window.Maximize()
+        DofusInstanceWindow.Activate()
+        DofusInstanceWindow.WaitActive()
+        DofusInstanceWindow.Maximize()
 
         ;Username
-        Sleep, 50 * Settings.SpeedConnection
+        Sleep, 100 * Settings.SpeedConnection
         MouseMove, inputX, inputY, 5 * Settings.SpeedConnection
         Click
         Sleep, 50 * Settings.SpeedConnection
         Send, ^a
         Sleep, 50 * Settings.SpeedConnection
-        SendRaw, % window.account.username
+        SendRaw, % DofusInstanceWindow.account.username
         Sleep, 50 * Settings.SpeedConnection
 
         ;Password
         Send, {Tab}
         Sleep, 50 * Settings.SpeedConnection
-        SendRaw, % window.account.password
+        SendRaw, % DofusInstanceWindow.account.password
         Sleep, 50 * Settings.SpeedConnection
         Send, {Tab}
         Sleep, 50 * Settings.SpeedConnection
@@ -356,7 +377,7 @@ OpenDofusInstances:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName, , 10
+        WinWaitActive, % Settings.DofusWindowName, , 10
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
@@ -364,12 +385,15 @@ OpenDofusInstances:
             return
         }
 
-        WinGet, window, ID, % Settings.DofusWindowName
-        this_window := API.NewWindow(window, ArrayAccounts[A_Index])
-        this_window.WaitOpen()
-        this_window.SetTitle()
+        WinGet, window
+        DofusInstanceWindow := API.NewWindow(window, ArrayAccounts[A_Index])
+        DofusInstanceWindow.WaitOpen()
+        DofusInstanceWindow.Minimize()
+        
+        ; Disable renaming WindowsTitle (Dofus Retro instance change his name multiple time during connection)
+        ; DofusInstanceWindow.SetTitle()
 
-        API.AddWindowToListView(this_window.id)
+        API.AddWindowToListView(DofusInstanceWindow.id)
         API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
         
         i++

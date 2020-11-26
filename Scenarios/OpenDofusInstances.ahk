@@ -23,7 +23,7 @@ Main:
         
         Run, % Settings.DofusPath
 
-        WinWait, % Settings.DofusWindowName, , 10
+        WinWaitActive, % Settings.DofusWindowName, , 10
         if ErrorLevel
         {
             MsgBox, 16, % Translate("Error"), % Translate("WinWaitTimeOutMsg")
@@ -31,12 +31,15 @@ Main:
             return
         }
 
-        WinGet, window, ID, % Settings.DofusWindowName
-        this_window := API.NewWindow(window, ArrayAccounts[A_Index])
-        this_window.WaitOpen()
-        this_window.SetTitle()
+        WinGet, window
+        DofusInstanceWindow := API.NewWindow(window, ArrayAccounts[A_Index])
+        DofusInstanceWindow.WaitOpen()
+        DofusInstanceWindow.Minimize()
+        
+        ; Disable renaming WindowsTitle (Dofus Retro instance change his name multiple time during connection)
+        ; DofusInstanceWindow.SetTitle()
 
-        API.AddWindowToListView(this_window.id)
+        API.AddWindowToListView(DofusInstanceWindow.id)
         API.GuiUpdateProgressBar(A_Index, API.GetNbActiveAccounts())
         
         i++
