@@ -195,10 +195,13 @@ ConnectPlayersOnServer:
     Loop, % API.GetNbWindows()
     {
         DofusInstanceWindow := API.GetWindow(A_Index)
+
+        ;Skip if already connected
+        If (DofusInstanceWindow.isConnected = True)
+            Continue
+        
         DofusInstanceWindow.SetTitle()
         DofusInstanceWindow.isConnected := True
-
-        SleepHandler(-100)
         
         API.GuiUpdateProgressBar(A_Index + (API.GetNbWindows()*2), API.GetNbWindows()*3)
     }
