@@ -34,9 +34,13 @@ This software is **not a cheat** and **never will be**. Its only purpose is to p
 
 Because it uses predefined position to perform actions, RMM is currently only available for these resolutions :
 
+- 1360x768
+- 1366x768
+- 1600x900
 - 1920x1080
 - 2560x1440
-- 1366x768
+- 2560x1600
+- 3840x2160
 
 If you have another resolution, you will have to gather cursor position from Dofus menu, please do as follow :
 1. Download our tool [GetPos.exe](https://github.com/DetroitApps/RetroMultiManager/tree/master/Tools/GetPos "Tool GetPos") and save it on your desktop.
