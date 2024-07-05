@@ -1,6 +1,10 @@
 # Retro Multi Manager
 
+# THE SOFTWARE IS NO LONGER WORKING
+I'm not playing the game anymore, and I don't know if there are alternatives.
 
+# LE PROGRAMME NE FONCTIONNE PLUS
+Je ne joue plus au jeu, et je ne sais pas s'il existe des alternatives.
 
 ##### Table of contents
 
